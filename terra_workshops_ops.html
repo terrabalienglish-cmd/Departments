@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terra Bali — Workshops Operations Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --surface: #0f0f0f;
+    --surface2: #131313;
+    --surface3: #161616;
+    --border: #1e1e1e;
+    --border2: #2a2a2a;
+    --purple: #5B2D8E;
+    --purple-light: #a67dd4;
+    --gold: #C9860A;
+    --gold-light: #F0A830;
+    --crimson: #8B1A3A;
+    --text: #E8E0D5;
+    --muted: #555;
+    --soft: #888;
+    --critical: #E05A3A;
+    --high: #C9860A;
+    --medium: #4A8C6F;
+    --notion: #E8E0D5;
+    --google: #4A8C6F;
+    --whatsapp: #25A244;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; min-height: 100vh; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 40% at 20% 10%, rgba(139,26,58,0.06) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 5%, rgba(91,45,142,0.08) 0%, transparent 60%), radial-gradient(ellipse 40% 30% at 90% 90%, rgba(201,134,10,0.04) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+
+  .nav { position: sticky; top: 0; z-index: 100; background: rgba(8,8,8,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 52px; gap: 24px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .nav-circle { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--gold); box-shadow: 0 0 8px rgba(201,134,10,0.2); }
+  .nav-name { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 300; letter-spacing: 0.4em; }
+  .nav-links { display: flex; overflow-x: auto; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-link { font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0 12px; height: 52px; display: flex; align-items: center; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+  .nav-link:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  .main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 72px 40px 120px; }
+
+  .page-header { margin-bottom: 80px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
+  .page-eyebrow { font-size: 9px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 18px; }
+  .page-title { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; line-height: 1.15; margin-bottom: 20px; }
+  .page-body { font-size: 12.5px; line-height: 1.8; color: var(--soft); max-width: 580px; margin-bottom: 32px; }
+
+  .tool-legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+  .tool-badge { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--border); font-size: 9.5px; letter-spacing: 0.12em; }
+  .tool-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-notion { background: var(--purple-light); }
+  .dot-google { background: var(--google); }
+  .dot-whatsapp { background: var(--whatsapp); }
+
+  .section-block { margin-bottom: 80px; scroll-margin-top: 68px; }
+  .section-eyebrow { font-size: 9px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; margin-bottom: 8px; }
+  .section-body { font-size: 12px; color: var(--soft); line-height: 1.8; max-width: 620px; margin-bottom: 32px; }
+  .subsection-title { font-size: 10px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin: 32px 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  .process-flow { display: flex; flex-direction: column; gap: 2px; margin-bottom: 32px; }
+  .process-step { display: grid; grid-template-columns: 48px 1fr auto; gap: 0; background: var(--surface); border: 1px solid var(--border); overflow: hidden; transition: border-color 0.2s; }
+  .process-step:hover { border-color: var(--border2); }
+  .step-number { display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: var(--muted); background: var(--surface2); border-right: 1px solid var(--border); padding: 16px 8px; flex-shrink: 0; }
+  .step-content { padding: 16px 20px; }
+  .step-title { font-size: 12px; color: var(--text); margin-bottom: 4px; font-weight: 400; }
+  .step-detail { font-size: 11px; color: var(--soft); line-height: 1.6; }
+  .step-trigger { font-size: 10px; color: var(--muted); margin-top: 6px; font-style: italic; }
+  .step-meta { padding: 16px 16px 16px 0; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; justify-content: center; }
+  .owner-tag { font-size: 8.5px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid var(--border2); color: var(--soft); white-space: nowrap; }
+  .tool-tag { font-size: 8px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid; white-space: nowrap; }
+  .tag-notion { border-color: rgba(166,125,212,0.3); color: var(--purple-light); background: rgba(91,45,142,0.08); }
+  .tag-google { border-color: rgba(74,140,111,0.3); color: #6abf99; background: rgba(74,140,111,0.08); }
+  .tag-whatsapp { border-color: rgba(37,162,68,0.3); color: #4cd470; background: rgba(37,162,68,0.08); }
+  .tag-manual { border-color: rgba(201,134,10,0.3); color: var(--gold-light); background: rgba(201,134,10,0.08); }
+  .step-connector { display: flex; justify-content: flex-start; padding-left: 24px; height: 16px; }
+  .connector-line { width: 1px; background: var(--border2); height: 100%; }
+
+  .phase-divider { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; margin: 28px 0 16px; }
+  .phase-label { font-size: 8.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
+  .phase-line { height: 1px; background: linear-gradient(to right, rgba(201,134,10,0.3), transparent); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .panel { background: var(--surface); border: 1px solid var(--border); padding: 24px 28px; }
+  .panel-title { font-size: 9.5px; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  .system-block { background: var(--surface); border: 1px solid var(--border); margin-bottom: 2px; overflow: hidden; }
+  .system-header { display: flex; align-items: center; gap: 14px; padding: 18px 24px; border-bottom: 1px solid var(--border); }
+  .system-icon { width: 32px; height: 32px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .icon-notion { background: rgba(91,45,142,0.2); border: 1px solid rgba(91,45,142,0.3); }
+  .icon-google { background: rgba(74,140,111,0.15); border: 1px solid rgba(74,140,111,0.25); }
+  .icon-whatsapp { background: rgba(37,162,68,0.15); border: 1px solid rgba(37,162,68,0.25); }
+  .system-name { font-size: 13px; color: var(--text); }
+  .system-role { font-size: 10px; color: var(--soft); margin-top: 2px; }
+  .system-body { padding: 20px 24px; }
+
+  .db-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+  .db-item { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; }
+  .db-item:last-child { border-bottom: none; }
+  .db-name { color: var(--text); margin-bottom: 3px; }
+  .db-desc { font-size: 10.5px; color: var(--soft); line-height: 1.5; }
+  .db-type { font-size: 8px; letter-spacing: 0.1em; padding: 3px 8px; white-space: nowrap; align-self: start; margin-top: 2px; }
+
+  .doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .doc-card { background: var(--surface); border: 1px solid var(--border); padding: 20px 22px; }
+  .doc-type { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; }
+  .doc-name { font-size: 13px; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+  .doc-owner { font-size: 10px; color: var(--muted); margin-bottom: 10px; }
+  .doc-fields { list-style: none; display: flex; flex-direction: column; gap: 0; }
+  .doc-field { font-size: 10.5px; color: var(--soft); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: baseline; }
+  .doc-field:last-child { border-bottom: none; }
+  .field-bullet { color: var(--gold); font-size: 8px; flex-shrink: 0; margin-top: 2px; }
+  .doc-where { display: inline-flex; align-items: center; gap: 5px; font-size: 8.5px; margin-top: 12px; padding: 4px 10px; border: 1px solid var(--border2); color: var(--soft); }
+
+  .rules-box { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--crimson); padding: 22px 28px; margin-bottom: 2px; }
+  .rules-title { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: #c47; margin-bottom: 14px; }
+  .rule-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; color: var(--soft); line-height: 1.6; }
+  .rule-item:last-child { border-bottom: none; }
+  .rule-num { color: var(--gold); font-size: 10px; flex-shrink: 0; min-width: 20px; }
+
+  .highlight-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); padding: 22px 28px; margin-bottom: 2px; }
+  .highlight-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--gold-light); margin-bottom: 10px; }
+  .highlight-body { font-size: 12px; color: var(--soft); line-height: 1.8; max-width: 700px; }
+
+  .schema-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .schema-table th { font-size: 8.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border2); font-weight: 400; }
+  .schema-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--soft); vertical-align: top; line-height: 1.5; }
+  .schema-table tr:last-child td { border-bottom: none; }
+  .schema-table tr:hover td { background: rgba(255,255,255,0.01); }
+  .field-type { font-size: 9px; padding: 2px 7px; border-radius: 2px; background: var(--surface2); border: 1px solid var(--border2); color: var(--muted); white-space: nowrap; }
+
+  /* LOCATION CARDS */
+  .location-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 24px; }
+  .location-card { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--gold); padding: 20px 22px; }
+  .location-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; margin-bottom: 6px; }
+  .location-tag { font-size: 8.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+  .location-detail { font-size: 11px; color: var(--soft); line-height: 1.7; }
+
+  /* CALENDAR VISUAL */
+  .calendar-row { display: grid; grid-template-columns: 80px 1fr 1fr 1fr; gap: 1px; margin-bottom: 1px; }
+  .cal-label { background: var(--surface2); border: 1px solid var(--border); padding: 10px 14px; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; }
+  .cal-cell { background: var(--surface); border: 1px solid var(--border); padding: 12px 16px; font-size: 11px; color: var(--soft); }
+  .cal-cell-header { background: var(--surface2); border: 1px solid var(--border); padding: 10px 16px; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); text-align: center; }
+  .cal-event { font-size: 11px; color: var(--text); margin-bottom: 2px; }
+  .cal-sub { font-size: 10px; color: var(--soft); }
+
+  /* SPEAKER PIPELINE VISUAL */
+  .pipeline-stages { display: flex; gap: 2px; margin-bottom: 24px; overflow-x: auto; }
+  .pipeline-stage { background: var(--surface); border: 1px solid var(--border); padding: 18px 20px; flex: 1; min-width: 160px; }
+  .stage-name { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .stage-body { font-size: 11px; color: var(--soft); line-height: 1.6; }
+  .stage-count { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; color: var(--text); margin-bottom: 4px; }
+  .stage-target { font-size: 9px; color: var(--muted); }
+
+  .timeline { display: flex; flex-direction: column; gap: 0; position: relative; padding-left: 32px; }
+  .timeline::before { content: ''; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 1px; background: var(--border2); }
+  .timeline-item { position: relative; padding: 0 0 24px 24px; }
+  .timeline-dot { position: absolute; left: -32px; top: 6px; width: 13px; height: 13px; border-radius: 50%; border: 2px solid var(--gold); background: var(--bg); flex-shrink: 0; }
+  .timeline-week { font-size: 8.5px; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
+  .timeline-title { font-size: 13px; color: var(--text); margin-bottom: 6px; }
+  .timeline-body { font-size: 11px; color: var(--soft); line-height: 1.7; }
+
+  .page-footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-left { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; color: var(--muted); }
+  .footer-right { font-size: 8.5px; letter-spacing: 0.15em; color: var(--muted); text-align: right; line-height: 2; }
+
+  @media (max-width: 760px) {
+    .nav { padding: 0 16px; }
+    .main { padding: 48px 16px 80px; }
+    .two-col, .three-col, .doc-grid, .location-grid { grid-template-columns: 1fr; }
+    .process-step { grid-template-columns: 40px 1fr; }
+    .step-meta { display: none; }
+    .page-title { font-size: 30px; }
+    .pipeline-stages { flex-direction: column; }
+    .calendar-row { grid-template-columns: 60px 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-circle"></div>
+    <div class="nav-name">TERRA</div>
+  </div>
+  <div class="nav-links">
+    <a href="#overview" class="nav-link">Overview</a>
+    <a href="#calendar" class="nav-link">Monthly Calendar</a>
+    <a href="#processes" class="nav-link">Processes</a>
+    <a href="#speaker" class="nav-link">Speaker Pipeline</a>
+    <a href="#systems" class="nav-link">Systems</a>
+    <a href="#docs" class="nav-link">Documentation</a>
+    <a href="#rules" class="nav-link">Operating Rules</a>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header" id="overview">
+    <div class="page-eyebrow">Operations Manual · Department 04 · Workshops</div>
+    <h1 class="page-title">Workshops<br>Operations</h1>
+    <p class="page-body">
+      Workshops are Terra's weekly presence in Bali. Three locations. Free every time. The front door for every founder who will one day join the mentorship program. This manual defines every process, system, and document that makes workshops run consistently — from monthly calendar to post-event follow-up. Nothing left to memory.
+    </p>
+
+    <div class="two-col" style="margin-top:0;">
+      <div class="panel">
+        <div class="panel-title">What This Document Covers</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Monthly Calendar Process</div><div class="db-desc">How the full month of workshops is planned, locked, and communicated</div></div></li>
+          <li class="db-item"><div><div class="db-name">Speaker Pipeline Management</div><div class="db-desc">How speakers are sourced, approved, briefed, and retained</div></div></li>
+          <li class="db-item"><div><div class="db-name">Pre-Event Process</div><div class="db-desc">Everything that must happen before a workshop goes live</div></div></li>
+          <li class="db-item"><div><div class="db-name">Event-Day Process</div><div class="db-desc">From arrival to breakdown — every step, every role</div></div></li>
+          <li class="db-item"><div><div class="db-name">Post-Event Process</div><div class="db-desc">Follow-up, funnel data, content, and improvement loop</div></div></li>
+          <li class="db-item"><div><div class="db-name">Systems Architecture</div><div class="db-desc">Notion, Google, and WhatsApp structure for the department</div></div></li>
+          <li class="db-item"><div><div class="db-name">Documentation Library</div><div class="db-desc">Every template, tracker, brief, and form the department owns</div></div></li>
+          <li class="db-item"><div><div class="db-name">Operating Rules</div><div class="db-desc">Non-negotiables that protect quality across all 3 locations</div></div></li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Department at a Glance</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Workshop Director</div><div class="db-desc">Owns everything in this document. Trains 2 successors.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Frequency</div><div class="db-desc">3 workshops per month — one per location minimum</div></div></li>
+          <li class="db-item"><div><div class="db-name">Locations</div><div class="db-desc">Seminyak · Canggu · Ubud</div></div></li>
+          <li class="db-item"><div><div class="db-name">Format</div><div class="db-desc">Free. In-person. Speaker + Q&A. Terra CTA at every event.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Speaker Pipeline Standard</div><div class="db-desc">Always 3 confirmed events ahead. Never scrambling.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Funnel Capture</div><div class="db-desc">Mandatory at every event. Uploaded same night.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Success Metric</div><div class="db-desc">30%+ of attendees enter the mentorship funnel</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tool-legend">
+      <div class="tool-badge"><div class="tool-dot dot-notion"></div>Notion — operational home</div>
+      <div class="tool-badge"><div class="tool-dot dot-google"></div>Google — forms, data, drive</div>
+      <div class="tool-badge"><div class="tool-dot dot-whatsapp"></div>WhatsApp — community comms only</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- THREE LOCATIONS -->
+  <!-- ================================================================ -->
+  <div class="section-block">
+    <div class="section-eyebrow">Context</div>
+    <h2 class="section-title">Three Locations, One Standard</h2>
+    <p class="section-body">Every workshop at every location must feel like a Terra workshop. Same quality, same energy, same CTA. The location changes. The standard doesn't.</p>
+
+    <div class="location-grid">
+      <div class="location-card">
+        <div class="location-name">Seminyak</div>
+        <div class="location-tag">Location 01</div>
+        <div class="location-detail">
+          High-footfall area. Most accessible to international founders and digital nomads. Best for broad reach and first-time Terra attendees. Venue partner should have strong F&B or co-working identity. Parking and transport access matters here.
+        </div>
+      </div>
+      <div class="location-card">
+        <div class="location-name">Canggu</div>
+        <div class="location-tag">Location 02</div>
+        <div class="location-detail">
+          Terra's strongest existing community density. Most repeat attendees. Best for community deepening and word-of-mouth growth. Speaker topics can go deeper here — audience is familiar with the format and trusts the room.
+        </div>
+      </div>
+      <div class="location-card">
+        <div class="location-name">Ubud</div>
+        <div class="location-tag">Location 03</div>
+        <div class="location-detail">
+          Different founder profile — more purpose-driven, wellness-adjacent, creative entrepreneurs. Tone can be slightly more reflective. Audience discovery rate is higher here — many first-time Terra attendees. Venue should reflect the environment.
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-title">The Journey Principle</div>
+      <div class="highlight-body">Workshops are not isolated events. They are chapters in an ongoing story. The Workshop Director designs the monthly and quarterly arc — themes build on each other, speakers are chosen to create a through-line, and attendees who come to multiple events feel like they're on a journey, not just attending events. This is the difference between a community and a mailing list.</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- MONTHLY CALENDAR -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="calendar">
+    <div class="section-eyebrow">Section 01</div>
+    <h2 class="section-title">Monthly Calendar Process</h2>
+    <p class="section-body">The monthly calendar is locked by the 20th of the previous month. No exceptions. Marketing cannot promote what it doesn't have. Logistics cannot book venues it hasn't been told about. The calendar is the foundation everything else is built on.</p>
+
+    <div class="calendar-row">
+      <div style="width:80px;"></div>
+      <div class="cal-cell-header">Seminyak</div>
+      <div class="cal-cell-header">Canggu</div>
+      <div class="cal-cell-header">Ubud</div>
+    </div>
+    <div class="calendar-row">
+      <div class="cal-label">Week 1</div>
+      <div class="cal-cell"><div class="cal-event">Workshop</div><div class="cal-sub">Topic confirmed by Day 20 prior month</div></div>
+      <div class="cal-cell"><div class="cal-sub" style="color:var(--muted)">Open / rotating</div></div>
+      <div class="cal-cell"><div class="cal-sub" style="color:var(--muted)">Open / rotating</div></div>
+    </div>
+    <div class="calendar-row">
+      <div class="cal-label">Week 2</div>
+      <div class="cal-cell"><div class="cal-sub" style="color:var(--muted)">Open / rotating</div></div>
+      <div class="cal-cell"><div class="cal-event">Workshop</div><div class="cal-sub">Topic confirmed by Day 20 prior month</div></div>
+      <div class="cal-cell"><div class="cal-sub" style="color:var(--muted)">Open / rotating</div></div>
+    </div>
+    <div class="calendar-row">
+      <div class="cal-label">Week 3</div>
+      <div class="cal-cell"><div class="cal-sub" style="color:var(--muted)">Open / rotating</div></div>
+      <div class="cal-cell"><div class="cal-sub" style="color:var(--muted)">Open / rotating</div></div>
+      <div class="cal-cell"><div class="cal-event">Workshop</div><div class="cal-sub">Topic confirmed by Day 20 prior month</div></div>
+    </div>
+    <div class="calendar-row">
+      <div class="cal-label">Week 4</div>
+      <div class="cal-cell" colspan="3" style="grid-column: span 3; color:var(--soft); font-size:11px; font-style:italic;">Flex week — additional workshop if speaker pipeline allows, or preparation for next month</div>
+    </div>
+
+    <div class="phase-divider" style="margin-top:24px;"><div class="phase-label">Process — Monthly Calendar Planning</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Set the monthly theme</div>
+          <div class="step-detail">By the 10th of each month, Workshop Director sets the theme for the following month. Theme informs speaker selection and Marketing content direction. Examples: "Revenue Traction", "Building a Team in Bali", "Founder Mental Health", "Distribution Strategy". Theme should connect to the quarterly arc.</div>
+          <div class="step-trigger">Trigger: 10th of each month, for the following month</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-notion">Notion</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Confirm speakers for all 3 events from pipeline</div>
+          <div class="step-detail">Pull from the speaker waitlist in Notion. Match speakers to locations based on their topic, audience fit, and which location suits their profile. Confirm availability. If the pipeline is below 3 events ahead, run speaker outreach immediately — this is a system alert, not a task to do later.</div>
+          <div class="step-trigger">Trigger: Monthly theme set</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-notion">Notion speaker pipeline</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Send speaker confirmation and brief</div>
+          <div class="step-detail">Formal confirmation email with: event date, location, format (30-min talk + 15-min Q&A), audience profile, the one thing they should leave the audience with, and what not to do (no pitch, no product promotion). Attach the speaker brief document.</div>
+          <div class="step-trigger">Trigger: Speaker confirmed verbally</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-google">Gmail template</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Brief Logistics on all 3 events</div>
+          <div class="step-detail">One brief per event. Sent by the 20th. Covers: date, time, location (venue if pre-confirmed or venue requirements if not yet booked), expected attendance, AV needs, crew needed, registration setup, and any specific requirements. Logistics cannot work with "TBC" — give them everything they need to execute.</div>
+          <div class="step-trigger">Trigger: By 20th of preceding month</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director → Logistics</span><span class="tool-tag tag-notion">Notion brief</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Brief Marketing on all 3 events</div>
+          <div class="step-detail">One brief per event. Sent by the 20th. Covers: event date, location, speaker name and topic, the story angle for this event (not just the logistics), the audience it's right for, and the CTA. Marketing needs a story, not just a flyer brief.</div>
+          <div class="step-trigger">Trigger: Same day as Logistics brief</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director → Marketing</span><span class="tool-tag tag-notion">Notion brief</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">06</div>
+        <div class="step-content">
+          <div class="step-title">Review and approve all promotional content before publishing</div>
+          <div class="step-detail">Workshop Director approves every asset Marketing creates before it goes out. Not for design quality — for story accuracy and message alignment. Review turnaround: within 24 hours of receiving assets. Never let Marketing wait more than 24h for approval.</div>
+          <div class="step-trigger">Trigger: Marketing submits assets for review</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director approves</span><span class="tool-tag tag-notion">Notion or WhatsApp</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">07</div>
+        <div class="step-content">
+          <div class="step-title">Lock and publish monthly calendar</div>
+          <div class="step-detail">Once all 3 events are briefed and approved, Workshop Director publishes the monthly schedule to WhatsApp Terra community. No changes after publication unless absolutely unavoidable — and if a change must happen, communicate it immediately with a full explanation.</div>
+          <div class="step-trigger">Trigger: By 20th of preceding month</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-whatsapp">WhatsApp</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- SPEAKER PIPELINE -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="speaker">
+    <div class="section-eyebrow">Section 02</div>
+    <h2 class="section-title">Speaker Pipeline</h2>
+    <p class="section-body">The speaker pipeline is a living system, not a list you make when you need a speaker. The Workshop Director is always building it — in conversations, at events, online. The rule: always 3 confirmed events ahead. If you're not, outreach starts today.</p>
+
+    <div class="pipeline-stages">
+      <div class="pipeline-stage">
+        <div class="stage-name">Prospecting</div>
+        <div class="stage-count">10+</div>
+        <div class="stage-target">Target: Always 10 names in consideration</div>
+        <div class="stage-body">Names identified through community, referrals, workshop attendees, Terra network. Not yet approached.</div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-name">Approached</div>
+        <div class="stage-count">5+</div>
+        <div class="stage-target">Target: 5 in conversation at any time</div>
+        <div class="stage-body">Initial outreach made. Exploring fit, topic, and availability. Not yet confirmed.</div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-name">Confirmed</div>
+        <div class="stage-count">3+</div>
+        <div class="stage-target">Minimum: 3 events ahead always</div>
+        <div class="stage-body">Date agreed. Brief sent. Speaker expectations document signed. On the calendar.</div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-name">Briefed</div>
+        <div class="stage-count">1–2</div>
+        <div class="stage-target">Current and next event only</div>
+        <div class="stage-body">Full brief received. 48h confirmation sent. Logistics briefed on speaker requirements.</div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-name">Completed</div>
+        <div class="stage-count">∞</div>
+        <div class="stage-target">Alumni pool — future referral source</div>
+        <div class="stage-body">Event done. Thank you sent. Feedback collected. Added to speaker alumni database. Asked to refer.</div>
+      </div>
+    </div>
+
+    <div class="phase-divider"><div class="phase-label">Process — Speaker Outreach to Confirmation</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Identify speaker candidate</div>
+          <div class="step-detail">Sources: Terra community attendees, mentor pool, Workshop Director's network, alumni referrals, LinkedIn, other Bali founder communities. Add to Notion speaker pipeline with: name, contact, topic area, source, and notes. Never approach without knowing what you'd ask them to speak about.</div>
+          <div class="step-trigger">Trigger: Ongoing — not reactive</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-notion">Notion pipeline</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">First approach — warm, specific, no pressure</div>
+          <div class="step-detail">Not a cold form. A direct message or email that references something specific about them, names the topic you had in mind, describes the Terra audience, and makes it easy to say yes or no. Tone: invitation, not recruitment. Keep it under 100 words.</div>
+          <div class="step-trigger">Trigger: Pipeline below 5 in "Approached" stage</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-google">Gmail / WhatsApp DM</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Explore topic and fit in a short conversation</div>
+          <div class="step-detail">20-minute call or voice note exchange. Cover: what they'd speak about, the one thing the audience should leave knowing, whether they've spoken publicly before, location preference. Assess: Is this person right for Terra? Is the topic right for this audience? Trust your instinct — quality over filling a slot.</div>
+          <div class="step-trigger">Trigger: Speaker expresses interest</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-manual">Direct conversation</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Approve speaker internally</div>
+          <div class="step-detail">Workshop Director makes the call. Check against: Does this topic serve the monthly theme? Is this person likely to deliver a quality session? Does their profile fit the Terra ICP? No approval by committee — one decision-maker, clear standard. Update Notion stage to "Approved — pending date".</div>
+          <div class="step-trigger">Trigger: Post-conversation assessment</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-notion">Notion</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Send formal speaker confirmation email with brief</div>
+          <div class="step-detail">Confirmation email includes: date, time, venue, format (30-min + 15-min Q&A), audience description, the one thing to leave the audience with, what to avoid (no sales pitch, no product promo), what Terra will provide (AV, water, intro, promotion), and what the speaker provides (their talk, 1 headshot, 1-line bio for promo). Attach Speaker Expectations document.</div>
+          <div class="step-trigger">Trigger: Date agreed</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-google">Gmail template</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">06</div>
+        <div class="step-content">
+          <div class="step-title">Confirm speaker 48h before event</div>
+          <div class="step-detail">Brief WhatsApp message: confirm time, address, parking/transport info, contact on the day (Logistics Lead's number). Ask if anything has changed. Notify Logistics that speaker is confirmed. This step prevents the worst-case scenario: a no-show speaker.</div>
+          <div class="step-trigger">Trigger: 48 hours before event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-whatsapp">WhatsApp direct</span></div>
+      </div>
+    </div>
+
+    <div class="phase-divider"><div class="phase-label">Process — Post-Event Speaker Relationship</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Send thank you within 24h of event</div>
+          <div class="step-detail">Personal message — not a template. Reference something specific from their talk or the Q&A. Share the content that Marketing captured. Tell them how many attended. Make them feel the impact of what they did.</div>
+          <div class="step-trigger">Trigger: Within 24h post-event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-google">Gmail</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Send speaker feedback form</div>
+          <div class="step-detail">Short Google Form: How was the experience? What could Terra improve for speakers? Would they come back? Would they refer another speaker? Their answer to the last question is your next pipeline entry.</div>
+          <div class="step-trigger">Trigger: 48h post-event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-google">Google Form</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Update speaker record in Notion</div>
+          <div class="step-detail">Log: event date, location, topic, attendance count, quality rating (internal — never shared), feedback summary, whether they'd return. Move to "Alumni" stage. Tag for future cohort invitations if they're a strong mentor candidate.</div>
+          <div class="step-trigger">Trigger: Feedback received or 5 days post-event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-notion">Notion</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- PRE-EVENT PROCESS -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="processes">
+    <div class="section-eyebrow">Section 03</div>
+    <h2 class="section-title">Workshop Processes</h2>
+    <p class="section-body">Three processes govern every workshop: pre-event preparation, event-day execution, and post-event follow-up. Each has a clear owner and a clear sequence. Nothing is done by feel on the day.</p>
+
+    <div class="phase-divider"><div class="phase-label">Process — Pre-Event (T-14 to T-0)</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">T-14: Promotional assets approved and scheduled</div>
+          <div class="step-detail">Workshop Director has approved all Marketing assets. First announcement post is scheduled. Registration link is live. All information is accurate — date, time, venue, speaker name and topic, and the CTA.</div>
+          <div class="step-trigger">Trigger: 14 days before event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director + Marketing</span><span class="tool-tag tag-notion">Notion approval log</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">T-7: Venue confirmed by Logistics</div>
+          <div class="step-detail">Workshop Director receives confirmation from Logistics that venue is booked. If not confirmed by T-7, escalate immediately — not T-3. Logistics owns the venue. Workshop Director owns the escalation if it hasn't happened.</div>
+          <div class="step-trigger">Trigger: 7 days before event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Logistics confirms → Workshop Director</span><span class="tool-tag tag-whatsapp">WhatsApp or Notion</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">T-7: Registration reminder goes out</div>
+          <div class="step-detail">Second announcement post from Marketing. Registration link in the caption. WhatsApp community message. If an event hasn't filled its registration by T-7, Marketing and Workshop Director review the message and adjust — not ignore it.</div>
+          <div class="step-trigger">Trigger: 7 days before event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Marketing</span><span class="tool-tag tag-whatsapp">WhatsApp + Social</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">T-3: Final reminder post and WhatsApp announcement</div>
+          <div class="step-detail">Third marketing push. "3 days to go" format. Workshop Director reviews for accuracy before it goes out. Registration link still active. Mention the CTA context — what attendees will walk away with.</div>
+          <div class="step-trigger">Trigger: 3 days before event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Marketing (Workshop Director approves)</span><span class="tool-tag tag-whatsapp">WhatsApp + Social</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">T-48: Speaker confirmation message sent</div>
+          <div class="step-detail">Workshop Director sends WhatsApp to speaker: time, venue address, who to contact on the day (Logistics Lead number), parking/transport info, a reminder of format (30 min talk + 15 min Q&A). Brief, friendly, professional.</div>
+          <div class="step-trigger">Trigger: 48 hours before event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-whatsapp">WhatsApp direct</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">06</div>
+        <div class="step-content">
+          <div class="step-title">T-24: Crew briefed by Logistics</div>
+          <div class="step-detail">Logistics briefs every volunteer crew member: their specific role, what time to arrive (always 60 mins before event), the run-of-show, and who to report to. Workshop Director does not manage crew — Logistics does. Workshop Director confirms the brief was sent.</div>
+          <div class="step-trigger">Trigger: 24 hours before event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Logistics (Workshop Director confirms)</span><span class="tool-tag tag-whatsapp">WhatsApp</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">07</div>
+        <div class="step-content">
+          <div class="step-title">T-1: Day-of reminder to registered attendees</div>
+          <div class="step-detail">Marketing sends a "see you tomorrow" message to all registered attendees. Includes: exact venue address, start time, and one-line reminder of what the talk is about. Also goes to WhatsApp community group. Reminder reduces no-shows significantly.</div>
+          <div class="step-trigger">Trigger: Day before event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Marketing</span><span class="tool-tag tag-google">Email + WhatsApp</span></div>
+      </div>
+    </div>
+
+    <div class="phase-divider"><div class="phase-label">Process — Event Day</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">T-60min: Crew arrives and sets up</div>
+          <div class="step-detail">All crew arrive 60 minutes early. Logistics Lead runs setup: AV test, registration desk ready, seating arranged, signage in place, speaker area prepared. Volunteers know their positions before the first attendee walks in.</div>
+          <div class="step-trigger">Trigger: 60 minutes before doors open</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Logistics Lead + Volunteers</span><span class="tool-tag tag-manual">On-site</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">T-30min: Speaker arrives and is briefed on the day</div>
+          <div class="step-detail">Workshop Director greets the speaker. Brief walkthrough: stage layout, mic setup, where to stand, how the Q&A will be facilitated, what the MC intro will say. Make the speaker feel prepared and relaxed. Never brief a speaker for the first time on the day — the written brief should have done that work already.</div>
+          <div class="step-trigger">Trigger: 30 minutes before doors open</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-manual">On-site</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Doors open: Registration desk captures every attendee</div>
+          <div class="step-detail">Every attendee checks in at registration. Volunteer collects: name, WhatsApp number (primary), email (optional). QR code option available. Compliance Lead (or assigned volunteer) is responsible for ensuring zero walk-throughs without capture. This data is the funnel — it cannot be missed.</div>
+          <div class="step-trigger">Trigger: Doors open</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Volunteer + Compliance</span><span class="tool-tag tag-google">Google Sheet (live)</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Workshop Director opens the event</div>
+          <div class="step-detail">3–5 minutes maximum. Cover: welcome to Terra, who Terra is for, what tonight is, and why it matters. Not a speech — an invitation. Warm the room before introducing the speaker. Scripted, rehearsed, delivered naturally. Never improvised.</div>
+          <div class="step-trigger">Trigger: Event start time</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-manual">Live</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Speaker delivers talk (30 minutes)</div>
+          <div class="step-detail">Workshop Director manages time. Subtle signal at 25 minutes. Hard stop at 30 minutes — protect the Q&A. If the speaker runs over regularly, address it in the post-event debrief, not during the session.</div>
+          <div class="step-trigger">Trigger: After MC intro</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Speaker presents · Workshop Director times</span><span class="tool-tag tag-manual">Live</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">06</div>
+        <div class="step-content">
+          <div class="step-title">Workshop Director facilitates Q&A (15 minutes)</div>
+          <div class="step-detail">Workshop Director holds the mic and calls on attendees. First question is always pre-prepared — never let a Q&A die with silence. If a question goes off-topic or too long, redirect clearly and kindly. Close Q&A at 15 minutes, not when questions run dry.</div>
+          <div class="step-trigger">Trigger: Speaker talk ends</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-manual">Live</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">07</div>
+        <div class="step-content">
+          <div class="step-title">Deliver Terra CTA — clear, specific, no more than 3 minutes</div>
+          <div class="step-detail">Workshop Director closes the event with the CTA. One call to action only — do not split attention. This month's CTA: mentorship program application. Show the QR code. Say: "If tonight felt like something you needed, the mentorship program is the next step. Applications are open now." Then stop.</div>
+          <div class="step-trigger">Trigger: Q&A closes</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-manual">Live</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">08</div>
+        <div class="step-content">
+          <div class="step-title">Networking open — Volunteers circulate and connect</div>
+          <div class="step-detail">20–30 minutes post-talk networking. Volunteers are not standing at the side — they are in the room, connecting people, having conversations, being Terra. Compliance volunteer captures any additional names missed at registration. Content volunteer captures footage for Marketing.</div>
+          <div class="step-trigger">Trigger: CTA delivered</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">All volunteers active</span><span class="tool-tag tag-manual">On-site</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">09</div>
+        <div class="step-content">
+          <div class="step-title">Breakdown and venue reset</div>
+          <div class="step-detail">Logistics Lead manages full breakdown. Venue left cleaner than it was found. All Terra equipment collected and stored. Venue contact thanked in person. Logistics Lead sends Workshop Director a breakdown confirmation message.</div>
+          <div class="step-trigger">Trigger: Last attendee leaves</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Logistics Lead + Volunteers</span><span class="tool-tag tag-manual">On-site</span></div>
+      </div>
+    </div>
+
+    <div class="phase-divider"><div class="phase-label">Process — Post-Event (Same Night to T+7)</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Same night: Funnel data uploaded to master sheet</div>
+          <div class="step-detail">Non-negotiable. Compliance uploads all registration data from the event to the master Google Sheet the same night. Delay = data loss. If Compliance cannot do it that night, Workshop Director does it. The data does not wait.</div>
+          <div class="step-trigger">Trigger: Same night as event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Compliance Lead</span><span class="tool-tag tag-google">Google Sheet</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">T+24h: Thank you message to speaker</div>
+          <div class="step-detail">Personal, specific, warm. Reference something from their talk. Share initial attendance count. Tell them their content will be featured. Ask if they have anyone they'd recommend for a future workshop — this is the pipeline conversation, wrapped in gratitude.</div>
+          <div class="step-trigger">Trigger: Within 24 hours</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-google">Gmail</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">T+24h: Event recap content published by Marketing</div>
+          <div class="step-detail">Reels, photos, and a written recap. Content captures the energy and a key insight from the talk — never a full transcript. Workshop Director reviews before publishing. Content includes the mentorship application link.</div>
+          <div class="step-trigger">Trigger: Within 24 hours</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Marketing (Workshop Director approves)</span><span class="tool-tag tag-whatsapp">Social + WhatsApp</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">T+48h: Follow up with high-interest funnel leads</div>
+          <div class="step-detail">Workshop Director (or Program Director for mentorship leads) reviews the registration data and identifies anyone who flagged mentorship interest. Personal WhatsApp or email follow-up. Not a mass message — a direct conversation. "I noticed you came last night — would the mentorship program be right for you?"</div>
+          <div class="step-trigger">Trigger: Within 48 hours</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director + Program Director</span><span class="tool-tag tag-whatsapp">WhatsApp direct</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">T+48h: Speaker feedback form sent</div>
+          <div class="step-detail">Short Google Form sent to speaker. Covered in the Speaker Pipeline section. Their referral answer feeds the pipeline directly — log it in Notion same day it comes in.</div>
+          <div class="step-trigger">Trigger: 48 hours post-event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-google">Google Form</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">06</div>
+        <div class="step-content">
+          <div class="step-title">T+7: Update event record in Notion</div>
+          <div class="step-detail">Log final attendance count, funnel capture rate, mentorship applications triggered (tracked with Program Director), speaker rating, content performance metrics from Marketing. This data feeds the monthly review. If you're not logging it, you're not learning from it.</div>
+          <div class="step-trigger">Trigger: Within 7 days post-event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-notion">Notion</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">07</div>
+        <div class="step-content">
+          <div class="step-title">Monthly review: Did the workshop series hit its metrics?</div>
+          <div class="step-detail">At the end of each month, Workshop Director reviews all 3 events: attendance trend, funnel conversion rate, speaker quality average, content performance. One-paragraph summary added to Notion monthly log. If any metric is off, the root cause is identified before the next month's calendar is locked.</div>
+          <div class="step-trigger">Trigger: Last day of each month</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Workshop Director</span><span class="tool-tag tag-notion">Notion monthly log</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- SYSTEMS ARCHITECTURE -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="systems">
+    <div class="section-eyebrow">Section 04</div>
+    <h2 class="section-title">Systems Architecture</h2>
+    <p class="section-body">Three tools. Every piece of information has one home. If it's not in the system, it doesn't exist for Terra.</p>
+
+    <div class="system-block">
+      <div class="system-header">
+        <div class="system-icon icon-notion">N</div>
+        <div>
+          <div class="system-name">Notion — Operational Home</div>
+          <div class="system-role">Everything that runs the department. Calendar, pipeline, event records, briefs, monthly logs.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <div class="subsection-title" style="margin-top:0">Notion Page Structure — Workshops</div>
+        <ul class="db-list">
+          <li class="db-item">
+            <div><div class="db-name">🎤 Workshops Home</div><div class="db-desc">Master page. Current month calendar at a glance. Pipeline health indicator (green if 3+ confirmed, red if below). Quick links to all sub-pages. Workshop Director's daily starting point.</div></div>
+            <span class="db-type tag-notion">Parent page</span>
+          </li>
+          <li class="db-item">
+            <div><div class="db-name">📅 Event Database</div><div class="db-desc">One row per workshop event ever run. Fields: date, location, speaker, topic, attendance, funnel capture count, mentorship applications triggered, status (planned / confirmed / completed / cancelled). Filterable by location and month.</div></div>
+            <span class="db-type tag-notion">Database</span>
+          </li>
+          <li class="db-item">
+            <div><div class="db-name">🎙 Speaker Pipeline Database</div><div class="db-desc">One row per speaker candidate. Fields: name, contact, topic area, stage (prospecting / approached / approved / confirmed / alumni), source, availability, quality rating (post-event), referrals generated. Relations to Event database.</div></div>
+            <span class="db-type tag-notion">Database</span>
+          </li>
+          <li class="db-item">
+            <div><div class="db-name">📋 Monthly Planning Pages</div><div class="db-desc">One page per month. Contains: monthly theme, 3 event summaries (speaker, topic, location, date), Marketing and Logistics brief links, monthly review notes. Created on the 10th of the preceding month.</div></div>
+            <span class="db-type tag-notion">Page per month</span>
+          </li>
+          <li class="db-item">
+            <div><div class="db-name">📁 Brief Library</div><div class="db-desc">All briefs sent to Marketing and Logistics, indexed by event date and location. Workshop Director can review any previous brief. Briefs are not deleted — they are the institutional memory of what was planned and why.</div></div>
+            <span class="db-type tag-notion">Page library</span>
+          </li>
+          <li class="db-item">
+            <div><div class="db-name">📊 Quarterly Journey Map</div><div class="db-desc">A page that maps the theme arc across 3 months. Shows how this quarter's workshops build on each other and connect to the cohort application cycle. Updated at the start of each quarter.</div></div>
+            <span class="db-type tag-notion">Planning page</span>
+          </li>
+        </ul>
+
+        <div class="subsection-title">Notion Event Database Schema</div>
+        <table class="schema-table">
+          <thead>
+            <tr><th>Field Name</th><th>Type</th><th>Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Event Name</td><td><span class="field-type">Title</span></td><td>e.g. "Workshop — Canggu — Feb 2026 — Revenue"</td></tr>
+            <tr><td>Date</td><td><span class="field-type">Date</span></td><td>Event date and start time</td></tr>
+            <tr><td>Location</td><td><span class="field-type">Select</span></td><td>Seminyak / Canggu / Ubud</td></tr>
+            <tr><td>Venue</td><td><span class="field-type">Text</span></td><td>Specific venue name and address</td></tr>
+            <tr><td>Speaker</td><td><span class="field-type">Relation</span></td><td>Links to Speaker Pipeline database</td></tr>
+            <tr><td>Topic</td><td><span class="field-type">Text</span></td><td>Talk title or theme</td></tr>
+            <tr><td>Status</td><td><span class="field-type">Select</span></td><td>Planning / Confirmed / Completed / Cancelled</td></tr>
+            <tr><td>Attendance</td><td><span class="field-type">Number</span></td><td>Final headcount on the night</td></tr>
+            <tr><td>Funnel Captures</td><td><span class="field-type">Number</span></td><td>Number of names/contacts captured</td></tr>
+            <tr><td>Funnel Rate</td><td><span class="field-type">Formula</span></td><td>Funnel Captures / Attendance %</td></tr>
+            <tr><td>Mentorship Applications</td><td><span class="field-type">Number</span></td><td>Applications triggered from this event</td></tr>
+            <tr><td>Speaker Rating</td><td><span class="field-type">Select</span></td><td>Excellent / Good / Average / Below Standard (internal only)</td></tr>
+            <tr><td>Content Published</td><td><span class="field-type">Checkbox</span></td><td>Has post-event content gone out?</td></tr>
+            <tr><td>Speaker Thanked</td><td><span class="field-type">Checkbox</span></td><td>Has thank you been sent within 24h?</td></tr>
+            <tr><td>Data Uploaded</td><td><span class="field-type">Checkbox</span></td><td>Has funnel data been uploaded same night?</td></tr>
+            <tr><td>Notes</td><td><span class="field-type">Text</span></td><td>Anything unusual — venue issues, low attendance, standout moments</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="system-block" style="margin-top:2px;">
+      <div class="system-header">
+        <div class="system-icon icon-google">G</div>
+        <div>
+          <div class="system-name">Google Workspace — Registration, Data & Files</div>
+          <div class="system-role">Attendee registration, funnel data capture, speaker briefs, and file storage run through Google.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <div class="subsection-title" style="margin-top:0">Google Drive Folder Structure</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">📁 Terra Workshops (root folder)</div><div class="db-desc">Shared with Workshop Director and COO. Contains all sub-folders.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📁 Events → [Year] → [Month] → [Location]</div><div class="db-desc">Folder per event. Contains: event brief, promotional assets, speaker bio and headshot, attendance sheet, post-event notes.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📁 Speaker Profiles</div><div class="db-desc">One subfolder per speaker. Contains: headshot, bio, signed speaker expectations document, any previous briefs. Never deleted.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📁 Templates</div><div class="db-desc">Speaker Brief template, Speaker Expectations document, MC intro template, attendee follow-up email templates, feedback form links. Master copies — duplicate before using.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📊 Master Funnel Sheet (Google Sheet)</div><div class="db-desc">Maintained by Compliance. One tab per month. Columns: event date, location, attendee name, WhatsApp, email, interest level (walk-in / curious / expressed interest in mentorship), follow-up status. Workshop Director has view access. Compliance owns the data.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="system-block" style="margin-top:2px;">
+      <div class="system-header">
+        <div class="system-icon icon-whatsapp">W</div>
+        <div>
+          <div class="system-name">WhatsApp — Community Communication Only</div>
+          <div class="system-role">Announcements, reminders, and community updates. Not for documentation, decisions, or approvals.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <div class="subsection-title" style="margin-top:0">WhatsApp Group Structure — Workshops</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Terra Bali Community (main group)</div><div class="db-desc">All Terra members. Workshop announcements, event reminders, post-event recap links. Workshop Director and COO are admins. Broadcast only — not a discussion group.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Terra Ops — Workshops (internal team group)</div><div class="db-desc">Workshop Director, Logistics Lead, Marketing Lead, Compliance Lead. For operational coordination only. No social chat. If it's a decision, it goes to Notion — not this group.</div></div></li>
+        </ul>
+        <div class="highlight-box" style="margin-top:16px;">
+          <div class="highlight-title">WhatsApp Posting Cadence for Workshops</div>
+          <div class="highlight-body">T-14: First announcement. T-7: Registration reminder. T-3: Final countdown. T-1: "See you tomorrow." Day of: Live updates if needed (running late, venue change). T+24h: Post-event recap link. This cadence is consistent across all 3 locations every month — not more, not less.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- DOCUMENTATION LIBRARY -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="docs">
+    <div class="section-eyebrow">Section 05</div>
+    <h2 class="section-title">Documentation Library</h2>
+    <p class="section-body">Every document the Workshops department owns. Where it lives, who owns it, what it contains. Master copies in Google Drive Templates folder. Notion links to live versions.</p>
+
+    <div class="doc-grid">
+
+      <div class="doc-card">
+        <div class="doc-type tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Monthly Planning Doc</div>
+        <div class="doc-owner">Owner: Workshop Director · Created: 10th of preceding month</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Monthly theme and quarterly arc position</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>3 event summaries (speaker, topic, location, date)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Speaker pipeline health check</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Marketing brief links (one per event)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Logistics brief links (one per event)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Monthly KPI targets</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Notes from previous month's review</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Monthly Planning Pages</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Marketing Brief — Per Event</div>
+        <div class="doc-owner">Owner: Workshop Director → Marketing · Sent by 20th of preceding month</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Event name, date, time, venue</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Speaker name, one-line bio, headshot (attached)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Talk topic and the story angle (not just logistics)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Who this event is right for (ICP description)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>The one thing attendees should walk away knowing</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>The CTA for this event (exact wording)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Assets needed: reel, graphic, announcement copy</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Approval deadline (Workshop Director must respond within 24h)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Brief Library</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Logistics Brief — Per Event</div>
+        <div class="doc-owner">Owner: Workshop Director → Logistics · Sent by 20th of preceding month</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Event date, time, location</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Venue requirements (if not yet booked) or confirmed venue</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Expected attendance range</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>AV requirements (mic type, projector, screen)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Crew needed (number of volunteers, specific roles)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Registration desk setup requirements</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Speaker arrival time and requirements</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Sponsor visibility requirements (if applicable)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Run-of-show outline</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Venue confirmation deadline (T-7)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Brief Library</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">PDF Document</div>
+        <div class="doc-name">Speaker Brief & Expectations</div>
+        <div class="doc-owner">Owner: Workshop Director · Sent with confirmation email</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>What Terra is and who attends</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Talk format: 30-minute talk + 15-minute Q&A</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What makes a great Terra workshop talk (actionable, honest, story-led)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What to avoid (sales pitch, corporate deck, vague advice)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What Terra provides (AV, intro, promotion, post-event content)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What the speaker provides (talk, headshot, one-line bio)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>48h confirmation process</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Cancellation policy (minimum 7 days notice)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Templates + Speaker Profiles folder</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">Script Template</div>
+        <div class="doc-name">MC Opening Script Template</div>
+        <div class="doc-owner">Owner: Workshop Director · Personalised per event, never improvised</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Welcome line (location-specific)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What Terra is — one sentence, not a pitch</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Who the room is full of — acknowledge the community</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Why tonight's talk matters — the context, not the bio</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Speaker intro — name, one line, hand over</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Total time: 3–5 minutes. Not more.</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Templates</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">Script Template</div>
+        <div class="doc-name">CTA Closing Script Template</div>
+        <div class="doc-owner">Owner: Workshop Director · Personalised per event, always delivered</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Thank speaker — one specific line</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Bridge from talk to mentorship program</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>One-sentence description of the program</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Who it's for (ICP description, 10 words or less)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>The ask: "Scan the QR code now or speak to me after"</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>QR code displayed on screen</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Networking open line</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Total time: 2–3 minutes. Stop there.</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Templates</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-google" style="background:rgba(74,140,111,0.1);color:#6abf99;border:1px solid rgba(74,140,111,0.25);">Google Form</div>
+        <div class="doc-name">Attendee Registration Form</div>
+        <div class="doc-owner">Owner: Compliance Lead · Active at every event via QR code</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>First name (required)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>WhatsApp number (required)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Email address (optional)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What do you do / what are you building? (one line)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>How did you hear about Terra? (select)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Interested in the mentorship program? (Yes / Tell me more / Not yet)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Forms folder</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-google" style="background:rgba(74,140,111,0.1);color:#6abf99;border:1px solid rgba(74,140,111,0.25);">Google Form</div>
+        <div class="doc-name">Speaker Feedback Form (post-event)</div>
+        <div class="doc-owner">Owner: Workshop Director · Sent 48h post-event</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Overall experience rating (1–5)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>How was the preparation and communication from Terra?</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>How was the venue and logistics?</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What could Terra improve for speakers?</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Would you speak at Terra again? (Yes / Yes with changes / No)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Is there someone you'd recommend as a future speaker? (name + contact)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Forms folder</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Monthly Review Report</div>
+        <div class="doc-owner">Owner: Workshop Director · Completed last day of each month</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>3 events summary: date, location, attendance, funnel rate</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Total monthly funnel captures vs target</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Mentorship applications attributed to workshops</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Speaker quality notes (internal)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Content performance summary from Marketing</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What worked this month</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What needs to change next month</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Speaker pipeline health (confirmed events ahead)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Monthly Planning Pages</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">Email Template</div>
+        <div class="doc-name">Speaker Thank You Email</div>
+        <div class="doc-owner">Owner: Workshop Director · Sent within 24h post-event</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Personal, specific line referencing their talk</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Final attendance count</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Link to published content (reel/recap)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Any notable attendee reactions or outcomes</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Invitation to refer another speaker (natural, not pushy)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Link to speaker feedback form</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Templates</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- OPERATING RULES -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="rules">
+    <div class="section-eyebrow">Section 06</div>
+    <h2 class="section-title">Operating Rules</h2>
+    <p class="section-body">These govern how Workshops runs. They exist because every exception creates a precedent. Change them through the monthly review — not by convenience.</p>
+
+    <div class="rules-box">
+      <div class="rules-title">Non-Negotiable Operating Rules — Workshops Department</div>
+      <div class="rule-item"><span class="rule-num">01</span>Three workshops per month minimum. One per location. This is not a target — it is the floor. If a month drops below 3, the root cause is identified and solved before the next month's planning begins.</div>
+      <div class="rule-item"><span class="rule-num">02</span>The monthly calendar is locked and published by the 20th of the preceding month. No exceptions. Marketing and Logistics cannot function without it.</div>
+      <div class="rule-item"><span class="rule-num">03</span>The speaker pipeline must always have 3 confirmed events ahead. If it drops below 3, speaker outreach starts that day — not next week.</div>
+      <div class="rule-item"><span class="rule-num">04</span>No speaker is approved without the Workshop Director's explicit sign-off. Quality over filling a slot. One poor workshop damages the reputation of the next three.</div>
+      <div class="rule-item"><span class="rule-num">05</span>No promotional content goes out without Workshop Director approval. Marketing executes — Workshop Director approves. Turnaround: within 24 hours. Never hold Marketing up for more than 24h.</div>
+      <div class="rule-item"><span class="rule-num">06</span>Speaker confirmed 48 hours before every event. No exception. If a speaker cancels inside 48h with no replacement, the workshop is postponed — not run without a speaker.</div>
+      <div class="rule-item"><span class="rule-num">07</span>Funnel data is uploaded the same night as the event. Not next morning. Not "when I get a chance." The same night. This is a system-critical rule.</div>
+      <div class="rule-item"><span class="rule-num">08</span>The CTA is delivered at every single event. Every time. Regardless of how "good" the event was. Regardless of who is in the room. The mentorship program is the reason workshops exist.</div>
+      <div class="rule-item"><span class="rule-num">09</span>Every speaker gets a thank you within 24 hours. Every speaker gets a feedback form. Both are logged in Notion. The speaker relationship is a long-term asset, not a one-night transaction.</div>
+      <div class="rule-item"><span class="rule-num">10</span>The workshop must feel the same in Ubud as it does in Canggu. Different location. Same quality. Same energy. Same standard. The Workshop Director is responsible for consistency across all 3.</div>
+      <div class="rule-item"><span class="rule-num">11</span>Nothing important about this department is stored in WhatsApp, personal email, or personal devices. If it's not in Notion or Google Drive, it doesn't exist for Terra.</div>
+      <div class="rule-item"><span class="rule-num">12</span>The Workshop Director trains 2 successors who can run a full workshop cycle — from monthly planning to post-event logging — independently. The MC script and speaker brief template are the primary handover documents.</div>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <div class="page-footer">
+    <div class="footer-left">"A great workshop is the best marketing Terra has."</div>
+    <div class="footer-right">
+      Terra Bali · Workshops Operations Manual<br>
+      Department 04 · Internal Reference · v1.0
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
