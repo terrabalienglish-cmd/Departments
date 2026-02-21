@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terra Bali — Department Playbooks</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --surface: #0f0f0f;
+    --surface2: #131313;
+    --border: #1e1e1e;
+    --border2: #2a2a2a;
+    --purple: #5B2D8E;
+    --purple-dim: rgba(91,45,142,0.15);
+    --gold: #C9860A;
+    --gold-light: #F0A830;
+    --crimson: #8B1A3A;
+    --text: #E8E0D5;
+    --muted: #555;
+    --soft: #888;
+    --critical: #E05A3A;
+    --high: #C9860A;
+    --medium: #4A8C6F;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    min-height: 100vh;
+  }
+
+  /* Ambient background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 40% at 20% 10%, rgba(139,26,58,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 5%, rgba(91,45,142,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 90% 90%, rgba(201,134,10,0.05) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(8,8,8,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .nav-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gold);
+    box-shadow: 0 0 10px rgba(201,134,10,0.25);
+    flex-shrink: 0;
+  }
+
+  .nav-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 0.4em;
+    color: var(--text);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .nav-links::-webkit-scrollbar { display: none; }
+
+  .nav-link {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0 14px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-link:hover {
+    color: var(--gold-light);
+    border-bottom-color: var(--gold);
+  }
+
+  /* MAIN */
+  .main {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 80px 48px 120px;
+  }
+
+  /* PAGE HEADER */
+  .page-header {
+    margin-bottom: 100px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-eyebrow {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1.15;
+    margin-bottom: 24px;
+  }
+
+  .page-body {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--soft);
+    max-width: 580px;
+  }
+
+  /* RACI LEGEND */
+  .raci-legend {
+    display: flex;
+    gap: 32px;
+    margin-top: 32px;
+    padding: 20px 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .raci-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .raci-badge {
+    width: 28px;
+    height: 28px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .r-badge { background: rgba(201,134,10,0.2); color: var(--gold-light); border: 1px solid rgba(201,134,10,0.3); }
+  .a-badge { background: rgba(91,45,142,0.2); color: #a67dd4; border: 1px solid rgba(91,45,142,0.3); }
+  .c-badge { background: rgba(74,140,111,0.15); color: #6abf99; border: 1px solid rgba(74,140,111,0.25); }
+  .i-badge { background: rgba(136,136,136,0.1); color: var(--soft); border: 1px solid var(--border2); }
+
+  .raci-label {
+    font-size: 11px;
+    color: var(--soft);
+    letter-spacing: 0.05em;
+  }
+
+  /* DEPARTMENT SECTION */
+  .dept-section {
+    margin-bottom: 100px;
+    scroll-margin-top: 72px;
+  }
+
+  .dept-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .dept-left {}
+
+  .dept-number {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .dept-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  .dept-role {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .dept-right {
+    text-align: right;
+  }
+
+  .dept-purpose {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--muted);
+    max-width: 300px;
+    line-height: 1.5;
+    text-align: right;
+  }
+
+  /* Blocks */
+  .blocks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    margin-bottom: 1px;
+  }
+
+  .block {
+    background: var(--surface);
+    padding: 28px 32px;
+  }
+
+  .block.full {
+    grid-column: 1 / -1;
+  }
+
+  .block-label {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .block-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--gold-light);
+    margin-bottom: 14px;
+  }
+
+  /* Task list */
+  .task-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .task-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--soft);
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+  }
+
+  .task-item:last-child { border-bottom: none; }
+
+  .task-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+
+  .dot-critical { background: var(--critical); box-shadow: 0 0 6px rgba(224,90,58,0.4); }
+  .dot-high { background: var(--gold); }
+  .dot-medium { background: var(--medium); }
+
+  /* RACI Table */
+  .raci-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .raci-table th {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border2);
+    font-weight: 400;
+  }
+
+  .raci-table th:not(:first-child) {
+    text-align: center;
+    width: 80px;
+  }
+
+  .raci-table td {
+    font-size: 11px;
+    color: var(--soft);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+  }
+
+  .raci-table td:not(:first-child) {
+    text-align: center;
+  }
+
+  .raci-table tr:last-child td { border-bottom: none; }
+
+  .raci-table tr:hover td { background: rgba(255,255,255,0.01); }
+
+  .rc { display: inline-flex; width: 26px; height: 26px; border-radius: 2px; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; }
+
+  /* Success metrics */
+  .metrics-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .metric-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .metric-item:last-child { border-bottom: none; }
+
+  .metric-icon {
+    width: 4px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .metric-text {
+    font-size: 12px;
+    color: var(--soft);
+    line-height: 1.6;
+  }
+
+  .metric-title {
+    font-size: 12px;
+    color: var(--text);
+    margin-bottom: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Succession box */
+  .succession-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--purple);
+    padding: 20px 24px;
+    margin-top: 1px;
+  }
+
+  .succession-label {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    color: #a67dd4;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .succession-text {
+    font-size: 12px;
+    color: var(--soft);
+    line-height: 1.7;
+  }
+
+  /* Divider between depts */
+  .dept-divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, var(--gold), transparent);
+    margin: 0 0 100px 0;
+  }
+
+  /* Footer */
+  .page-footer {
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-left {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  .footer-right {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    color: var(--muted);
+    text-align: right;
+    line-height: 2;
+  }
+
+  @media (max-width: 700px) {
+    .nav { padding: 0 20px; }
+    .main { padding: 48px 20px 80px; }
+    .blocks { grid-template-columns: 1fr; }
+    .block.full { grid-column: 1; }
+    .page-title { font-size: 34px; }
+    .dept-name { font-size: 26px; }
+    .dept-header { flex-direction: column; }
+    .dept-purpose { text-align: left; }
+    .raci-legend { gap: 16px; }
+    .page-footer { flex-direction: column; gap: 16px; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-circle"></div>
+    <div class="nav-name">TERRA</div>
+  </div>
+  <div class="nav-links">
+    <a href="#mentorship" class="nav-link">Mentorship</a>
+    <a href="#events" class="nav-link">Events</a>
+    <a href="#school" class="nav-link">School</a>
+    <a href="#volunteers" class="nav-link">Volunteers</a>
+    <a href="#marketing" class="nav-link">Marketing</a>
+    <a href="#logistics" class="nav-link">Logistics</a>
+    <a href="#compliance" class="nav-link">Compliance</a>
+    <a href="#sponsorship" class="nav-link">Sponsorship</a>
+    <a href="#coo" class="nav-link">COO</a>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-eyebrow">Internal Reference · Terra Bali · Nothing is for Sale</div>
+    <h1 class="page-title">Department<br>Playbooks</h1>
+    <p class="page-body">
+      Every department in Terra has one job: help founders grow. This document gives every lead and volunteer the clarity they need to do that job well — what the role is, what success looks like, who is responsible for what, and how to hand it over when the time comes.
+      <br><br>
+      Read your department. Know your RACI. Train your successors.
+    </p>
+
+    <!-- RACI LEGEND -->
+    <div class="raci-legend">
+      <div class="raci-item">
+        <div class="raci-badge r-badge">R</div>
+        <div class="raci-label"><strong style="color:var(--text)">Responsible</strong> — Does the work</div>
+      </div>
+      <div class="raci-item">
+        <div class="raci-badge a-badge">A</div>
+        <div class="raci-label"><strong style="color:var(--text)">Accountable</strong> — Owns the outcome</div>
+      </div>
+      <div class="raci-item">
+        <div class="raci-badge c-badge">C</div>
+        <div class="raci-label"><strong style="color:var(--text)">Consulted</strong> — Input needed</div>
+      </div>
+      <div class="raci-item">
+        <div class="raci-badge i-badge">I</div>
+        <div class="raci-label"><strong style="color:var(--text)">Informed</strong> — Kept in the loop</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================ -->
+  <!-- DEPT 1: MENTORSHIP -->
+  <!-- ============================================================ -->
+  <div class="dept-section" id="mentorship">
+    <div class="dept-header">
+      <div class="dept-left">
+        <div class="dept-number">Department 01 of 09</div>
+        <div class="dept-name">Mentorship Program</div>
+        <div class="dept-role">Lead: Program Director</div>
+      </div>
+      <div class="dept-right">
+        <div class="dept-purpose">"The heart of Terra. Everything else exists to support this."</div>
+      </div>
+    </div>
+
+    <div class="blocks">
+      <div class="block full">
+        <div class="block-label">Why This Department Exists</div>
+        <div class="block-title">The 8-week program is why Terra exists.</div>
+        <p style="font-size:13px;color:var(--soft);line-height:1.8;max-width:680px;">
+          The Mentorship Program connects founders who are building with founders who have built. It creates the structure for honest conversations, real accountability, and practical growth. Without this running well, nothing else in Terra matters. The Program Director owns the quality, consistency, and impact of every cohort — from the first application to the final session.
+        </p>
+      </div>
+
+      <div class="block">
+        <div class="block-label">Core Responsibilities</div>
+        <ul class="task-list">
+          <li class="task-item"><span class="task-dot dot-critical"></span>Run mentee application and selection process each cycle</li>
+          <li class="task-item"><span class="task-dot dot-critical"></span>Match mentees to mentors based on stage, industry, and need</li>
+          <li class="task-item"><span class="task-dot dot-critical"></span>Deliver all 8 weekly group mastermind sessions</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Onboard new mentors — brief, align, and support them</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Track mentee progress and flag disengagement early</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Collect feedback at week 4 and week 8</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Manage daily accountability task cadence</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Issue program completion recognition</li>
+          <li class="task-item"><span class="task-dot dot-medium"></span>Document cohort learnings after each cycle</li>
+          <li class="task-item"><span class="task-dot dot-medium"></span>Identify and invite successful mentees to become mentors</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="block-label">What Success Looks Like</div>
+        <ul class="metrics-list">
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Completion rate above 75%</div>
+              <div class="metric-text">Mentees who start the program finish it. Drop-off is tracked and addressed mid-cycle, not after.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Every mentor feels supported</div>
+              <div class="metric-text">Mentors know what's expected. They have what they need. They stay.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Measurable founder progress</div>
+              <div class="metric-text">At week 8, founders can name one specific thing that changed in their business because of Terra.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Program runs without COO in the room</div>
+              <div class="metric-text">The Program Director owns the full cycle. No escalation needed for standard operations.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="block full">
+        <div class="block-label">RACI — Key Functions</div>
+        <table class="raci-table">
+          <thead>
+            <tr>
+              <th>Function</th>
+              <th>COO</th>
+              <th>Program Director</th>
+              <th>Mentor</th>
+              <th>Volunteer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Mentee application & selection</td><td><span class="rc a-badge">A</span></td><td><span class="rc r-badge">R</span></td><td><span class="rc c-badge">C</span></td><td><span class="rc i-badge">I</span></td></tr>
+            <tr><td>Mentor-mentee matching</td><td><span class="rc a-badge">A</span></td><td><span class="rc r-badge">R</span></td><td><span class="rc c-badge">C</span></td><td></td></tr>
+            <tr><td>Weekly mastermind sessions</td><td><span class="rc i-badge">I</span></td><td><span class="rc a-badge">A</span></td><td><span class="rc r-badge">R</span></td><td><span class="rc c-badge">C</span></td></tr>
+            <tr><td>Mentor onboarding & support</td><td><span class="rc c-badge">C</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td></td><td></td></tr>
+            <tr><td>Progress tracking & feedback</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td><span class="rc c-badge">C</span></td><td><span class="rc r-badge">R</span></td></tr>
+            <tr><td>Cohort documentation</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td><span class="rc c-badge">C</span></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="succession-box">
+      <div class="succession-label">Succession Commitment</div>
+      <div class="succession-text">
+        The Program Director trains 2 successors who can run a full cohort independently. The best candidates come from high-performing mentors or mentees from previous cycles who understand the program from the inside. Succession is not about leaving — it's about the program being stronger than any one person.
+      </div>
+    </div>
+  </div>
+  <div class="dept-divider"></div>
+
+
+  <!-- ============================================================ -->
+  <!-- DEPT 2: EVENTS -->
+  <!-- ============================================================ -->
+  <div class="dept-section" id="events">
+    <div class="dept-header">
+      <div class="dept-left">
+        <div class="dept-number">Department 02 of 09</div>
+        <div class="dept-name">Events</div>
+        <div class="dept-role">Lead: Events Director</div>
+      </div>
+      <div class="dept-right">
+        <div class="dept-purpose">"The front door. Where founders first experience what Terra feels like."</div>
+      </div>
+    </div>
+
+    <div class="blocks">
+      <div class="block full">
+        <div class="block-label">Why This Department Exists</div>
+        <div class="block-title">Events are how people discover Terra and decide to trust it.</div>
+        <p style="font-size:13px;color:var(--soft);line-height:1.8;max-width:680px;">
+          A Terra event is not a networking night. It is a curated experience that shows founders — before they've committed to anything — what it feels like to be in a room full of people who actually want to help each other. The Events Director creates that feeling consistently, every time. From the speaker to the follow-up message, every touchpoint reflects Terra's promise.
+        </p>
+      </div>
+
+      <div class="block">
+        <div class="block-label">Core Responsibilities</div>
+        <ul class="task-list">
+          <li class="task-item"><span class="task-dot dot-critical"></span>Plan and execute monthly Terra events end-to-end</li>
+          <li class="task-item"><span class="task-dot dot-critical"></span>Source, brief, and confirm speakers minimum 2 weeks ahead</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Build and manage speaker waitlist pipeline</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Create event promotional assets with Marketing</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Manage registration and attendee communication</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Brief and assign event crew with Logistics</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Host and MC every event</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Follow up with new attendees within 48 hours</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Capture and share post-event content</li>
+          <li class="task-item"><span class="task-dot dot-medium"></span>Send thank you to speakers and venue partners</li>
+          <li class="task-item"><span class="task-dot dot-medium"></span>Document event learnings for next cycle</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="block-label">What Success Looks Like</div>
+        <ul class="metrics-list">
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Every attendee knows what Terra is before they leave</div>
+              <div class="metric-text">Not just that it exists — what the program is, how to apply, and why it's free.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">30%+ of event attendees apply to the mentorship program</div>
+              <div class="metric-text">Events are the top of the funnel. They convert when the experience is right.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Events run on time, on brief, without crisis</div>
+              <div class="metric-text">Logistics handled. Speaker confirmed. Crew briefed. No last-minute scramble.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Speaker pipeline always 3 events ahead</div>
+              <div class="metric-text">Never scrambling for next month's speaker. Always building the relationship before you need it.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="block full">
+        <div class="block-label">RACI — Key Functions</div>
+        <table class="raci-table">
+          <thead>
+            <tr>
+              <th>Function</th>
+              <th>COO</th>
+              <th>Events Director</th>
+              <th>Marketing Lead</th>
+              <th>Logistics Lead</th>
+              <th>Volunteer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Event concept & planning</td><td><span class="rc c-badge">C</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td><span class="rc c-badge">C</span></td><td><span class="rc c-badge">C</span></td><td><span class="rc i-badge">I</span></td></tr>
+            <tr><td>Speaker sourcing & briefing</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td></td><td></td><td></td></tr>
+            <tr><td>Event promotion</td><td><span class="rc i-badge">I</span></td><td><span class="rc a-badge">A</span></td><td><span class="rc r-badge">R</span></td><td></td><td><span class="rc c-badge">C</span></td></tr>
+            <tr><td>On-site execution</td><td><span class="rc i-badge">I</span></td><td><span class="rc a-badge">A</span></td><td></td><td><span class="rc r-badge">R</span></td><td><span class="rc r-badge">R</span></td></tr>
+            <tr><td>Attendee follow-up</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td><span class="rc c-badge">C</span></td><td></td><td></td></tr>
+            <tr><td>Post-event content</td><td><span class="rc i-badge">I</span></td><td><span class="rc c-badge">C</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td></td><td><span class="rc r-badge">R</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="succession-box">
+      <div class="succession-label">Succession Commitment</div>
+      <div class="succession-text">
+        The Events Director trains 2 successors by having them shadow and co-lead at least 2 events before taking full ownership. The MC role is the hardest to hand over — start there. Document the event run-of-show template so any trained lead can execute it.
+      </div>
+    </div>
+  </div>
+  <div class="dept-divider"></div>
+
+
+  <!-- ============================================================ -->
+  <!-- DEPT 3: SCHOOL -->
+  <!-- ============================================================ -->
+  <div class="dept-section" id="school">
+    <div class="dept-header">
+      <div class="dept-left">
+        <div class="dept-number">Department 03 of 09</div>
+        <div class="dept-name">School</div>
+        <div class="dept-role">Lead: School Director</div>
+      </div>
+      <div class="dept-right">
+        <div class="dept-purpose">"Structured learning for founders who want to go deeper."</div>
+      </div>
+    </div>
+
+    <div class="blocks">
+      <div class="block full">
+        <div class="block-label">Why This Department Exists</div>
+        <div class="block-title">Some founders need more than mentorship. They need a curriculum.</div>
+        <p style="font-size:13px;color:var(--soft);line-height:1.8;max-width:680px;">
+          Terra School provides structured, modular learning for founders who want to build specific skills — finance, operations, leadership, marketing. It's practical, taught by practitioners, and designed to be completed alongside running a business. The School Director owns the curriculum quality, teacher relationships, and student experience from enrollment to completion.
+        </p>
+      </div>
+
+      <div class="block">
+        <div class="block-label">Core Responsibilities</div>
+        <ul class="task-list">
+          <li class="task-item"><span class="task-dot dot-critical"></span>Design and maintain curriculum structure each cycle</li>
+          <li class="task-item"><span class="task-dot dot-critical"></span>Recruit, vet, and brief session teachers</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Run weekly school sessions on schedule</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Launch enrollment campaigns each cycle</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Run student orientation at cycle start</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Track attendance and flag disengagement</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Assign and review module tasks</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Conduct mid-cycle review and adjust</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Approve completions and issue certificates</li>
+          <li class="task-item"><span class="task-dot dot-medium"></span>Collect student feedback per module</li>
+          <li class="task-item"><span class="task-dot dot-medium"></span>Build teacher pipeline 2 cycles ahead</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="block-label">What Success Looks Like</div>
+        <ul class="metrics-list">
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Students finish what they start</div>
+              <div class="metric-text">Completion rate above 70%. Mid-cycle check-in catches disengagement before it becomes dropout.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Teachers come back</div>
+              <div class="metric-text">A teacher who has a good experience refers the next teacher. The pipeline self-fills.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Content is actionable, not theoretical</div>
+              <div class="metric-text">Every session ends with something a founder can do this week. Not just something they know.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">School and Mentorship cross-refer</div>
+              <div class="metric-text">Mentors recommend School to mentees with specific skill gaps. School graduates become mentorship candidates.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="block full">
+        <div class="block-label">RACI — Key Functions</div>
+        <table class="raci-table">
+          <thead>
+            <tr>
+              <th>Function</th>
+              <th>COO</th>
+              <th>School Director</th>
+              <th>Teacher</th>
+              <th>Marketing Lead</th>
+              <th>Volunteer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Curriculum design</td><td><span class="rc c-badge">C</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td><span class="rc c-badge">C</span></td><td></td><td></td></tr>
+            <tr><td>Teacher recruitment & briefing</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td></td><td></td><td></td></tr>
+            <tr><td>Session delivery</td><td><span class="rc i-badge">I</span></td><td><span class="rc a-badge">A</span></td><td><span class="rc r-badge">R</span></td><td></td><td><span class="rc c-badge">C</span></td></tr>
+            <tr><td>Enrollment campaign</td><td><span class="rc i-badge">I</span></td><td><span class="rc a-badge">A</span></td><td></td><td><span class="rc r-badge">R</span></td><td><span class="rc c-badge">C</span></td></tr>
+            <tr><td>Student tracking & feedback</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td><span class="rc c-badge">C</span></td><td></td><td><span class="rc r-badge">R</span></td></tr>
+            <tr><td>Completion & certification</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td></td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="succession-box">
+      <div class="succession-label">Succession Commitment</div>
+      <div class="succession-text">
+        The School Director trains 2 successors who shadow the full enrollment-to-completion cycle. The curriculum documentation is the key handover asset — if it's documented well enough that a new director can teach from it without the previous director in the room, succession is ready.
+      </div>
+    </div>
+  </div>
+  <div class="dept-divider"></div>
+
+
+  <!-- ============================================================ -->
+  <!-- DEPT 4: VOLUNTEERS -->
+  <!-- ============================================================ -->
+  <div class="dept-section" id="volunteers">
+    <div class="dept-header">
+      <div class="dept-left">
+        <div class="dept-number">Department 04 of 09</div>
+        <div class="dept-name">Volunteers</div>
+        <div class="dept-role">Lead: Community Lead</div>
+      </div>
+      <div class="dept-right">
+        <div class="dept-purpose">"The people who make Terra run. Treated like the leaders they are."</div>
+      </div>
+    </div>
+
+    <div class="blocks">
+      <div class="block full">
+        <div class="block-label">Why This Department Exists</div>
+        <div class="block-title">Terra runs on human energy. The Volunteer team protects and grows it.</div>
+        <p style="font-size:13px;color:var(--soft);line-height:1.8;max-width:680px;">
+          Volunteers are not free labor. They are people who choose to give their time because Terra means something to them. The Community Lead's job is to make sure that choice stays meaningful — by matching people to roles that fit them, recognizing their contribution, watching for burnout, and creating a clear pathway from volunteer to leader. When volunteers feel like they're growing, they stay. When they feel like they're just doing tasks, they disappear.
+        </p>
+      </div>
+
+      <div class="block">
+        <div class="block-label">Core Responsibilities</div>
+        <ul class="task-list">
+          <li class="task-item"><span class="task-dot dot-high"></span>Run ongoing volunteer recruitment campaigns</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Screen applicants and match to right department</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Run volunteer orientation every new intake</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Maintain live volunteer roster with roles and availability</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Monthly 1:1 check-in with every active volunteer</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Proactively flag burnout risk before it becomes departure</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Identify volunteers ready for leadership roles</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Maintain succession pipeline across all departments</li>
+          <li class="task-item"><span class="task-dot dot-medium"></span>Buddy system for all new volunteers in first 30 days</li>
+          <li class="task-item"><span class="task-dot dot-medium"></span>Manage respectful volunteer offboarding</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="block-label">What Success Looks Like</div>
+        <ul class="metrics-list">
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Volunteers stay for more than one cycle</div>
+              <div class="metric-text">Retention above 60% cycle-on-cycle. High turnover means the experience isn't right — not that volunteers aren't committed enough.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Every department has its succession filled</div>
+              <div class="metric-text">No department is one departure away from a gap. The roster shows who's being trained for what.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Volunteers refer other volunteers</div>
+              <div class="metric-text">The best sign the experience is good: people bring their friends.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Zero surprise departures</div>
+              <div class="metric-text">Monthly check-ins mean burnout and disengagement are caught early. No one disappears without a conversation first.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="block full">
+        <div class="block-label">RACI — Key Functions</div>
+        <table class="raci-table">
+          <thead>
+            <tr>
+              <th>Function</th>
+              <th>COO</th>
+              <th>Community Lead</th>
+              <th>Dept Leads</th>
+              <th>Volunteer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Volunteer recruitment</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td><span class="rc c-badge">C</span></td><td></td></tr>
+            <tr><td>Screening & placement</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td><span class="rc c-badge">C</span></td><td></td></tr>
+            <tr><td>Orientation & onboarding</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td><span class="rc c-badge">C</span></td><td></td></tr>
+            <tr><td>Ongoing check-ins & wellbeing</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td><span class="rc c-badge">C</span></td><td></td></tr>
+            <tr><td>Succession planning</td><td><span class="rc c-badge">C</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td><span class="rc r-badge">R</span></td><td></td></tr>
+            <tr><td>Promotion to lead role</td><td><span class="rc a-badge">A</span></td><td><span class="rc r-badge">R</span></td><td><span class="rc c-badge">C</span></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="succession-box">
+      <div class="succession-label">Succession Commitment</div>
+      <div class="succession-text">
+        The Community Lead trains 2 successors who shadow the full volunteer lifecycle — from recruitment post to offboarding conversation. The monthly check-in process is the most important thing to transfer. Document it in enough detail that a successor can run it from day one.
+      </div>
+    </div>
+  </div>
+  <div class="dept-divider"></div>
+
+
+  <!-- ============================================================ -->
+  <!-- DEPT 5: MARKETING -->
+  <!-- ============================================================ -->
+  <div class="dept-section" id="marketing">
+    <div class="dept-header">
+      <div class="dept-left">
+        <div class="dept-number">Department 05 of 09</div>
+        <div class="dept-name">Marketing</div>
+        <div class="dept-role">Lead: Marketing Lead</div>
+      </div>
+      <div class="dept-right">
+        <div class="dept-purpose">"Tell the Terra story. Bring the right people in."</div>
+      </div>
+    </div>
+
+    <div class="blocks">
+      <div class="block full">
+        <div class="block-label">Why This Department Exists</div>
+        <div class="block-title">Marketing's job is to make sure the right founders find Terra before they need it.</div>
+        <p style="font-size:13px;color:var(--soft);line-height:1.8;max-width:680px;">
+          Terra's marketing is not about followers or impressions. It's about reaching founders in Bali who are building something, feeling isolated, and don't yet know that Terra exists. Everything the Marketing Lead creates — every post, every reel, every message — should make that founder feel like Terra was made for them. Quality over volume. Story over promotion. Community over broadcasting.
+        </p>
+      </div>
+
+      <div class="block">
+        <div class="block-label">Core Responsibilities</div>
+        <ul class="task-list">
+          <li class="task-item"><span class="task-dot dot-high"></span>Build and execute monthly social content calendar</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Create promotional assets for every event</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Manage Terra Telegram channel and WhatsApp community</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Run mentorship application campaigns each cycle</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Track and report marketing funnel metrics monthly</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Build and maintain speaker waitlist with Events</li>
+          <li class="task-item"><span class="task-dot dot-medium"></span>Design program and event graphics</li>
+          <li class="task-item"><span class="task-dot dot-medium"></span>Respond to DMs and community inquiries within 24 hours</li>
+          <li class="task-item"><span class="task-dot dot-medium"></span>Capture and publish post-event content</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="block-label">What Success Looks Like</div>
+        <ul class="metrics-list">
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Event attendance grows cycle on cycle</div>
+              <div class="metric-text">Not chasing viral moments. Steady, compounding reach to the right people in Bali.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Mentorship applications fill every cohort</div>
+              <div class="metric-text">The application pipeline never runs dry. Marketing knows when enrollment opens and starts campaigns 3 weeks before.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Community channels feel alive, not broadcast</div>
+              <div class="metric-text">People reply, share, engage. Not just consume. The channel is a community, not a newsletter.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Every piece of content passes the Terra test</div>
+              <div class="metric-text">Would a founder in Bali feel like this was made for them? If not, it doesn't go out.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="block full">
+        <div class="block-label">RACI — Key Functions</div>
+        <table class="raci-table">
+          <thead>
+            <tr>
+              <th>Function</th>
+              <th>COO</th>
+              <th>Marketing Lead</th>
+              <th>Events Director</th>
+              <th>Volunteer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Content calendar & strategy</td><td><span class="rc c-badge">C</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td><span class="rc c-badge">C</span></td><td></td></tr>
+            <tr><td>Event promotional assets</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td><span class="rc c-badge">C</span></td><td><span class="rc r-badge">R</span></td></tr>
+            <tr><td>Community channel management</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td></td><td><span class="rc r-badge">R</span></td></tr>
+            <tr><td>Application campaigns</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td></td><td><span class="rc c-badge">C</span></td></tr>
+            <tr><td>Metrics tracking & reporting</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="succession-box">
+      <div class="succession-label">Succession Commitment</div>
+      <div class="succession-text">
+        The Marketing Lead trains 2 successors who can independently run a full campaign cycle — from content calendar to post-event recap. The content templates and channel access details are documented and stored in Terra's shared systems, not on a personal device.
+      </div>
+    </div>
+  </div>
+  <div class="dept-divider"></div>
+
+
+  <!-- ============================================================ -->
+  <!-- DEPT 6: LOGISTICS -->
+  <!-- ============================================================ -->
+  <div class="dept-section" id="logistics">
+    <div class="dept-header">
+      <div class="dept-left">
+        <div class="dept-number">Department 06 of 09</div>
+        <div class="dept-name">Logistics</div>
+        <div class="dept-role">Lead: Operations Lead</div>
+      </div>
+      <div class="dept-right">
+        <div class="dept-purpose">"When Logistics is working, nobody notices. That's the point."</div>
+      </div>
+    </div>
+
+    <div class="blocks">
+      <div class="block full">
+        <div class="block-label">Why This Department Exists</div>
+        <div class="block-title">Great events don't happen by accident. Logistics makes them inevitable.</div>
+        <p style="font-size:13px;color:var(--soft);line-height:1.8;max-width:680px;">
+          The Operations Lead ensures that every Terra event runs smoothly — venue confirmed, equipment ready, crew briefed, timeline tight. When Logistics does its job, the Events Director can focus on the experience instead of the chaos. The best compliment for this role is that nobody noticed anything went wrong — because nothing did.
+        </p>
+      </div>
+
+      <div class="block">
+        <div class="block-label">Core Responsibilities</div>
+        <ul class="task-list">
+          <li class="task-item"><span class="task-dot dot-critical"></span>Confirm venue minimum 72 hours before every event</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Build and maintain venue relationship pipeline</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Manage equipment checklist and ensure availability</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Build crew rotation schedule across events</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Assign specific crew roles per event and brief them</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>On-site event management from setup to breakdown</li>
+          <li class="task-item"><span class="task-dot dot-medium"></span>Manage printing and physical materials per event</li>
+          <li class="task-item"><span class="task-dot dot-medium"></span>Track and maintain supply inventory</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="block-label">What Success Looks Like</div>
+        <ul class="metrics-list">
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Zero last-minute venue problems</div>
+              <div class="metric-text">72-hour confirmation is the non-negotiable. If it hasn't happened by then, escalate immediately.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Crew knows their role before they arrive</div>
+              <div class="metric-text">No one is figuring out what to do on the day. Every crew member has been briefed with a specific role and timeline.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Equipment checklist completed before every event</div>
+              <div class="metric-text">Never scrambling for a cable or a screen on the day. The checklist is the system.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Venue partners want to work with Terra again</div>
+              <div class="metric-text">We treat every venue like a long-term relationship. We leave it better than we found it. We say thank you.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="block full">
+        <div class="block-label">RACI — Key Functions</div>
+        <table class="raci-table">
+          <thead>
+            <tr>
+              <th>Function</th>
+              <th>COO</th>
+              <th>Operations Lead</th>
+              <th>Events Director</th>
+              <th>Volunteer</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Venue sourcing & confirmation</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td><span class="rc c-badge">C</span></td><td></td></tr>
+            <tr><td>Equipment management</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td></td><td><span class="rc r-badge">R</span></td></tr>
+            <tr><td>Crew assignment & briefing</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td><span class="rc c-badge">C</span></td><td></td></tr>
+            <tr><td>On-site event management</td><td><span class="rc i-badge">I</span></td><td><span class="rc a-badge">A</span></td><td><span class="rc c-badge">C</span></td><td><span class="rc r-badge">R</span></td></tr>
+            <tr><td>Supply inventory</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td></td><td><span class="rc r-badge">R</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="succession-box">
+      <div class="succession-label">Succession Commitment</div>
+      <div class="succession-text">
+        The Operations Lead trains 2 successors who shadow at least 3 events in full — setup through breakdown. The event checklist is the core handover document. If a new lead can run an event from the checklist alone without calling the previous lead, succession is complete.
+      </div>
+    </div>
+  </div>
+  <div class="dept-divider"></div>
+
+
+  <!-- ============================================================ -->
+  <!-- DEPT 7: COMPLIANCE -->
+  <!-- ============================================================ -->
+  <div class="dept-section" id="compliance">
+    <div class="dept-header">
+      <div class="dept-left">
+        <div class="dept-number">Department 07 of 09</div>
+        <div class="dept-name">Compliance</div>
+        <div class="dept-role">Lead: Systems & Data Lead</div>
+      </div>
+      <div class="dept-right">
+        <div class="dept-purpose">"The system that keeps Terra honest with itself."</div>
+      </div>
+    </div>
+
+    <div class="blocks">
+      <div class="block full">
+        <div class="block-label">Why This Department Exists</div>
+        <div class="block-title">What gets measured gets maintained. Compliance keeps Terra from drifting.</div>
+        <p style="font-size:13px;color:var(--soft);line-height:1.8;max-width:680px;">
+          Terra runs on trust — and trust requires consistency. The Systems & Data Lead tracks attendance, flags policy breaches, monitors volunteer wellbeing signals, and submits weekly reports that give leadership a clear view of how the community is actually functioning. This is not about enforcement. It's about making sure small problems are caught before they become big ones.
+        </p>
+      </div>
+
+      <div class="block">
+        <div class="block-label">Core Responsibilities</div>
+        <ul class="task-list">
+          <li class="task-item"><span class="task-dot dot-critical"></span>Maintain master attendance dashboard — updated within 24h of each session</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Send absence alerts to relevant program leads</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Maintain policy breach log with dates and context</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Escalate repeated breaches to COO with full record</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Submit weekly compliance report every Monday</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Monitor volunteer policy adherence across departments</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Flag burnout risk signals to Community Lead immediately</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="block-label">What Success Looks Like</div>
+        <ul class="metrics-list">
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Weekly report lands every Monday without chasing</div>
+              <div class="metric-text">Consistency is the job. One missed report breaks the system's reliability for everyone who depends on it.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">No problem is a surprise to leadership</div>
+              <div class="metric-text">Attendance drops, policy breaches, burnout signals — leadership hears about them from Compliance before they become visible problems.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Data is clean, current, and accessible</div>
+              <div class="metric-text">Any department lead can check the dashboard and trust what they see. No outdated records. No missing entries.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">The role feels like support, not surveillance</div>
+              <div class="metric-text">The Systems Lead's tone matters. This role serves the community by keeping it healthy — it's not policing people.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="block full">
+        <div class="block-label">RACI — Key Functions</div>
+        <table class="raci-table">
+          <thead>
+            <tr>
+              <th>Function</th>
+              <th>COO</th>
+              <th>Systems Lead</th>
+              <th>Dept Leads</th>
+              <th>Community Lead</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Attendance dashboard</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td><span class="rc c-badge">C</span></td><td></td></tr>
+            <tr><td>Absence alerts</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td><span class="rc i-badge">I</span></td><td><span class="rc i-badge">I</span></td></tr>
+            <tr><td>Policy breach log & escalation</td><td><span class="rc a-badge">A</span></td><td><span class="rc r-badge">R</span></td><td><span class="rc c-badge">C</span></td><td></td></tr>
+            <tr><td>Weekly compliance report</td><td><span class="rc a-badge">A</span></td><td><span class="rc r-badge">R</span></td><td><span class="rc i-badge">I</span></td><td><span class="rc i-badge">I</span></td></tr>
+            <tr><td>Burnout signal monitoring</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span></td><td><span class="rc c-badge">C</span></td><td><span class="rc a-badge">A</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="succession-box">
+      <div class="succession-label">Succession Commitment</div>
+      <div class="succession-text">
+        The Systems Lead trains 2 successors by giving them access to and ownership of the dashboard first, then the reporting process. The weekly report template is the core handover document. A successor is ready when they've submitted 4 consecutive reports independently without guidance.
+      </div>
+    </div>
+  </div>
+  <div class="dept-divider"></div>
+
+
+  <!-- ============================================================ -->
+  <!-- DEPT 8: SPONSORSHIP -->
+  <!-- ============================================================ -->
+  <div class="dept-section" id="sponsorship">
+    <div class="dept-header">
+      <div class="dept-left">
+        <div class="dept-number">Department 08 of 09</div>
+        <div class="dept-name">Sponsorship</div>
+        <div class="dept-role">Lead: Sponsorship Lead</div>
+      </div>
+      <div class="dept-right">
+        <div class="dept-purpose">"The fuel that keeps everything free. Earned through alignment, not sales."</div>
+      </div>
+    </div>
+
+    <div class="blocks">
+      <div class="block full">
+        <div class="block-label">Why This Department Exists</div>
+        <div class="block-title">Terra is free because sponsors believe in what it does. That relationship must be earned and protected.</div>
+        <p style="font-size:13px;color:var(--soft);line-height:1.8;max-width:680px;">
+          Sponsorship is not sales. It's partnership. The Sponsorship Lead finds businesses and organizations whose values align with Terra — who want to support a founder community not because it's a marketing channel, but because they genuinely believe in what Terra is building. The relationship is maintained with transparency, delivered value, and honest reporting. Sponsors who feel like partners renew. Sponsors who feel like customers leave.
+        </p>
+      </div>
+
+      <div class="block">
+        <div class="block-label">Core Responsibilities</div>
+        <ul class="task-list">
+          <li class="task-item"><span class="task-dot dot-critical"></span>Define and maintain sponsorship packages and tiers</li>
+          <li class="task-item"><span class="task-dot dot-critical"></span>Secure monthly sponsor commitments to cover operational costs</li>
+          <li class="task-item"><span class="task-dot dot-critical"></span>Allocate sponsor funds to events and marketing with COO</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Build and maintain active sponsor pipeline</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Run outreach to prospective sponsors consistently</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Deliver sponsor visibility commitments at every event</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Send monthly sponsor impact report</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Renew sponsor relationships before they expire</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Coordinate sponsor requirements with Logistics and Events</li>
+          <li class="task-item"><span class="task-dot dot-medium"></span>Maintain signed sponsor agreements log</li>
+          <li class="task-item"><span class="task-dot dot-medium"></span>Issue post-event sponsor thank you and recap</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="block-label">What Success Looks Like</div>
+        <ul class="metrics-list">
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Operational costs covered every month</div>
+              <div class="metric-text">Terra's core operations — venue, materials, marketing — never stop because funding ran out. The pipeline is always 2 months ahead.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Sponsors renew without being chased</div>
+              <div class="metric-text">The monthly report and consistent delivery mean sponsors already know the value before the renewal conversation.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Sponsors refer other sponsors</div>
+              <div class="metric-text">The best sign a sponsor relationship is working: they bring a colleague who wants in too.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Terra's integrity is never compromised for a sponsor</div>
+              <div class="metric-text">No sponsor gets influence over Terra's content, community, or values. Sponsorship buys visibility and association — nothing else.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="block full">
+        <div class="block-label">RACI — Key Functions</div>
+        <table class="raci-table">
+          <thead>
+            <tr>
+              <th>Function</th>
+              <th>COO</th>
+              <th>Sponsorship Lead</th>
+              <th>Events Director</th>
+              <th>Operations Lead</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Package design & pricing</td><td><span class="rc a-badge">A</span></td><td><span class="rc r-badge">R</span></td><td><span class="rc c-badge">C</span></td><td></td></tr>
+            <tr><td>Sponsor outreach & pipeline</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td></td><td></td></tr>
+            <tr><td>Fund allocation</td><td><span class="rc a-badge">A</span></td><td><span class="rc r-badge">R</span></td><td><span class="rc c-badge">C</span></td><td><span class="rc c-badge">C</span></td></tr>
+            <tr><td>Sponsor visibility at events</td><td><span class="rc i-badge">I</span></td><td><span class="rc a-badge">A</span></td><td><span class="rc r-badge">R</span></td><td><span class="rc r-badge">R</span></td></tr>
+            <tr><td>Monthly sponsor reporting</td><td><span class="rc i-badge">I</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td></td><td></td></tr>
+            <tr><td>Renewal & relationship</td><td><span class="rc c-badge">C</span></td><td><span class="rc r-badge">R</span><span class="rc a-badge" style="margin-left:4px">A</span></td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="succession-box">
+      <div class="succession-label">Succession Commitment</div>
+      <div class="succession-text">
+        The Sponsorship Lead trains 2 successors who shadow the full sponsor lifecycle — from first outreach to renewal conversation. The sponsor agreements log and the monthly report template are the core handover documents. Warm introductions to existing sponsors are made before the handover is complete.
+      </div>
+    </div>
+  </div>
+  <div class="dept-divider"></div>
+
+
+  <!-- ============================================================ -->
+  <!-- DEPT 9: COO -->
+  <!-- ============================================================ -->
+  <div class="dept-section" id="coo">
+    <div class="dept-header">
+      <div class="dept-left">
+        <div class="dept-number">Department 09 of 09</div>
+        <div class="dept-name">COO</div>
+        <div class="dept-role">Chief Operating Officer</div>
+      </div>
+      <div class="dept-right">
+        <div class="dept-purpose">"Builds the system. Protects the purpose. Gets out of the way."</div>
+      </div>
+    </div>
+
+    <div class="blocks">
+      <div class="block full">
+        <div class="block-label">Why This Role Exists</div>
+        <div class="block-title">The COO's job is to make themselves unnecessary — one department at a time.</div>
+        <p style="font-size:13px;color:var(--soft);line-height:1.8;max-width:680px;">
+          The COO holds the architecture of Terra — the systems, the standards, the north star. But the measure of a good COO is not how much they do. It's how well Terra runs when they step back. Every decision the COO makes should be building toward a Terra that operates independently, keeps its values intact, and grows without depending on any single person — including the COO.
+        </p>
+      </div>
+
+      <div class="block">
+        <div class="block-label">Core Responsibilities</div>
+        <ul class="task-list">
+          <li class="task-item"><span class="task-dot dot-critical"></span>Define and protect Terra's purpose, values, and non-negotiables</li>
+          <li class="task-item"><span class="task-dot dot-critical"></span>Ensure all 9 departments have clear leads and working systems</li>
+          <li class="task-item"><span class="task-dot dot-critical"></span>Hold final accountability for all critical decisions</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Weekly review of compliance report and department health</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Approve sponsorship packages and fund allocation</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Support department leads — remove blockers, not do their work</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Oversee succession planning across all departments</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Represent Terra externally — partnerships, collaborations</li>
+          <li class="task-item"><span class="task-dot dot-high"></span>Quarterly review of Terra's overall direction and health</li>
+          <li class="task-item"><span class="task-dot dot-medium"></span>Document decisions and rationale for institutional memory</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <div class="block-label">What Success Looks Like</div>
+        <ul class="metrics-list">
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Terra runs for 30 days without the COO and nothing breaks</div>
+              <div class="metric-text">If this isn't possible yet, it's the most important thing to work toward. Every other metric is secondary.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Every department lead makes decisions independently</div>
+              <div class="metric-text">Leads come to the COO for support, not permission. The difference matters enormously.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">Terra's values are visible in every department's behavior</div>
+              <div class="metric-text">Not because the COO is watching. Because the system rewards it.</div>
+            </div>
+          </li>
+          <li class="metric-item">
+            <div class="metric-icon"></div>
+            <div>
+              <div class="metric-title">The community is growing and the trust is intact</div>
+              <div class="metric-text">More founders. More mentors. More impact. Zero compromises on the things that make Terra worth joining.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="block full">
+        <div class="block-label">RACI — COO's Cross-Department Accountabilities</div>
+        <table class="raci-table">
+          <thead>
+            <tr>
+              <th>Function</th>
+              <th>COO Role</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Terra purpose & values</td><td><span class="rc a-badge">A</span> Accountable</td><td style="font-size:11px;color:var(--muted)">Non-negotiable. Cannot be delegated.</td></tr>
+            <tr><td>Department lead appointments</td><td><span class="rc a-badge">A</span> Accountable</td><td style="font-size:11px;color:var(--muted)">With Community Lead input on succession.</td></tr>
+            <tr><td>Critical incident decisions</td><td><span class="rc a-badge">A</span> Accountable</td><td style="font-size:11px;color:var(--muted)">Escalated by Systems Lead. COO decides.</td></tr>
+            <tr><td>Fund allocation</td><td><span class="rc a-badge">A</span> Accountable</td><td style="font-size:11px;color:var(--muted)">With Sponsorship Lead recommendation.</td></tr>
+            <tr><td>External partnerships</td><td><span class="rc r-badge">R</span> Responsible</td><td style="font-size:11px;color:var(--muted)">COO leads. Department leads consulted.</td></tr>
+            <tr><td>Weekly department operations</td><td><span class="rc i-badge">I</span> Informed</td><td style="font-size:11px;color:var(--muted)">Via compliance report. Not in every room.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="succession-box">
+      <div class="succession-label">A Note on COO Succession</div>
+      <div class="succession-text">
+        The COO role is the last to be succeeded — but it must be planned. As Terra grows, the COO trains one person who understands the full architecture: the purpose document, the department playbooks, the values, and the non-negotiables. The goal is a Terra where the COO can step into a strategic role and Terra's operations continue without interruption.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <div class="page-footer">
+    <div class="footer-left">"The structure is what sets the people free."</div>
+    <div class="footer-right">
+      Terra Bali · Department Playbooks<br>
+      Internal Reference · v1.0 · 2025<br>
+      Nothing is for Sale
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
