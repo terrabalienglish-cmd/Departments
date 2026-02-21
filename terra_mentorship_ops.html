@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terra Bali — Mentorship Operations Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --surface: #0f0f0f;
+    --surface2: #131313;
+    --surface3: #161616;
+    --border: #1e1e1e;
+    --border2: #2a2a2a;
+    --purple: #5B2D8E;
+    --purple-light: #a67dd4;
+    --purple-dim: rgba(91,45,142,0.15);
+    --gold: #C9860A;
+    --gold-light: #F0A830;
+    --crimson: #8B1A3A;
+    --text: #E8E0D5;
+    --muted: #555;
+    --soft: #888;
+    --critical: #E05A3A;
+    --high: #C9860A;
+    --medium: #4A8C6F;
+    --notion: #E8E0D5;
+    --google: #4A8C6F;
+    --whatsapp: #25A244;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 40% at 20% 10%, rgba(139,26,58,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 5%, rgba(91,45,142,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 90% 90%, rgba(201,134,10,0.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(8,8,8,0.97);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 52px; gap: 24px;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .nav-circle { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--gold); box-shadow: 0 0 8px rgba(201,134,10,0.2); }
+  .nav-name { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 300; letter-spacing: 0.4em; }
+  .nav-links { display: flex; overflow-x: auto; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-link { font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0 12px; height: 52px; display: flex; align-items: center; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+  .nav-link:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  /* MAIN */
+  .main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 72px 40px 120px; }
+
+  /* PAGE HEADER */
+  .page-header { margin-bottom: 80px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
+  .page-eyebrow { font-size: 9px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 18px; }
+  .page-title { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; line-height: 1.15; margin-bottom: 20px; }
+  .page-body { font-size: 12.5px; line-height: 1.8; color: var(--soft); max-width: 580px; margin-bottom: 32px; }
+
+  /* TOOL LEGEND */
+  .tool-legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+  .tool-badge { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--border); font-size: 9.5px; letter-spacing: 0.12em; }
+  .tool-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-notion { background: var(--purple-light); }
+  .dot-google { background: var(--google); }
+  .dot-whatsapp { background: var(--whatsapp); }
+
+  /* SECTION HEADERS */
+  .section-block { margin-bottom: 80px; scroll-margin-top: 68px; }
+  .section-eyebrow { font-size: 9px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; margin-bottom: 8px; }
+  .section-body { font-size: 12px; color: var(--soft); line-height: 1.8; max-width: 620px; margin-bottom: 32px; }
+
+  .subsection-title { font-size: 10px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin: 32px 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  /* PROCESS FLOW */
+  .process-flow { display: flex; flex-direction: column; gap: 2px; margin-bottom: 32px; }
+
+  .process-step {
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .process-step:hover { border-color: var(--border2); }
+
+  .step-number {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 500;
+    color: var(--muted);
+    background: var(--surface2);
+    border-right: 1px solid var(--border);
+    padding: 16px 8px;
+    flex-shrink: 0;
+  }
+
+  .step-content { padding: 16px 20px; }
+  .step-title { font-size: 12px; color: var(--text); margin-bottom: 4px; font-weight: 400; }
+  .step-detail { font-size: 11px; color: var(--soft); line-height: 1.6; }
+  .step-trigger { font-size: 10px; color: var(--muted); margin-top: 6px; font-style: italic; }
+
+  .step-meta { padding: 16px 16px 16px 0; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; justify-content: center; }
+
+  .owner-tag { font-size: 8.5px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid var(--border2); color: var(--soft); white-space: nowrap; }
+  .tool-tag { font-size: 8px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid; white-space: nowrap; }
+  .tag-notion { border-color: rgba(166,125,212,0.3); color: var(--purple-light); background: rgba(91,45,142,0.08); }
+  .tag-google { border-color: rgba(74,140,111,0.3); color: #6abf99; background: rgba(74,140,111,0.08); }
+  .tag-whatsapp { border-color: rgba(37,162,68,0.3); color: #4cd470; background: rgba(37,162,68,0.08); }
+  .tag-manual { border-color: rgba(201,134,10,0.3); color: var(--gold-light); background: rgba(201,134,10,0.08); }
+
+  /* Connector */
+  .step-connector { display: flex; justify-content: flex-start; padding-left: 24px; height: 16px; }
+  .connector-line { width: 1px; background: var(--border2); height: 100%; }
+
+  /* PHASE DIVIDER */
+  .phase-divider {
+    display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center;
+    margin: 28px 0 16px;
+  }
+  .phase-label { font-size: 8.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
+  .phase-line { height: 1px; background: linear-gradient(to right, rgba(201,134,10,0.3), transparent); }
+
+  /* TWO COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .panel { background: var(--surface); border: 1px solid var(--border); padding: 24px 28px; }
+  .panel-title { font-size: 9.5px; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  /* SYSTEMS ARCHITECTURE */
+  .system-block { background: var(--surface); border: 1px solid var(--border); margin-bottom: 2px; overflow: hidden; }
+  .system-header { display: flex; align-items: center; gap: 14px; padding: 18px 24px; border-bottom: 1px solid var(--border); }
+  .system-icon { width: 32px; height: 32px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .icon-notion { background: rgba(91,45,142,0.2); border: 1px solid rgba(91,45,142,0.3); }
+  .icon-google { background: rgba(74,140,111,0.15); border: 1px solid rgba(74,140,111,0.25); }
+  .icon-whatsapp { background: rgba(37,162,68,0.15); border: 1px solid rgba(37,162,68,0.25); }
+  .system-name { font-size: 13px; color: var(--text); }
+  .system-role { font-size: 10px; color: var(--soft); margin-top: 2px; }
+  .system-body { padding: 20px 24px; }
+
+  .db-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+  .db-item { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; }
+  .db-item:last-child { border-bottom: none; }
+  .db-name { color: var(--text); margin-bottom: 3px; }
+  .db-desc { font-size: 10.5px; color: var(--soft); line-height: 1.5; }
+  .db-type { font-size: 8px; letter-spacing: 0.1em; padding: 3px 8px; white-space: nowrap; align-self: start; margin-top: 2px; }
+
+  /* DOC LIBRARY */
+  .doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .doc-card { background: var(--surface); border: 1px solid var(--border); padding: 20px 22px; }
+  .doc-type { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; }
+  .doc-name { font-size: 13px; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+  .doc-owner { font-size: 10px; color: var(--muted); margin-bottom: 10px; }
+  .doc-fields { list-style: none; display: flex; flex-direction: column; gap: 0; }
+  .doc-field { font-size: 10.5px; color: var(--soft); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: baseline; }
+  .doc-field:last-child { border-bottom: none; }
+  .field-bullet { color: var(--gold); font-size: 8px; flex-shrink: 0; margin-top: 2px; }
+  .doc-where { display: inline-flex; align-items: center; gap: 5px; font-size: 8.5px; margin-top: 12px; padding: 4px 10px; border: 1px solid var(--border2); color: var(--soft); }
+
+  /* RULES BOX */
+  .rules-box { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--crimson); padding: 22px 28px; margin-bottom: 2px; }
+  .rules-title { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: #c47; margin-bottom: 14px; }
+  .rule-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; color: var(--soft); line-height: 1.6; }
+  .rule-item:last-child { border-bottom: none; }
+  .rule-num { color: var(--gold); font-size: 10px; flex-shrink: 0; min-width: 20px; }
+
+  /* TIMELINE */
+  .timeline { display: flex; flex-direction: column; gap: 0; position: relative; padding-left: 32px; }
+  .timeline::before { content: ''; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 1px; background: var(--border2); }
+  .timeline-item { position: relative; padding: 0 0 24px 24px; }
+  .timeline-dot { position: absolute; left: -32px; top: 6px; width: 13px; height: 13px; border-radius: 50%; border: 2px solid var(--gold); background: var(--bg); flex-shrink: 0; }
+  .timeline-week { font-size: 8.5px; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
+  .timeline-title { font-size: 13px; color: var(--text); margin-bottom: 6px; }
+  .timeline-body { font-size: 11px; color: var(--soft); line-height: 1.7; }
+
+  /* NOTION SCHEMA */
+  .schema-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .schema-table th { font-size: 8.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border2); font-weight: 400; }
+  .schema-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--soft); vertical-align: top; line-height: 1.5; }
+  .schema-table tr:last-child td { border-bottom: none; }
+  .schema-table tr:hover td { background: rgba(255,255,255,0.01); }
+  .field-type { font-size: 9px; padding: 2px 7px; border-radius: 2px; background: var(--surface2); border: 1px solid var(--border2); color: var(--muted); white-space: nowrap; }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); padding: 22px 28px; margin-bottom: 2px; }
+  .highlight-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--gold-light); margin-bottom: 10px; }
+  .highlight-body { font-size: 12px; color: var(--soft); line-height: 1.8; max-width: 700px; }
+
+  /* FOOTER */
+  .page-footer { margin-top: 80px; padding-top: 28px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-left { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; color: var(--muted); }
+  .footer-right { font-size: 8.5px; letter-spacing: 0.15em; color: var(--muted); text-align: right; line-height: 2; }
+
+  @media (max-width: 760px) {
+    .nav { padding: 0 16px; }
+    .main { padding: 48px 16px 80px; }
+    .two-col, .three-col, .doc-grid { grid-template-columns: 1fr; }
+    .process-step { grid-template-columns: 40px 1fr; }
+    .step-meta { display: none; }
+    .page-title { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-circle"></div>
+    <div class="nav-name">TERRA</div>
+  </div>
+  <div class="nav-links">
+    <a href="#overview" class="nav-link">Overview</a>
+    <a href="#cohort-cycle" class="nav-link">Cohort Cycle</a>
+    <a href="#processes" class="nav-link">Processes</a>
+    <a href="#systems" class="nav-link">Systems</a>
+    <a href="#docs" class="nav-link">Documentation</a>
+    <a href="#rules" class="nav-link">Operating Rules</a>
+    <a href="#kickoff" class="nav-link">Kick-Off Events</a>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header" id="overview">
+    <div class="page-eyebrow">Operations Manual · Department 03 · Mentorship Program</div>
+    <h1 class="page-title">Mentorship<br>Operations</h1>
+    <p class="page-body">
+      This document defines every process, system, and document the Mentorship department needs to run. Read this once to understand the architecture. Then use it every cycle. If something breaks, the answer is in here. If the answer isn't in here, update this document before moving on.
+    </p>
+
+    <div class="two-col" style="margin-top:0;">
+      <div class="panel">
+        <div class="panel-title">What This Document Covers</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Full Cohort Cycle Process</div><div class="db-desc">Every step from pre-cohort planning to post-graduation, in sequence</div></div></li>
+          <li class="db-item"><div><div class="db-name">Mentor Management Process</div><div class="db-desc">Recruitment, selection, orientation, session support, and performance</div></div></li>
+          <li class="db-item"><div><div class="db-name">Mentee Journey Process</div><div class="db-desc">Application, selection, onboarding, weekly cadence, completion</div></div></li>
+          <li class="db-item"><div><div class="db-name">Systems Architecture</div><div class="db-desc">Notion databases, Google sheets, WhatsApp structure</div></div></li>
+          <li class="db-item"><div><div class="db-name">Documentation Library</div><div class="db-desc">Every template, form, and tracker the department owns</div></div></li>
+          <li class="db-item"><div><div class="db-name">Quarterly Kick-Off Events</div><div class="db-desc">Full process for the event that opens each cohort</div></div></li>
+          <li class="db-item"><div><div class="db-name">Operating Rules</div><div class="db-desc">The non-negotiables that govern how this department runs</div></div></li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Department at a Glance</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Program Director</div><div class="db-desc">Owns everything in this document. Trains 2 successors.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Cohort Length</div><div class="db-desc">8 weeks. Fixed. Not negotiable.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Cohort Frequency</div><div class="db-desc">Quarterly — 4 cohorts per year, kick-off each quarter</div></div></li>
+          <li class="db-item"><div><div class="db-name">Session Structure</div><div class="db-desc">1 mentor group session + 1 mentee-only session per week</div></div></li>
+          <li class="db-item"><div><div class="db-name">Completion Standard</div><div class="db-desc">Attend 6 of 8 sessions minimum. Complete weekly tasks.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Success Metric</div><div class="db-desc">75%+ completion rate. Every mentor briefed and supported.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tool-legend">
+      <div class="tool-badge"><div class="tool-dot dot-notion"></div>Notion — operational home</div>
+      <div class="tool-badge"><div class="tool-dot dot-google"></div>Google — forms, data, drive</div>
+      <div class="tool-badge"><div class="tool-dot dot-whatsapp"></div>WhatsApp — community comms only</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- COHORT CYCLE OVERVIEW -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="cohort-cycle">
+    <div class="section-eyebrow">Section 01</div>
+    <h2 class="section-title">The Cohort Cycle</h2>
+    <p class="section-body">Every cohort follows the same structure. Eight phases. Each phase has a clear owner, a clear output, and a clear handoff to the next. The Program Director manages the full timeline. No phase starts without the previous one completed.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-week">Phase 1 · Weeks -6 to -4 Before Cohort Start</div>
+        <div class="timeline-title">Pre-Cohort Setup</div>
+        <div class="timeline-body">Define cohort dates, theme, and capacity. Set KPIs. Brief Marketing on application campaign. Brief Logistics on kick-off event requirements. Open mentor recruitment. Design mentee application form.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-week">Phase 2 · Weeks -4 to -2 Before Cohort Start</div>
+        <div class="timeline-title">Recruitment & Selection</div>
+        <div class="timeline-body">Mentor applications open and close. Screen and approve mentors. Mentee applications open and close. Screen and accept mentees. Send acceptance and rejection communications. All confirmed participants notified.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-week">Phase 3 · Week -1 Before Cohort Start</div>
+        <div class="timeline-title">Onboarding</div>
+        <div class="timeline-body">Run mentor orientation session. Run mentee orientation (Week 0). Collect signed commitment agreements. Assign mentors to groups. Set up WhatsApp cohort groups. Set up cohort dashboard in Notion. Confirm session schedule with all participants.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-week">Phase 4 · Weeks 1–4</div>
+        <div class="timeline-title">Cohort Delivery — First Half</div>
+        <div class="timeline-body">Weekly mentor group sessions run. Weekly mentee-only sessions run. Attendance tracked post each session by Compliance. Weekly tasks assigned and followed up. Check-in messages sent. Engagement monitored.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-week">Phase 5 · End of Week 4</div>
+        <div class="timeline-title">Mid-Cohort Review</div>
+        <div class="timeline-body">Program Director reviews attendance data. Individual check-ins with at-risk mentees. Mentor performance check and escalation if needed. Session quality assessment. Adjustments made for second half. Report submitted to COO.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-week">Phase 6 · Weeks 5–8</div>
+        <div class="timeline-title">Cohort Delivery — Second Half</div>
+        <div class="timeline-body">Sessions continue. Completion tracking active. Graduation list being prepared. Outstanding tasks and absences resolved. Alumni status confirmed for qualifying mentees.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-week">Phase 7 · End of Week 8</div>
+        <div class="timeline-title">Graduation</div>
+        <div class="timeline-body">Graduation list finalised and approved. Graduation ceremony run at workshop event. Certificates issued. Alumni tagged in system. Invite extended to volunteer pool. Graduate stories shared with Marketing for content.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="border-color:var(--purple-light)"></div>
+        <div class="timeline-week">Phase 8 · Week After Graduation</div>
+        <div class="timeline-title">Retrospective & Reset</div>
+        <div class="timeline-body">Post-cohort retrospective with mentors and Program Director. Document learnings. Update playbook. Submit retrospective report to COO. Begin setup for next cohort.</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- DETAILED PROCESSES -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="processes">
+    <div class="section-eyebrow">Section 02</div>
+    <h2 class="section-title">Detailed Processes</h2>
+    <p class="section-body">Each process below is a repeatable workflow. Follow it in order. Every step includes who owns it, what tool is used, and what triggers the next step.</p>
+
+    <!-- PROCESS 1: MENTOR RECRUITMENT -->
+    <div class="phase-divider"><div class="phase-label">Process 01 — Mentor Recruitment & Selection</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Set mentor criteria for this cohort</div>
+          <div class="step-detail">Define the minimum profile: industry, years of experience, what stage of founder they should work with. Write this in Notion before opening applications.</div>
+          <div class="step-trigger">Trigger: 6 weeks before cohort start</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-notion">Notion</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Brief Marketing on mentor recruitment campaign</div>
+          <div class="step-detail">Send Marketing a written brief: what kind of mentor you're looking for, why Terra mentors, the application link, and the deadline. Marketing does not decide the message — they execute it.</div>
+          <div class="step-trigger">Trigger: Brief sent within 48h of criteria being set</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director → Marketing</span><span class="tool-tag tag-notion">Notion brief</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Open mentor application form</div>
+          <div class="step-detail">Activate the Google Form. Share link with Marketing. Form collects: name, background, business type, why they want to mentor, availability, session format preference.</div>
+          <div class="step-trigger">Trigger: Marketing brief approved</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-google">Google Form</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Review applications against criteria</div>
+          <div class="step-detail">Score each application using the standard rubric in Notion. Flag borderline cases for a second read. The decision is made by Program Director — not committee. Aim for 3–5 mentors per cohort maximum.</div>
+          <div class="step-trigger">Trigger: Application window closes (5 days before mentee applications open)</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-notion">Notion + Google Sheet</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Send acceptance and rejection communications</div>
+          <div class="step-detail">Accepted: personal email with welcome, what to expect, and orientation date. Rejected: brief, kind, specific. Never ghosted. Every applicant gets a response within 48h of decision.</div>
+          <div class="step-trigger">Trigger: Selection complete</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-google">Gmail</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">06</div>
+        <div class="step-content">
+          <div class="step-title">Run mentor orientation session</div>
+          <div class="step-detail">60-minute session. Covers: Terra's values, what mentors are and are not responsible for, session format, attendance expectations, how to handle difficult mentee situations, escalation path. Every mentor leaves knowing exactly what's expected.</div>
+          <div class="step-trigger">Trigger: 1 week before cohort starts</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-manual">In-person or online</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">07</div>
+        <div class="step-content">
+          <div class="step-title">Collect signed mentor expectations document</div>
+          <div class="step-detail">Every mentor signs the expectations document before being confirmed. No signature, no confirmation. Stored in Google Drive under Cohort folder.</div>
+          <div class="step-trigger">Trigger: Post-orientation, before cohort start</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-google">Google Drive</span></div>
+      </div>
+    </div>
+
+    <!-- PROCESS 2: MENTEE APPLICATION -->
+    <div class="phase-divider"><div class="phase-label">Process 02 — Mentee Application & Selection</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Set mentee cohort capacity</div>
+          <div class="step-detail">Decide max number of mentees based on mentor count. Rule: maximum 5 mentees per mentor. Never exceed this. Quality over scale.</div>
+          <div class="step-trigger">Trigger: Mentor selection complete</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-notion">Notion</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Brief Marketing on mentee application campaign</div>
+          <div class="step-detail">Written brief: who should apply, what they get from the program, the ICP profile, application deadline, and any cohort-specific angle. This feeds all content and the kick-off event CTA.</div>
+          <div class="step-trigger">Trigger: Capacity confirmed. Brief sent minimum 3 weeks before applications open.</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director → Marketing</span><span class="tool-tag tag-notion">Notion brief</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Open mentee application form</div>
+          <div class="step-detail">Activate Google Form. Form collects: name, business type, stage, specific challenge they want help with, what they commit to, and agreement to attendance policy. The commitment section is non-skippable.</div>
+          <div class="step-trigger">Trigger: Quarterly kick-off event (primary launch point)</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-google">Google Form</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Review applications against cohort ICP</div>
+          <div class="step-detail">Program Director reviews all applications. Prioritise: clarity of challenge, commitment demonstrated in application language, stage match with available mentors. Use scoring rubric in Notion.</div>
+          <div class="step-trigger">Trigger: Application window closes</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-notion">Notion + Google Sheet</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Send acceptance communications</div>
+          <div class="step-detail">Accepted: personal email with welcome, orientation details, what to prepare, and commitment reminder. Waitlisted: honest, kind, specific timeline. Declined: always responded to. Never ghosted.</div>
+          <div class="step-trigger">Trigger: Within 48h of selection complete</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-google">Gmail template</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">06</div>
+        <div class="step-content">
+          <div class="step-title">Assign mentees to mentor groups</div>
+          <div class="step-detail">Match based on: business stage, challenge type, industry where relevant. Document assignments in Notion cohort database. Notify mentors of their group composition before orientation.</div>
+          <div class="step-trigger">Trigger: All acceptances confirmed</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-notion">Notion</span></div>
+      </div>
+    </div>
+
+    <!-- PROCESS 3: WEEKLY SESSION -->
+    <div class="phase-divider"><div class="phase-label">Process 03 — Weekly Session Cadence</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Send weekly session reminder (Monday morning)</div>
+          <div class="step-detail">WhatsApp cohort group: time, location/link, what to bring. Keep it short. Keep it consistent. Same format every week so mentees stop reading it and just know.</div>
+          <div class="step-trigger">Trigger: Every Monday of cohort</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director or Volunteer</span><span class="tool-tag tag-whatsapp">WhatsApp</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Run mentor group session</div>
+          <div class="step-detail">Mentor leads the session using their own format. Program Director does not interfere. Session structure: check-in (10 min), focus work (40 min), takeaways and task assignment (10 min). Attendance marked by Volunteer in real time.</div>
+          <div class="step-trigger">Trigger: Scheduled session day</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Mentor (facilitated) + Volunteer (attendance)</span><span class="tool-tag tag-manual">In-person</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Submit attendance to Compliance within 2h</div>
+          <div class="step-detail">Volunteer submits attendance data to Compliance Lead. Format: cohort name, session number, date, present/absent list. No exceptions on timing — the 2h rule protects the whole reporting chain.</div>
+          <div class="step-trigger">Trigger: Session ends</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Volunteer → Compliance</span><span class="tool-tag tag-google">Google Sheet</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Run mentee-only session (same week)</div>
+          <div class="step-detail">Program Director facilitates. No mentors present. This is where mentees share what they're not ready to share with mentors yet — blockers, confidence issues, group dynamics. What's said here stays here.</div>
+          <div class="step-trigger">Trigger: 2–3 days after mentor session</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-manual">In-person or online</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Assign weekly task and follow up</div>
+          <div class="step-detail">One clear task per mentee, agreed in session. Posted to WhatsApp cohort group same day. Check-in message sent mid-week. No task completion = flag in Notion tracker, not a public message.</div>
+          <div class="step-trigger">Trigger: Post-mentor session</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Mentor assigns, Program Director tracks</span><span class="tool-tag tag-notion">Notion tracker</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">06</div>
+        <div class="step-content">
+          <div class="step-title">Flag issues before next session</div>
+          <div class="step-detail">If a mentee misses a session or fails to complete tasks 2 weeks in a row, Program Director reaches out privately before the next session — not after. Early intervention prevents dropout.</div>
+          <div class="step-trigger">Trigger: Compliance alert or personal observation</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-google">Gmail or WhatsApp direct</span></div>
+      </div>
+    </div>
+
+    <!-- PROCESS 4: MID-COHORT REVIEW -->
+    <div class="phase-divider"><div class="phase-label">Process 04 — Mid-Cohort Review</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Pull attendance and task completion data from Compliance</div>
+          <div class="step-detail">Request updated dashboard from Compliance Lead. Review: who has missed 2+ sessions, who has task completion below 50%, any policy breach flags.</div>
+          <div class="step-trigger">Trigger: End of Week 4</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-notion">Notion dashboard</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Conduct 1:1 check-ins with at-risk mentees</div>
+          <div class="step-detail">Private conversation — not group. Understand the blocker. Offer support. Set expectation. Document the conversation in Notion. This is care, not enforcement.</div>
+          <div class="step-trigger">Trigger: Any mentee with 2+ absences or less than 50% task completion</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-manual">Direct conversation</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Check in with every mentor</div>
+          <div class="step-detail">Brief 1:1 with each mentor. What's working? What's not? Is there a mentee they're concerned about? Is the group dynamic healthy? Any support needed? Document in Notion.</div>
+          <div class="step-trigger">Trigger: End of Week 4</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-manual">Direct conversation</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Submit mid-cohort review report to COO</div>
+          <div class="step-detail">One page. Covers: current completion trajectory, flags, actions taken, any structural adjustments for second half, forecast for graduation numbers. COO is informed, not managing this.</div>
+          <div class="step-trigger">Trigger: Within 3 days of check-ins complete</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director → COO</span><span class="tool-tag tag-notion">Notion report</span></div>
+      </div>
+    </div>
+
+    <!-- PROCESS 5: GRADUATION -->
+    <div class="phase-divider"><div class="phase-label">Process 05 — Graduation</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Compile graduation eligibility list</div>
+          <div class="step-detail">Pull attendance data. Criteria: attended 6 of 8 sessions minimum, completed at least 60% of weekly tasks, no unresolved policy breach. Program Director makes final call on borderline cases.</div>
+          <div class="step-trigger">Trigger: End of Week 7</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director + Compliance</span><span class="tool-tag tag-google">Google Sheet + Notion</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Notify graduates in advance</div>
+          <div class="step-detail">Private message to each graduate: congratulations, graduation ceremony details, what graduation means for their Terra membership. Also notify non-completers privately and respectfully — with door open for next cohort.</div>
+          <div class="step-trigger">Trigger: 5 days before graduation ceremony</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-google">Gmail template</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Brief Marketing on graduation content</div>
+          <div class="step-detail">Provide graduate names (with permission), key stories from the cohort, any transformation moments. Marketing creates recognition content. Nothing goes out without graduate approval.</div>
+          <div class="step-trigger">Trigger: Graduation list finalised</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director → Marketing</span><span class="tool-tag tag-notion">Notion brief</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Run graduation ceremony at workshop event</div>
+          <div class="step-detail">10 minutes within a regular workshop event. Public recognition of each graduate by name and what they worked on. Certificates presented. Invitation extended to alumni community and volunteer pathway.</div>
+          <div class="step-trigger">Trigger: Final week of cohort, coordinated with Workshop Director</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director (MC)</span><span class="tool-tag tag-manual">Workshop event</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Tag graduates as alumni in system</div>
+          <div class="step-detail">Compliance tags all graduates in the master dashboard. Program Director updates Notion cohort database. Graduates added to Terra Alumni WhatsApp group. Certificate PDFs stored in Drive.</div>
+          <div class="step-trigger">Trigger: Same day as ceremony</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Compliance + Program Director</span><span class="tool-tag tag-google">Google Drive + Sheet</span></div>
+      </div>
+    </div>
+
+    <!-- PROCESS 6: RETROSPECTIVE -->
+    <div class="phase-divider"><div class="phase-label">Process 06 — Post-Cohort Retrospective</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Collect mentor feedback (async)</div>
+          <div class="step-detail">Send mentors a short Google Form within 3 days of graduation. Covers: what worked, what didn't, support they needed but didn't get, would they mentor again. Anonymous option available.</div>
+          <div class="step-trigger">Trigger: 3 days post-graduation</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-google">Google Form</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Collect mentee feedback (async)</div>
+          <div class="step-detail">Separate Google Form sent to all mentees — completers and non-completers. Non-completers often give the most useful feedback. Covers: expectations vs reality, where they got stuck, what would have kept them engaged.</div>
+          <div class="step-trigger">Trigger: Same day as mentor form</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-google">Google Form</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Run retrospective session with mentor team</div>
+          <div class="step-detail">60-minute session. Three questions only: What do we keep? What do we change? What do we add? Program Director facilitates. Decisions documented in Notion before anyone leaves the room.</div>
+          <div class="step-trigger">Trigger: 7 days post-graduation</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director + Mentors</span><span class="tool-tag tag-notion">Notion (live doc)</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Update playbook with learnings</div>
+          <div class="step-detail">Every decision from the retrospective gets reflected in this document. The playbook is alive. If a process failed, the process changes. Not the people.</div>
+          <div class="step-trigger">Trigger: Within 5 days of retrospective session</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-notion">Notion (this document)</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Submit retrospective report to COO</div>
+          <div class="step-detail">Final cohort numbers, completion rate vs target, key learnings, changes made for next cycle, readiness for next cohort. One page. Submitted before next cohort planning begins.</div>
+          <div class="step-trigger">Trigger: Playbook updated</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director → COO</span><span class="tool-tag tag-notion">Notion report</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- SYSTEMS ARCHITECTURE -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="systems">
+    <div class="section-eyebrow">Section 03</div>
+    <h2 class="section-title">Systems Architecture</h2>
+    <p class="section-body">Three tools. Everything in its place. Nothing stored in personal devices, personal emails, or WhatsApp chats. If it's not in the system, it doesn't exist for Terra.</p>
+
+    <!-- NOTION -->
+    <div class="system-block">
+      <div class="system-header">
+        <div class="system-icon icon-notion">N</div>
+        <div>
+          <div class="system-name">Notion — Operational Home</div>
+          <div class="system-role">Everything that runs the department lives here. Processes, databases, dashboards, reports, templates.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <div class="subsection-title" style="margin-top:0">Notion Page Structure — Mentorship</div>
+        <ul class="db-list">
+          <li class="db-item">
+            <div>
+              <div class="db-name">📋 Mentorship Home</div>
+              <div class="db-desc">Master page. Links to all sub-pages. Program Director's daily starting point. Contains: current cohort status, quick links, and department health at a glance.</div>
+            </div>
+            <span class="db-type tag-notion">Parent page</span>
+          </li>
+          <li class="db-item">
+            <div>
+              <div class="db-name">📅 Cohort Tracker Database</div>
+              <div class="db-desc">One row per cohort. Tracks: cohort name, dates, theme, mentor count, mentee count, completion rate, status (planning / active / graduated / archived). Filterable by year.</div>
+            </div>
+            <span class="db-type tag-notion">Database</span>
+          </li>
+          <li class="db-item">
+            <div>
+              <div class="db-name">👤 Mentor Database</div>
+              <div class="db-desc">One row per mentor ever. Fields: name, cohorts mentored, industry, status (active / alumnus / inactive), rating (internal), contact. Relations to cohort tracker.</div>
+            </div>
+            <span class="db-type tag-notion">Database</span>
+          </li>
+          <li class="db-item">
+            <div>
+              <div class="db-name">🧑‍💼 Mentee Database</div>
+              <div class="db-desc">One row per mentee ever. Fields: name, cohort, mentor assigned, business type, completion status, alumni status, volunteer conversion. Relations to cohort tracker.</div>
+            </div>
+            <span class="db-type tag-notion">Database</span>
+          </li>
+          <li class="db-item">
+            <div>
+              <div class="db-name">✅ Weekly Task Tracker</div>
+              <div class="db-desc">One row per mentee per week. Fields: mentee, week number, task assigned, status (pending / submitted / not done), notes. Used by Program Director during mid-week check-ins.</div>
+            </div>
+            <span class="db-type tag-notion">Database</span>
+          </li>
+          <li class="db-item">
+            <div>
+              <div class="db-name">📝 Session Notes Log</div>
+              <div class="db-desc">One page per session. Contains: session number, date, mentor, group, attendance, key themes, follow-up actions. Confidential — not shared outside the department.</div>
+            </div>
+            <span class="db-type tag-notion">Database</span>
+          </li>
+          <li class="db-item">
+            <div>
+              <div class="db-name">📊 Mid-Cohort Review Template</div>
+              <div class="db-desc">Locked template. Filled at Week 4. Sections: attendance summary, at-risk mentees, mentor check-in notes, adjustments made, forecast. Submitted to COO.</div>
+            </div>
+            <span class="db-type tag-notion">Template</span>
+          </li>
+          <li class="db-item">
+            <div>
+              <div class="db-name">🎓 Retrospective Template</div>
+              <div class="db-desc">Post-cohort template. Keep / Change / Add format. Final numbers, key learnings, playbook updates, readiness score for next cohort.</div>
+            </div>
+            <span class="db-type tag-notion">Template</span>
+          </li>
+          <li class="db-item">
+            <div>
+              <div class="db-name">📁 Brief Library</div>
+              <div class="db-desc">All briefs sent to Marketing, Logistics, and COO. Stored here by cohort and date. Programme Director can review any previous brief at any time.</div>
+            </div>
+            <span class="db-type tag-notion">Page library</span>
+          </li>
+        </ul>
+
+        <div class="subsection-title">Notion Cohort Database Schema</div>
+        <table class="schema-table">
+          <thead>
+            <tr><th>Field Name</th><th>Type</th><th>Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Cohort Name</td><td><span class="field-type">Title</span></td><td>e.g. "Terra Cohort 04 — Q1 2026"</td></tr>
+            <tr><td>Status</td><td><span class="field-type">Select</span></td><td>Planning / Active / Graduated / Archived</td></tr>
+            <tr><td>Start Date</td><td><span class="field-type">Date</span></td><td>Week 1 session date</td></tr>
+            <tr><td>End Date</td><td><span class="field-type">Date</span></td><td>Graduation ceremony date</td></tr>
+            <tr><td>Cohort Theme</td><td><span class="field-type">Text</span></td><td>e.g. "Revenue & Traction"</td></tr>
+            <tr><td>Mentor Count</td><td><span class="field-type">Number</span></td><td>Confirmed mentors</td></tr>
+            <tr><td>Mentee Count</td><td><span class="field-type">Number</span></td><td>Accepted mentees</td></tr>
+            <tr><td>Graduates</td><td><span class="field-type">Number</span></td><td>Final graduating count</td></tr>
+            <tr><td>Completion Rate</td><td><span class="field-type">Formula</span></td><td>Graduates / Mentee Count %</td></tr>
+            <tr><td>KPI Met</td><td><span class="field-type">Checkbox</span></td><td>Did cohort meet 75% completion target?</td></tr>
+            <tr><td>Program Director</td><td><span class="field-type">Person</span></td><td>Who ran this cohort</td></tr>
+            <tr><td>Retrospective Done</td><td><span class="field-type">Checkbox</span></td><td>Has retro been completed and logged?</td></tr>
+            <tr><td>Notes</td><td><span class="field-type">Text</span></td><td>Key context, unusual circumstances</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- GOOGLE -->
+    <div class="system-block" style="margin-top:2px">
+      <div class="system-header">
+        <div class="system-icon icon-google">G</div>
+        <div>
+          <div class="system-name">Google Workspace — Forms, Data & Files</div>
+          <div class="system-role">Applications, attendance sheets, drive storage, and official comms run through Google.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <div class="subsection-title" style="margin-top:0">Google Drive Folder Structure</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">📁 Terra Mentorship (root folder)</div><div class="db-desc">Shared with Program Director and COO. Contains all sub-folders below.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📁 Cohorts → [Cohort Name] → Documents, Agreements, Attendance</div><div class="db-desc">One folder per cohort. Inside: signed mentor agreements, mentee commitment forms, session attendance sheets, certificates.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📁 Forms (live forms stored here)</div><div class="db-desc">Mentor Application Form, Mentee Application Form, Mentor Feedback Form, Mentee Feedback Form. Reused and reset each cycle — never deleted.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📁 Templates</div><div class="db-desc">All email templates, certificate template, mentor expectations document, commitment agreement. Master copies. Never edit the master — duplicate before using.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📊 Master Attendance Sheet (Google Sheet)</div><div class="db-desc">Maintained by Compliance. One tab per cohort. Program Director has view access. Never manually edited by Program Director — this is Compliance's data.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- WHATSAPP -->
+    <div class="system-block" style="margin-top:2px">
+      <div class="system-header">
+        <div class="system-icon icon-whatsapp">W</div>
+        <div>
+          <div class="system-name">WhatsApp — Community Communication Only</div>
+          <div class="system-role">WhatsApp is for communication, not documentation. Anything important that happens in WhatsApp gets logged in Notion same day. No exceptions.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <div class="subsection-title" style="margin-top:0">WhatsApp Group Structure — Mentorship</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Terra Mentorship — Cohort [X] (group per cohort)</div><div class="db-desc">All mentees + mentors + Program Director. Session reminders, task check-ins, announcements. Archived after graduation. WhatsApp auto-delete set to 90 days.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Terra Mentors (permanent group)</div><div class="db-desc">All active and alumni mentors. Used for mentor community updates, new cohort invitations, and Terra news. Program Director and COO are admins.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Terra Alumni (permanent group)</div><div class="db-desc">All cohort graduates. Community updates, Terra events, occasional opportunities. Not a mentorship group — a continuation of the relationship.</div></div></li>
+        </ul>
+        <div class="highlight-box" style="margin-top:16px;">
+          <div class="highlight-title">The WhatsApp Rule</div>
+          <div class="highlight-body">WhatsApp is a communication channel, not a record-keeping system. Decisions made in WhatsApp are not official until they are documented in Notion. If someone says "agreed" in a WhatsApp message, that doesn't count. The agreement lives in Notion, or it doesn't exist.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- DOCUMENTATION LIBRARY -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="docs">
+    <div class="section-eyebrow">Section 04</div>
+    <h2 class="section-title">Documentation Library</h2>
+    <p class="section-body">Every document the Mentorship department owns. Where it lives, who owns it, and what it contains. Master copies are in Google Drive Templates folder. Notion holds links to live versions.</p>
+
+    <div class="doc-grid">
+
+      <div class="doc-card">
+        <div class="doc-type tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Cohort Planning Doc</div>
+        <div class="doc-owner">Owner: Program Director · Created: 6 weeks before cohort</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Cohort dates, theme, and capacity decision</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>KPI targets (completion %, mentor count, mentee count)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Marketing brief (mentor + mentee campaigns)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Logistics brief for kick-off event</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Timeline with all key dates</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Mentor criteria for this cycle</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Brief Library</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-google" style="background:rgba(74,140,111,0.1);color:#6abf99;border:1px solid rgba(74,140,111,0.25);">Google Form</div>
+        <div class="doc-name">Mentor Application Form</div>
+        <div class="doc-owner">Owner: Program Director · Activated per cohort</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Full name, contact, business name</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Industry and years of experience</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Stage of founder they're best suited to mentor</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Why they want to mentor at Terra (freeform)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Availability — days and times</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Session format preference (in-person / online / either)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Previous mentoring experience (if any)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Forms folder</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-google" style="background:rgba(74,140,111,0.1);color:#6abf99;border:1px solid rgba(74,140,111,0.25);">Google Form</div>
+        <div class="doc-name">Mentee Application Form</div>
+        <div class="doc-owner">Owner: Program Director · Activated per cohort</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Full name, contact, business name, stage</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>One specific challenge they want to solve this cohort</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What they've already tried</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Why now, why Terra</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Commitment acknowledgment (attendance policy, fine structure)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Agreement to be featured in graduation content (opt-in)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Forms folder</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">PDF Document</div>
+        <div class="doc-name">Mentor Expectations Document</div>
+        <div class="doc-owner">Owner: Program Director · Signed before cohort starts</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Terra's values and what they mean in a session context</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What a mentor is responsible for (and what they are not)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Session format, timing, and structure expectations</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Attendance commitment (7 of 8 sessions minimum)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Confidentiality commitment</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Escalation path — how to raise issues with Program Director</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Signature field and date</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Templates + Cohort folder (signed copy)</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">PDF Document</div>
+        <div class="doc-name">Mentee Commitment Agreement</div>
+        <div class="doc-owner">Owner: Program Director · Signed at Week 0 orientation</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Program overview — what 8 weeks looks like</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Attendance policy — miss 3 sessions = exit from cohort</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Fine structure for unexcused absences</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Task commitment — minimum 60% completion to graduate</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Community standards — how we treat each other</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Exit process if commitment cannot be maintained</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Signature field and date</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Templates + Cohort folder (signed copy)</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Mid-Cohort Review Report</div>
+        <div class="doc-owner">Owner: Program Director · Submitted to COO at Week 4</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Current attendance summary (% per mentee)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Task completion rates per group</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>At-risk mentees — names, issue, action taken</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Mentor check-in findings — health of each group</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Adjustments made for second half</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Graduation forecast (projected completion count)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Flags requiring COO awareness</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Cohort page</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Post-Cohort Retrospective</div>
+        <div class="doc-owner">Owner: Program Director · Completed 1 week post-graduation</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Final numbers: enrolled, completed, graduation rate</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>KPI result vs target</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What we keep — processes that worked</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What we change — processes that failed</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What we add — gaps identified</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Mentor and mentee feedback summary</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Playbook updates made (links)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Readiness rating for next cohort</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Cohort page</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-google" style="background:rgba(74,140,111,0.1);color:#6abf99;border:1px solid rgba(74,140,111,0.25);">Google Form</div>
+        <div class="doc-name">Mentor Feedback Form (post-cohort)</div>
+        <div class="doc-owner">Owner: Program Director · Sent 3 days post-graduation</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Overall cohort experience rating (1–5)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What worked well in this cohort?</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What could be improved?</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Support they needed but didn't receive</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Would they mentor again? (Yes / Yes with changes / No)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Would they recommend Terra to another mentor? (NPS-style)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Forms folder</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">Email Template</div>
+        <div class="doc-name">Mentee Acceptance Email</div>
+        <div class="doc-owner">Owner: Program Director · Sent within 48h of selection</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Personal congratulations (not template-sounding)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Cohort dates and what Week 0 orientation looks like</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Link to signed commitment agreement</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What to prepare before orientation</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>WhatsApp group link (sent separately after agreement signed)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Templates</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">Certificate Template</div>
+        <div class="doc-name">Cohort Completion Certificate</div>
+        <div class="doc-owner">Owner: Program Director · Issued at graduation ceremony</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Terra logo and visual brand</div></li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Mentee full name</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Cohort name and dates</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Program Director signature</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>CEO/Anton signature</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Date of graduation</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Templates + Cohort folder (issued copies)</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- OPERATING RULES -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="rules">
+    <div class="section-eyebrow">Section 05</div>
+    <h2 class="section-title">Operating Rules</h2>
+    <p class="section-body">These are non-negotiable. They exist because without them, the quality of the program degrades. If a rule needs to change, change it through the retrospective process — not by exception.</p>
+
+    <div class="rules-box">
+      <div class="rules-title">Non-Negotiable Operating Rules — Mentorship Department</div>
+      <div class="rule-item"><span class="rule-num">01</span>The 8-week program length is fixed. No cohort runs shorter. No extensions. If a mentee can't complete, they apply for the next one.</div>
+      <div class="rule-item"><span class="rule-num">02</span>Maximum 5 mentees per mentor. If we have 3 mentors and 20 applicants, 5 are waitlisted for next cycle. Quality before volume, always.</div>
+      <div class="rule-item"><span class="rule-num">03</span>No mentor starts without a signed expectations document. No mentee starts without a signed commitment agreement. Both filed before Week 1 begins.</div>
+      <div class="rule-item"><span class="rule-num">04</span>Attendance is tracked within 2 hours of each session by Compliance. If the data isn't submitted, the Program Director follows up — not waits.</div>
+      <div class="rule-item"><span class="rule-num">05</span>At-risk mentees are contacted privately, before the group becomes aware. Public pressure is not how Terra operates.</div>
+      <div class="rule-item"><span class="rule-num">06</span>The mentee-only session is confidential. What's said there does not go to mentors. The Program Director holds this boundary without exception.</div>
+      <div class="rule-item"><span class="rule-num">07</span>Every mentor gets a mid-cohort check-in. Not at graduation. Not in the retrospective. At Week 4 — while there's still time to help.</div>
+      <div class="rule-item"><span class="rule-num">08</span>The graduation list is approved, not assumed. Program Director signs off on every name. Data from Compliance is the deciding evidence, not memory or impression.</div>
+      <div class="rule-item"><span class="rule-num">09</span>The retrospective happens every cycle. No exceptions for "we know what went wrong already." The discipline of the process is the point.</div>
+      <div class="rule-item"><span class="rule-num">10</span>Nothing important lives in WhatsApp. If it was said in WhatsApp, it doesn't count unless it's in Notion.</div>
+      <div class="rule-item"><span class="rule-num">11</span>The Program Director trains 2 successors, always. One departure cannot interrupt a cohort in progress.</div>
+      <div class="rule-item"><span class="rule-num">12</span>Every applicant gets a response. No ghosting. Terra's reputation is built in how it treats people who didn't get in, not just those who did.</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- KICK-OFF EVENTS -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="kickoff">
+    <div class="section-eyebrow">Section 06</div>
+    <h2 class="section-title">Quarterly Kick-Off Events</h2>
+    <p class="section-body">Kick-off events are the primary application funnel for the mentorship program. They are owned by the Mentorship department, executed by Logistics, and promoted by Marketing. The Program Director drives the strategy. Everyone else executes.</p>
+
+    <div class="phase-divider"><div class="phase-label">Process — Kick-Off Event End to End</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Define kick-off event strategy and goals</div>
+          <div class="step-detail">What is this event for? Primary goal is always: open mentorship applications and fill the cohort. Secondary goal: celebrate the graduating cohort from the previous cycle. Define the theme, the vibe, the CTA, and the target audience profile.</div>
+          <div class="step-trigger">Trigger: 6 weeks before event date</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-notion">Notion</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Send event brief to Marketing</div>
+          <div class="step-detail">Written brief. Covers: event name, date, location, theme, audience, the story to tell, the CTA, any graduate stories to feature, and content needed (promotional reel, graphics, announcements).</div>
+          <div class="step-trigger">Trigger: 5 weeks before event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director → Marketing</span><span class="tool-tag tag-notion">Notion brief</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Send event brief to Logistics</div>
+          <div class="step-detail">Logistics brief covers: expected attendance, venue requirements, AV needs, registration setup, crew needed, run-of-show outline, sponsor requirements. Minimum 3 weeks ahead — not 1 week.</div>
+          <div class="step-trigger">Trigger: 4 weeks before event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director → Logistics</span><span class="tool-tag tag-notion">Notion brief</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Review and approve all promotional content</div>
+          <div class="step-detail">Every piece of content Marketing creates for this event is reviewed by Program Director before publishing. Not for design — for message accuracy and alignment with Terra's values and CTA.</div>
+          <div class="step-trigger">Trigger: As Marketing produces content (ongoing from brief)</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director approves</span><span class="tool-tag tag-notion">Notion + WhatsApp</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Open mentee application form on event day</div>
+          <div class="step-detail">Applications open at the event — not before. The event is the launch. QR code on screen and at registration desk. Volunteers facilitate sign-ups during the event.</div>
+          <div class="step-trigger">Trigger: Event day</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director + Compliance</span><span class="tool-tag tag-google">Google Form</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">06</div>
+        <div class="step-content">
+          <div class="step-title">MC the mentorship section of kick-off</div>
+          <div class="step-detail">Program Director speaks for 10–15 minutes maximum. Content: what the program is, who it's for, a story from the graduating cohort, the CTA. This is not a presentation — it's an invitation. Prepared, not improvised.</div>
+          <div class="step-trigger">Trigger: During event (coordinated with Logistics run-of-show)</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-manual">Live</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">07</div>
+        <div class="step-content">
+          <div class="step-title">Follow up with event attendees within 48h</div>
+          <div class="step-detail">Compliance provides list of everyone who registered at the event. Program Director sends personalised follow-up to anyone who expressed interest in mentorship. Not a mass email — targeted outreach.</div>
+          <div class="step-trigger">Trigger: Within 48h of event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director</span><span class="tool-tag tag-google">Gmail + Notion</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">08</div>
+        <div class="step-content">
+          <div class="step-title">Post kick-off debrief with Marketing and Logistics</div>
+          <div class="step-detail">30-minute debrief within 3 days. Three questions: what went well, what broke, what changes for next quarter. Decisions logged in Notion kick-off retrospective. No debrief = same mistakes next quarter.</div>
+          <div class="step-trigger">Trigger: Within 3 days of event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Program Director + Marketing + Logistics</span><span class="tool-tag tag-notion">Notion retro doc</span></div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:24px;">
+      <div class="panel">
+        <div class="panel-title">Kick-Off Event Brief Template — Fields</div>
+        <ul class="doc-fields" style="margin-top:0;">
+          <li class="doc-field"><span class="field-bullet">▸</span>Event name and quarter</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Date, time, location</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Primary goal + secondary goal</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Target audience profile and expected attendance</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Event theme and story angle</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>The CTA (exact wording)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Graduate stories to feature (with permission)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Content needed from Marketing (list)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Logistics requirements (space, AV, crew, sponsor requirements)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Application form QR code</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Run-of-show outline</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Kick-Off Success Metrics</div>
+        <ul class="metric-list" style="list-style:none;display:flex;flex-direction:column;gap:0;">
+          <li style="display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border);">
+            <div style="width:3px;min-height:36px;background:linear-gradient(to bottom,var(--gold),transparent);flex-shrink:0;margin-top:2px;"></div>
+            <div><div style="font-size:11.5px;color:var(--text);margin-bottom:3px;">Application form opened at the event</div><div style="font-size:11px;color:var(--soft);">Not after. Not a week later. The momentum is live at the event.</div></div>
+          </li>
+          <li style="display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border);">
+            <div style="width:3px;min-height:36px;background:linear-gradient(to bottom,var(--gold),transparent);flex-shrink:0;margin-top:2px;"></div>
+            <div><div style="font-size:11.5px;color:var(--text);margin-bottom:3px;">30%+ of attendees enter the funnel</div><div style="font-size:11px;color:var(--soft);">Funnel = registered interest or submitted application.</div></div>
+          </li>
+          <li style="display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border);">
+            <div style="width:3px;min-height:36px;background:linear-gradient(to bottom,var(--gold),transparent);flex-shrink:0;margin-top:2px;"></div>
+            <div><div style="font-size:11.5px;color:var(--text);margin-bottom:3px;">Cohort fills within 2 weeks of event</div><div style="font-size:11px;color:var(--soft);">If the cohort isn't full within 2 weeks, debrief to understand why before next quarter.</div></div>
+          </li>
+          <li style="display:flex;gap:14px;align-items:flex-start;padding:12px 0;">
+            <div style="width:3px;min-height:36px;background:linear-gradient(to bottom,var(--gold),transparent);flex-shrink:0;margin-top:2px;"></div>
+            <div><div style="font-size:11.5px;color:var(--text);margin-bottom:3px;">Debrief done within 3 days</div><div style="font-size:11px;color:var(--soft);">Decisions documented. Not discussed and forgotten.</div></div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <div class="page-footer">
+    <div class="footer-left">"The process is what makes the promise real."</div>
+    <div class="footer-right">
+      Terra Bali · Mentorship Operations Manual<br>
+      Department 03 · Internal Reference · v1.0
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
