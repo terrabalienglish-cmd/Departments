@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terra Bali — Why We Exist</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --surface: #0f0f0f;
+    --border: #1e1e1e;
+    --terra-purple: #5B2D8E;
+    --terra-gold: #C9860A;
+    --terra-gold-light: #F0A830;
+    --text: #E8E0D5;
+    --muted: #555;
+    --soft: #888;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; min-height: 100vh; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 70% 50% at 50% -5%, rgba(91,45,142,0.12) 0%, transparent 65%), radial-gradient(ellipse 40% 30% at 90% 90%, rgba(201,134,10,0.06) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+  .page { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 80px 48px 120px; }
+  .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 100px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo-circle { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--terra-gold); background: radial-gradient(circle at 35% 35%, rgba(240,168,48,0.15) 0%, transparent 60%); box-shadow: 0 0 16px rgba(201,134,10,0.2); }
+  .logo-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; letter-spacing: 0.45em; color: var(--text); }
+  .doc-label { font-size: 9px; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; }
+  .opening { margin-bottom: 80px; }
+  .opening-label { font-size: 9px; letter-spacing: 0.25em; color: var(--terra-gold); text-transform: uppercase; margin-bottom: 28px; }
+  .opening-statement { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 300; line-height: 1.25; color: var(--text); margin-bottom: 32px; letter-spacing: 0.01em; }
+  .opening-statement em { font-style: italic; color: var(--terra-gold-light); }
+  .opening-body { font-size: 13px; line-height: 1.9; color: var(--soft); max-width: 600px; letter-spacing: 0.02em; }
+  .divider { width: 40px; height: 1px; background: var(--terra-gold); opacity: 0.4; margin: 64px 0; }
+  .section { margin-bottom: 64px; }
+  .section-label { font-size: 9px; letter-spacing: 0.25em; color: var(--muted); text-transform: uppercase; margin-bottom: 32px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; color: var(--terra-gold-light); margin-bottom: 20px; letter-spacing: 0.03em; }
+  .section-body { font-size: 13px; line-height: 1.9; color: var(--soft); letter-spacing: 0.02em; max-width: 640px; }
+  .promise-list { list-style: none; margin-top: 32px; display: flex; flex-direction: column; gap: 0; }
+  .promise-item { display: grid; grid-template-columns: 100px 1fr; gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--border); align-items: start; }
+  .promise-item:first-child { border-top: 1px solid var(--border); }
+  .promise-type { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; padding-top: 2px; }
+  .promise-type.yes { color: var(--terra-gold); }
+  .promise-type.never { color: #E05A3A; opacity: 0.8; }
+  .promise-text { font-size: 13px; line-height: 1.7; color: var(--text); letter-spacing: 0.02em; }
+  .promise-sub { font-size: 11px; color: var(--muted); margin-top: 4px; line-height: 1.6; }
+  .values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin-top: 32px; border: 1px solid var(--border); }
+  .value-cell { background: var(--surface); padding: 28px; }
+  .value-number { font-size: 9px; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 12px; }
+  .value-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--terra-gold-light); margin-bottom: 10px; letter-spacing: 0.04em; }
+  .value-desc { font-size: 11px; line-height: 1.7; color: var(--muted); letter-spacing: 0.02em; }
+  .decision-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--terra-gold); padding: 36px 40px; margin-top: 32px; }
+  .decision-label { font-size: 9px; letter-spacing: 0.25em; color: var(--terra-gold); text-transform: uppercase; margin-bottom: 20px; }
+  .decision-question { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--text); line-height: 1.4; margin-bottom: 20px; }
+  .decision-body { font-size: 12px; line-height: 1.8; color: var(--soft); }
+  .closing { margin-top: 100px; padding-top: 40px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; }
+  .closing-statement { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; font-style: italic; color: var(--muted); max-width: 400px; line-height: 1.5; }
+  .closing-meta { font-size: 9px; letter-spacing: 0.18em; color: var(--muted); text-align: right; line-height: 2; }
+  @media (max-width: 640px) {
+    .page { padding: 48px 24px 80px; }
+    .opening-statement { font-size: 30px; }
+    .values-grid { grid-template-columns: 1fr; }
+    .promise-item { grid-template-columns: 72px 1fr; }
+    .closing { flex-direction: column; gap: 24px; align-items: flex-start; }
+    .header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="header">
+    <div class="logo">
+      <div class="logo-circle"></div>
+      <div class="logo-name">TERRA</div>
+    </div>
+    <div class="doc-label">Internal Reference · Bali · Nothing is for Sale</div>
+  </header>
+
+  <div class="opening">
+    <div class="opening-label">Why We Exist</div>
+    <h1 class="opening-statement">You don't have to build your<br>business <em>alone.</em></h1>
+    <p class="opening-body">
+      Most founders are figuring it out as they go. Talented, driven, full of ideas — but doing it in isolation. Without honest feedback. Without people who've actually been through it. Without a community that genuinely wants them to win.<br><br>
+      Terra exists to change that. Not with courses. Not with consultants. Not with anything for sale. With real founders, real conversations, and a structure built to help people grow.<br><br>
+      That's it. That's why we're here.
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">What Terra Is</div>
+    <h2 class="section-title">A community built on trust, not transactions.</h2>
+    <p class="section-body">
+      Terra is a free mentorship community for entrepreneurs in Bali. We bring together founders at every stage — people building their first business and people who've built several — and create the conditions for genuine growth.<br><br>
+      Our core is the 8-week mentorship program. Real mentors. Real founders. Structured support, honest conversation, and daily accountability. Built by people who've been through it, for people going through it now.<br><br>
+      Everything else we build — events, workshops, school sessions, partnerships — exists to support that core purpose. If it doesn't serve the founder, it doesn't belong here.
+    </p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">What Terra Promises</div>
+    <h2 class="section-title">What you can always count on. What will never happen.</h2>
+    <ul class="promise-list">
+      <li class="promise-item">
+        <span class="promise-type yes">Always</span>
+        <div>
+          <div class="promise-text">Free access for every founder, every time.</div>
+          <div class="promise-sub">No fees, no upsells, no premium tiers. If you're a founder in Bali, Terra is yours.</div>
+        </div>
+      </li>
+      <li class="promise-item">
+        <span class="promise-type yes">Always</span>
+        <div>
+          <div class="promise-text">Honest mentorship from real founders.</div>
+          <div class="promise-sub">Our mentors are people who've built things. They share what actually happened, not what sounds good.</div>
+        </div>
+      </li>
+      <li class="promise-item">
+        <span class="promise-type yes">Always</span>
+        <div>
+          <div class="promise-text">A structure you can rely on.</div>
+          <div class="promise-sub">Clear roles, clear processes, clear expectations. So everyone knows what to do and the community keeps working whether or not any single person is in the room.</div>
+        </div>
+      </li>
+      <li class="promise-item">
+        <span class="promise-type yes">Always</span>
+        <div>
+          <div class="promise-text">Your growth comes first.</div>
+          <div class="promise-sub">Every decision — what events to run, what speakers to bring, how to structure the program — gets measured against one question: does this actually help founders grow?</div>
+        </div>
+      </li>
+      <li class="promise-item">
+        <span class="promise-type never">Never</span>
+        <div>
+          <div class="promise-text">No selling inside Terra.</div>
+          <div class="promise-sub">No one sells anything to community members inside Terra. Not products, not services, not courses. The moment Terra becomes a sales channel, the trust that makes it work disappears.</div>
+        </div>
+      </li>
+      <li class="promise-item">
+        <span class="promise-type never">Never</span>
+        <div>
+          <div class="promise-text">No gatekeeping.</div>
+          <div class="promise-sub">Terra doesn't belong to any single person, including the people who built it. It belongs to the community it serves.</div>
+        </div>
+      </li>
+      <li class="promise-item">
+        <span class="promise-type never">Never</span>
+        <div>
+          <div class="promise-text">No dependency on individuals.</div>
+          <div class="promise-sub">Terra is designed so that if any one person leaves — including leadership — the community continues. Every role is documented. Every function has a successor being trained. The system holds, not the people.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">How We Operate</div>
+    <h2 class="section-title">Four principles that guide every decision.</h2>
+    <div class="values-grid">
+      <div class="value-cell">
+        <div class="value-number">01</div>
+        <div class="value-name">Trust Before Everything</div>
+        <div class="value-desc">Trust is why Terra works. We protect it in everything we do — how we treat members, how we run events, how we make decisions. When in doubt: does this build or break trust?</div>
+      </div>
+      <div class="value-cell">
+        <div class="value-number">02</div>
+        <div class="value-name">Structure Is Freedom</div>
+        <div class="value-desc">Clear structure doesn't slow things down — it frees people up. When everyone knows their role and the process is clear, energy goes into the work instead of figuring out who does what.</div>
+      </div>
+      <div class="value-cell">
+        <div class="value-number">03</div>
+        <div class="value-name">Everyone Grows Here</div>
+        <div class="value-desc">Terra isn't just for mentees. Mentors grow. Volunteers grow. Leaders grow. If you're in Terra, Terra is working for you too — not just the people you're helping.</div>
+      </div>
+      <div class="value-cell">
+        <div class="value-number">04</div>
+        <div class="value-name">The Ecosystem Wins Together</div>
+        <div class="value-desc">Terra works because everyone in it benefits from everyone else's success. We're not competing. We're compounding. What's good for the community is good for you.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">When Things Get Unclear</div>
+    <h2 class="section-title">The question that makes hard decisions easy.</h2>
+    <div class="decision-box">
+      <div class="decision-label">The Terra Decision Test</div>
+      <div class="decision-question">"Does this help a founder grow — and does it protect the trust that makes Terra work?"</div>
+      <div class="decision-body">
+        If yes to both — do it.<br>
+        If no to either — don't.<br><br>
+        This applies to every decision in every department. New event format, new partnership, new speaker, new process change. Run it through this test first. It will give you the answer faster than any meeting.
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-label">For Everyone on the Terra Team</div>
+    <h2 class="section-title">What it means to lead here.</h2>
+    <p class="section-body">
+      Every person in a Terra role — department lead, volunteer, mentor, organizer — is not just doing a job. They're building something that helps real people grow their businesses and their lives.<br><br>
+      That means your role matters beyond the tasks in it. How you show up, how you treat people, and how you hand things over when you move on — all of it shapes what Terra becomes.<br><br>
+      One expectation runs through every role: train the person who comes after you. Not because you're leaving — but because the community is stronger when knowledge lives in the system, not just in you. Every lead trains two successors. That's not a task. That's the culture.<br><br>
+      Terra works when everyone in it operates like an owner. Not waiting for permission. Not passing problems up. Taking responsibility for your domain, asking for support when you need it, and keeping the community's purpose at the center of every decision you make.
+    </p>
+  </div>
+
+  <div class="closing">
+    <div class="closing-statement">"Built by founders, for founders.<br>Nothing for sale. Everything for growth."</div>
+    <div class="closing-meta">Terra Bali<br>Internal Reference Document<br>v1.0 · 2025</div>
+  </div>
+
+</div>
+</body>
+</html>
