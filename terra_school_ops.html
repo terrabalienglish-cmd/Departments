@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terra Bali — School Operations Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --surface: #0f0f0f;
+    --surface2: #131313;
+    --border: #1e1e1e;
+    --border2: #2a2a2a;
+    --purple: #5B2D8E;
+    --purple-light: #a67dd4;
+    --gold: #C9860A;
+    --gold-light: #F0A830;
+    --crimson: #8B1A3A;
+    --text: #E8E0D5;
+    --muted: #555;
+    --soft: #888;
+    --google: #4A8C6F;
+    --whatsapp: #25A244;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; min-height: 100vh; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 40% at 20% 10%, rgba(139,26,58,0.06) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 5%, rgba(91,45,142,0.08) 0%, transparent 60%), radial-gradient(ellipse 40% 30% at 90% 90%, rgba(201,134,10,0.04) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+
+  .nav { position: sticky; top: 0; z-index: 100; background: rgba(8,8,8,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 52px; gap: 24px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .nav-circle { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--gold); box-shadow: 0 0 8px rgba(201,134,10,0.2); }
+  .nav-name { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 300; letter-spacing: 0.4em; }
+  .nav-links { display: flex; overflow-x: auto; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-link { font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0 12px; height: 52px; display: flex; align-items: center; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+  .nav-link:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  .main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 72px 40px 120px; }
+
+  .page-header { margin-bottom: 80px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
+  .page-eyebrow { font-size: 9px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 18px; }
+  .page-title { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; line-height: 1.15; margin-bottom: 20px; }
+  .page-body { font-size: 12.5px; line-height: 1.8; color: var(--soft); max-width: 580px; margin-bottom: 32px; }
+
+  .tool-legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+  .tool-badge { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--border); font-size: 9.5px; letter-spacing: 0.12em; }
+  .tool-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-notion { background: var(--purple-light); }
+  .dot-google { background: var(--google); }
+  .dot-whatsapp { background: var(--whatsapp); }
+
+  .section-block { margin-bottom: 80px; scroll-margin-top: 68px; }
+  .section-eyebrow { font-size: 9px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; margin-bottom: 8px; }
+  .section-body { font-size: 12px; color: var(--soft); line-height: 1.8; max-width: 620px; margin-bottom: 32px; }
+  .subsection-title { font-size: 10px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin: 32px 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  .process-flow { display: flex; flex-direction: column; gap: 2px; margin-bottom: 32px; }
+  .process-step { display: grid; grid-template-columns: 48px 1fr auto; gap: 0; background: var(--surface); border: 1px solid var(--border); overflow: hidden; transition: border-color 0.2s; }
+  .process-step:hover { border-color: var(--border2); }
+  .step-number { display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--muted); background: var(--surface2); border-right: 1px solid var(--border); padding: 16px 8px; flex-shrink: 0; }
+  .step-content { padding: 16px 20px; }
+  .step-title { font-size: 12px; color: var(--text); margin-bottom: 4px; }
+  .step-detail { font-size: 11px; color: var(--soft); line-height: 1.6; }
+  .step-trigger { font-size: 10px; color: var(--muted); margin-top: 6px; font-style: italic; }
+  .step-meta { padding: 16px 16px 16px 0; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; justify-content: center; }
+  .owner-tag { font-size: 8.5px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid var(--border2); color: var(--soft); white-space: nowrap; }
+  .tool-tag { font-size: 8px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid; white-space: nowrap; }
+  .tag-notion { border-color: rgba(166,125,212,0.3); color: var(--purple-light); background: rgba(91,45,142,0.08); }
+  .tag-google { border-color: rgba(74,140,111,0.3); color: #6abf99; background: rgba(74,140,111,0.08); }
+  .tag-whatsapp { border-color: rgba(37,162,68,0.3); color: #4cd470; background: rgba(37,162,68,0.08); }
+  .tag-manual { border-color: rgba(201,134,10,0.3); color: var(--gold-light); background: rgba(201,134,10,0.08); }
+  .step-connector { display: flex; justify-content: flex-start; padding-left: 24px; height: 16px; }
+  .connector-line { width: 1px; background: var(--border2); height: 100%; }
+
+  .phase-divider { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; margin: 28px 0 16px; }
+  .phase-label { font-size: 8.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
+  .phase-line { height: 1px; background: linear-gradient(to right, rgba(201,134,10,0.3), transparent); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .panel { background: var(--surface); border: 1px solid var(--border); padding: 24px 28px; }
+  .panel-title { font-size: 9.5px; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  .system-block { background: var(--surface); border: 1px solid var(--border); margin-bottom: 2px; overflow: hidden; }
+  .system-header { display: flex; align-items: center; gap: 14px; padding: 18px 24px; border-bottom: 1px solid var(--border); }
+  .system-icon { width: 32px; height: 32px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .icon-notion { background: rgba(91,45,142,0.2); border: 1px solid rgba(91,45,142,0.3); }
+  .icon-google { background: rgba(74,140,111,0.15); border: 1px solid rgba(74,140,111,0.25); }
+  .icon-whatsapp { background: rgba(37,162,68,0.15); border: 1px solid rgba(37,162,68,0.25); }
+  .system-name { font-size: 13px; color: var(--text); }
+  .system-role { font-size: 10px; color: var(--soft); margin-top: 2px; }
+  .system-body { padding: 20px 24px; }
+
+  .db-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+  .db-item { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; }
+  .db-item:last-child { border-bottom: none; }
+  .db-name { color: var(--text); margin-bottom: 3px; }
+  .db-desc { font-size: 10.5px; color: var(--soft); line-height: 1.5; }
+  .db-type { font-size: 8px; letter-spacing: 0.1em; padding: 3px 8px; white-space: nowrap; align-self: start; margin-top: 2px; }
+
+  .doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .doc-card { background: var(--surface); border: 1px solid var(--border); padding: 20px 22px; }
+  .doc-type { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; }
+  .doc-name { font-size: 13px; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+  .doc-owner { font-size: 10px; color: var(--muted); margin-bottom: 10px; }
+  .doc-fields { list-style: none; display: flex; flex-direction: column; gap: 0; }
+  .doc-field { font-size: 10.5px; color: var(--soft); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: baseline; }
+  .doc-field:last-child { border-bottom: none; }
+  .field-bullet { color: var(--gold); font-size: 8px; flex-shrink: 0; }
+  .doc-where { display: inline-flex; align-items: center; gap: 5px; font-size: 8.5px; margin-top: 12px; padding: 4px 10px; border: 1px solid var(--border2); color: var(--soft); }
+
+  .rules-box { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--crimson); padding: 22px 28px; margin-bottom: 2px; }
+  .rules-title { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: #c47; margin-bottom: 14px; }
+  .rule-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; color: var(--soft); line-height: 1.6; }
+  .rule-item:last-child { border-bottom: none; }
+  .rule-num { color: var(--gold); font-size: 10px; flex-shrink: 0; min-width: 20px; }
+
+  .highlight-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); padding: 22px 28px; margin-bottom: 2px; }
+  .highlight-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--gold-light); margin-bottom: 10px; }
+  .highlight-body { font-size: 12px; color: var(--soft); line-height: 1.8; max-width: 700px; }
+
+  .schema-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .schema-table th { font-size: 8.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border2); font-weight: 400; }
+  .schema-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--soft); vertical-align: top; line-height: 1.5; }
+  .schema-table tr:last-child td { border-bottom: none; }
+  .schema-table tr:hover td { background: rgba(255,255,255,0.01); }
+  .field-type { font-size: 9px; padding: 2px 7px; border-radius: 2px; background: var(--surface2); border: 1px solid var(--border2); color: var(--muted); white-space: nowrap; }
+
+  /* COURSE CARD */
+  .course-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 24px; }
+  .course-card { background: var(--surface); border: 1px solid var(--border); padding: 20px 22px; }
+  .course-level { font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .course-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; margin-bottom: 6px; color: var(--text); }
+  .course-duration { font-size: 10px; color: var(--muted); margin-bottom: 12px; }
+  .course-detail { font-size: 11px; color: var(--soft); line-height: 1.7; }
+  .course-outcome { font-size: 10.5px; color: var(--purple-light); margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); line-height: 1.6; }
+
+  /* CURRICULUM TABLE */
+  .curriculum-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+  .curriculum-table th { font-size: 8.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border2); font-weight: 400; background: var(--surface2); }
+  .curriculum-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 11px; color: var(--soft); vertical-align: top; line-height: 1.6; }
+  .curriculum-table tr:last-child td { border-bottom: none; }
+  .curriculum-table tr:hover td { background: rgba(255,255,255,0.01); }
+  .week-num { color: var(--gold); font-size: 10px; }
+  .module-name { color: var(--text); font-size: 11.5px; margin-bottom: 3px; }
+  .module-detail { font-size: 10.5px; color: var(--soft); }
+
+  /* PATHWAY VISUAL */
+  .pathway { display: flex; gap: 0; align-items: stretch; overflow-x: auto; margin-bottom: 24px; }
+  .pathway-step { flex: 1; min-width: 140px; background: var(--surface); border: 1px solid var(--border); border-right: none; padding: 18px 16px; position: relative; }
+  .pathway-step:last-child { border-right: 1px solid var(--border); }
+  .pathway-step::after { content: '›'; position: absolute; right: -12px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 18px; z-index: 2; }
+  .pathway-step:last-child::after { display: none; }
+  .pathway-label { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .pathway-name { font-size: 12px; color: var(--text); margin-bottom: 6px; }
+  .pathway-sub { font-size: 10px; color: var(--soft); line-height: 1.5; }
+
+  .timeline { display: flex; flex-direction: column; gap: 0; position: relative; padding-left: 32px; }
+  .timeline::before { content: ''; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 1px; background: var(--border2); }
+  .timeline-item { position: relative; padding: 0 0 24px 24px; }
+  .timeline-dot { position: absolute; left: -32px; top: 6px; width: 13px; height: 13px; border-radius: 50%; border: 2px solid var(--gold); background: var(--bg); }
+  .timeline-week { font-size: 8.5px; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; }
+  .timeline-title { font-size: 13px; color: var(--text); margin-bottom: 6px; }
+  .timeline-body { font-size: 11px; color: var(--soft); line-height: 1.7; }
+
+  .page-footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-left { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; color: var(--muted); }
+  .footer-right { font-size: 8.5px; letter-spacing: 0.15em; color: var(--muted); text-align: right; line-height: 2; }
+
+  @media (max-width: 760px) {
+    .nav { padding: 0 16px; }
+    .main { padding: 48px 16px 80px; }
+    .two-col, .three-col, .doc-grid, .course-grid { grid-template-columns: 1fr; }
+    .process-step { grid-template-columns: 40px 1fr; }
+    .step-meta { display: none; }
+    .page-title { font-size: 30px; }
+    .pathway { flex-direction: column; }
+    .pathway-step { border-right: 1px solid var(--border); border-bottom: none; }
+    .pathway-step:last-child { border-bottom: 1px solid var(--border); }
+    .pathway-step::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-circle"></div>
+    <div class="nav-name">TERRA</div>
+  </div>
+  <div class="nav-links">
+    <a href="#overview" class="nav-link">Overview</a>
+    <a href="#courses" class="nav-link">Courses</a>
+    <a href="#curriculum" class="nav-link">Curriculum</a>
+    <a href="#processes" class="nav-link">Processes</a>
+    <a href="#systems" class="nav-link">Systems</a>
+    <a href="#docs" class="nav-link">Documentation</a>
+    <a href="#rules" class="nav-link">Operating Rules</a>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header" id="overview">
+    <div class="page-eyebrow">Operations Manual · Department 05 · Terra School</div>
+    <h1 class="page-title">School<br>Operations</h1>
+    <p class="page-body">
+      Terra School is the structured learning layer of the Terra ecosystem. Where workshops offer inspiration and mentorship offers guidance, School offers knowledge — sequenced, practical, and designed to build real capability in founders. This manual defines how courses are designed, delivered, filled, and improved. Nothing left to improvisation.
+    </p>
+
+    <div class="two-col" style="margin-top:0;">
+      <div class="panel">
+        <div class="panel-title">What This Document Covers</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Course Architecture</div><div class="db-desc">The three course tiers, their structure, duration, and purpose</div></div></li>
+          <li class="db-item"><div><div class="db-name">Curriculum Design Process</div><div class="db-desc">How a course goes from idea to live curriculum</div></div></li>
+          <li class="db-item"><div><div class="db-name">Student Enrolment Process</div><div class="db-desc">Application, selection, onboarding, and payment</div></div></li>
+          <li class="db-item"><div><div class="db-name">Course Delivery Process</div><div class="db-desc">Weekly session cadence, attendance, task management</div></div></li>
+          <li class="db-item"><div><div class="db-name">Instructor Management</div><div class="db-desc">How instructors are recruited, briefed, supported, and retained</div></div></li>
+          <li class="db-item"><div><div class="db-name">Graduation & Alumni Process</div><div class="db-desc">Completion standards, certificates, alumni pathway</div></div></li>
+          <li class="db-item"><div><div class="db-name">Systems Architecture</div><div class="db-desc">Notion, Google, and WhatsApp structure</div></div></li>
+          <li class="db-item"><div><div class="db-name">Documentation Library</div><div class="db-desc">Every template, tracker, form, and brief</div></div></li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Department at a Glance</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">School Director</div><div class="db-desc">Owns everything in this document. Trains 2 successors.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Course Cadence</div><div class="db-desc">Minimum 2 active courses per quarter across all tiers</div></div></li>
+          <li class="db-item"><div><div class="db-name">Course Tiers</div><div class="db-desc">Foundation (2 weeks) · Intensive (4 weeks) · Masterclass (6 weeks)</div></div></li>
+          <li class="db-item"><div><div class="db-name">Max Class Size</div><div class="db-desc">15 students per course. Quality over volume.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Completion Standard</div><div class="db-desc">Attend 80% of sessions. Submit all assignments.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Pathway</div><div class="db-desc">Workshops → School → Mentorship. Each feeds the next.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Success Metric</div><div class="db-desc">80%+ completion rate. 50%+ of graduates enter mentorship funnel.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tool-legend">
+      <div class="tool-badge"><div class="tool-dot dot-notion"></div>Notion — operational home</div>
+      <div class="tool-badge"><div class="tool-dot dot-google"></div>Google — enrolment, data, drive</div>
+      <div class="tool-badge"><div class="tool-dot dot-whatsapp"></div>WhatsApp — student comms only</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- SCHOOL'S ROLE IN THE ECOSYSTEM -->
+  <!-- ================================================================ -->
+  <div class="section-block">
+    <div class="section-eyebrow">Context</div>
+    <h2 class="section-title">Where School Sits in the Ecosystem</h2>
+    <p class="section-body">Terra School is the middle of the founder journey. Not the entry point — that's workshops. Not the deepest layer — that's mentorship. School is where curiosity becomes capability. It's the bridge that takes someone who showed up to a free workshop and turns them into someone ready for the intensity of the mentorship program.</p>
+
+    <div class="pathway">
+      <div class="pathway-step">
+        <div class="pathway-label">Entry</div>
+        <div class="pathway-name">Workshops</div>
+        <div class="pathway-sub">Free. Open. Introduction to Terra and to ideas. No commitment required.</div>
+      </div>
+      <div class="pathway-step" style="border-top:3px solid var(--gold);">
+        <div class="pathway-label">School — this department</div>
+        <div class="pathway-name">Structured Learning</div>
+        <div class="pathway-sub">Paid. Enrolled. Knowledge that builds over time. Commitment required.</div>
+      </div>
+      <div class="pathway-step">
+        <div class="pathway-label">Deep Work</div>
+        <div class="pathway-name">Mentorship Program</div>
+        <div class="pathway-sub">Selective. Intense. Personalised growth over 8 weeks with a mentor.</div>
+      </div>
+      <div class="pathway-step">
+        <div class="pathway-label">Community</div>
+        <div class="pathway-name">Alumni Network</div>
+        <div class="pathway-sub">Terra graduates. Ongoing connection, events, and opportunity.</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-title">School's Dual Purpose</div>
+      <div class="highlight-body">Terra School serves two goals simultaneously. The obvious one: it gives founders structured, practical knowledge they can apply immediately. The strategic one: it is the highest-quality pipeline source for the mentorship program. Founders who complete a School course are more committed, better prepared, and clearer on what they want from mentorship than cold applicants. The School Director must always hold both goals at once.</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- COURSE ARCHITECTURE -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="courses">
+    <div class="section-eyebrow">Section 01</div>
+    <h2 class="section-title">Course Architecture</h2>
+    <p class="section-body">Three course tiers. Each has a fixed structure, a fixed length, and a fixed maximum class size. The tier determines depth. The topic changes each run. The structure does not.</p>
+
+    <div class="course-grid">
+      <div class="course-card">
+        <div class="course-level">Tier 01 · Foundation</div>
+        <div class="course-name">Foundation Course</div>
+        <div class="course-duration">2 weeks · 4 sessions · Max 15 students</div>
+        <div class="course-detail">
+          For founders who are early-stage or exploring a specific topic for the first time. Dense, practical, and outcome-focused. By the end, a student should be able to do one specific thing they couldn't do before. Not inspired — capable.
+        </div>
+        <div class="course-outcome">
+          Example topics: Writing to convert. Building your first sales system. Understanding your numbers. Hiring your first team member.
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-level">Tier 02 · Intensive</div>
+        <div class="course-name">Intensive Course</div>
+        <div class="course-duration">4 weeks · 8 sessions · Max 12 students</div>
+        <div class="course-detail">
+          For founders with some traction who want to go deeper on a domain. Combines teaching sessions with practical application and peer review. Students leave with both knowledge and documented work they've produced during the course.
+        </div>
+        <div class="course-outcome">
+          Example topics: Growth strategy and distribution. Building and leading a small team. Brand positioning for a founder business. Revenue model design.
+        </div>
+      </div>
+      <div class="course-card">
+        <div class="course-level">Tier 03 · Masterclass</div>
+        <div class="course-name">Masterclass</div>
+        <div class="course-duration">6 weeks · 12 sessions · Max 8 students</div>
+        <div class="course-detail">
+          For experienced founders working on a complex, specific challenge. Led by one or more expert instructors. Small cohort. Deep peer relationships. Students leave having solved or significantly progressed a real business problem they brought in on Day 1.
+        </div>
+        <div class="course-outcome">
+          Example topics: Scaling operations beyond the founder. Fundraising readiness. International expansion. Building a business that runs without you.
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-title">The Invariable Rule on Class Size</div>
+      <div class="highlight-body">Class sizes are not targets — they are hard ceilings. A Foundation course that attracts 20 applicants does not expand to 20 students. It runs at 15 and opens a waitlist for the next run. The quality of a Terra School course is directly dependent on the ratio of instructor attention to student. The moment that ratio breaks, the quality breaks with it. If demand exceeds capacity consistently, the solution is more course runs — not bigger classes.</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- CURRICULUM DESIGN -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="curriculum">
+    <div class="section-eyebrow">Section 02</div>
+    <h2 class="section-title">Curriculum Design Process</h2>
+    <p class="section-body">Every course starts as an idea. The curriculum design process turns that idea into a live, quality-approved learning experience. No course goes live without completing every step in this process.</p>
+
+    <div class="phase-divider"><div class="phase-label">Process — From Idea to Live Curriculum</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Identify course need from community signal</div>
+          <div class="step-detail">Course ideas come from: workshop Q&A patterns (what founders keep asking), mentorship program themes (what mentees struggle with most), School Director's own observation of the community's gaps, direct founder feedback. Every course idea is logged in Notion with the source signal. Ideas without a clear community need do not move forward.</div>
+          <div class="step-trigger">Trigger: Ongoing. Reviewed quarterly during planning.</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director</span><span class="tool-tag tag-notion">Notion idea log</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Define the course brief</div>
+          <div class="step-detail">Before designing any content, write the brief. One page in Notion. Covers: the one outcome a student will achieve by completion, who this is for (ICP and stage), why now, which tier it belongs in, suggested instructor profile, and what students will produce or be able to do. If you can't write this clearly, the course isn't ready to be designed yet.</div>
+          <div class="step-trigger">Trigger: Course idea approved for development</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director</span><span class="tool-tag tag-notion">Notion</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Identify and approach instructor</div>
+          <div class="step-detail">The instructor must have done the thing they are teaching — not studied it. Use Terra's mentor pool, workshop speaker alumni, and the School Director's network. Brief them on Terra's teaching philosophy: practical, specific, story-led. No academic delivery. No death-by-slides. If an instructor won't adapt their style to Terra's standard, they are not the right instructor regardless of their credentials.</div>
+          <div class="step-trigger">Trigger: Brief approved</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director</span><span class="tool-tag tag-manual">Direct conversation</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Co-design the session-by-session curriculum</div>
+          <div class="step-detail">School Director and instructor design the curriculum together using the Curriculum Template in Notion. Every session has: a learning objective (one sentence — what students can do after this session), the core content, a practical exercise, and a homework task. School Director reviews for consistency, pacing, and outcome alignment. Instructor does not design alone — the curriculum is a collaboration.</div>
+          <div class="step-trigger">Trigger: Instructor confirmed</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director + Instructor</span><span class="tool-tag tag-notion">Notion curriculum template</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">COO review and sign-off</div>
+          <div class="step-detail">Every new course is reviewed by COO before launch. COO checks: Does the outcome match a genuine community need? Is the pricing correct for the tier? Is the instructor credible? Is this the right time for this course? COO signs off in Notion. Without sign-off, the course does not launch.</div>
+          <div class="step-trigger">Trigger: Curriculum complete and ready for review</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">COO approves</span><span class="tool-tag tag-notion">Notion sign-off field</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">06</div>
+        <div class="step-content">
+          <div class="step-title">Brief Marketing on course launch campaign</div>
+          <div class="step-detail">Written brief with: course name, tier, duration, price, outcome statement, ICP description, launch date, enrolment deadline, the story angle, and any instructor profile content. Marketing creates the campaign. School Director approves all assets before publishing — same 24h turnaround rule as Workshops.</div>
+          <div class="step-trigger">Trigger: COO sign-off received. Minimum 4 weeks before launch.</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director → Marketing</span><span class="tool-tag tag-notion">Notion brief</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">07</div>
+        <div class="step-content">
+          <div class="step-title">Open enrolment</div>
+          <div class="step-detail">Enrolment form live. School Director monitors applications daily. If enrolment is not hitting pace by Week 2 of campaign, escalate to School Director + Marketing for a review — not at the deadline when nothing can be done.</div>
+          <div class="step-trigger">Trigger: Launch date. Applications open for 3 weeks.</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director + Marketing</span><span class="tool-tag tag-google">Google Form</span></div>
+      </div>
+    </div>
+
+    <!-- SAMPLE CURRICULUM -->
+    <div class="subsection-title">Sample Curriculum Structure — Intensive Course (4 Weeks, 8 Sessions)</div>
+    <table class="curriculum-table">
+      <thead>
+        <tr><th>Session</th><th>Week</th><th>Module</th><th>Learning Objective</th><th>Deliverable</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="week-num">01</td>
+          <td>Week 1</td>
+          <td><div class="module-name">Where You Actually Are</div><div class="module-detail">Honest baseline assessment</div></td>
+          <td>Student can accurately describe their current business stage and primary constraint</td>
+          <td>Written business reality snapshot</td>
+        </tr>
+        <tr>
+          <td class="week-num">02</td>
+          <td>Week 1</td>
+          <td><div class="module-name">The One Problem</div><div class="module-detail">Isolating the real constraint</div></td>
+          <td>Student can identify the single most important problem to solve in the next 90 days</td>
+          <td>90-day priority statement</td>
+        </tr>
+        <tr>
+          <td class="week-num">03</td>
+          <td>Week 2</td>
+          <td><div class="module-name">Customer Reality</div><div class="module-detail">Who actually buys and why</div></td>
+          <td>Student can describe their real ICP with specific language — not an avatar</td>
+          <td>ICP profile + validation question list</td>
+        </tr>
+        <tr>
+          <td class="week-num">04</td>
+          <td>Week 2</td>
+          <td><div class="module-name">Offer Clarity</div><div class="module-detail">What you sell and how you say it</div></td>
+          <td>Student can articulate their offer in one sentence that their ICP immediately understands</td>
+          <td>Offer statement + peer review</td>
+        </tr>
+        <tr>
+          <td class="week-num">05</td>
+          <td>Week 3</td>
+          <td><div class="module-name">Distribution</div><div class="module-detail">How the right people find you</div></td>
+          <td>Student can identify 2 distribution channels that are realistic for their business</td>
+          <td>Distribution experiment plan</td>
+        </tr>
+        <tr>
+          <td class="week-num">06</td>
+          <td>Week 3</td>
+          <td><div class="module-name">Conversion</div><div class="module-detail">From interested to paying</div></td>
+          <td>Student can map their current conversion journey and identify its biggest drop-off point</td>
+          <td>Conversion map + one fix proposal</td>
+        </tr>
+        <tr>
+          <td class="week-num">07</td>
+          <td>Week 4</td>
+          <td><div class="module-name">Numbers That Matter</div><div class="module-detail">The 3 metrics you must know</div></td>
+          <td>Student knows their current CAC, LTV, and monthly burn and what they mean</td>
+          <td>Business metrics dashboard</td>
+        </tr>
+        <tr>
+          <td class="week-num">08</td>
+          <td>Week 4</td>
+          <td><div class="module-name">The Next 90 Days</div><div class="module-detail">Your plan, made in the room</div></td>
+          <td>Student completes and presents a 90-day execution plan to the group</td>
+          <td>90-day plan (presented + written)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- ENROLMENT PROCESS -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="processes">
+    <div class="section-eyebrow">Section 03</div>
+    <h2 class="section-title">Enrolment & Student Journey</h2>
+    <p class="section-body">From the moment someone applies to the moment they graduate. Every step is defined, every owner is clear, and no student falls through a gap because a process didn't exist.</p>
+
+    <div class="phase-divider"><div class="phase-label">Process — Enrolment</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Application received and logged</div>
+          <div class="step-detail">Google Form submission auto-populates the student applications sheet. School Director reviews new applications daily during the open window — not in a batch at the deadline. Early review means early follow-up for strong candidates and early management of borderline ones.</div>
+          <div class="step-trigger">Trigger: Form submitted by applicant</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Compliance (auto-log) + School Director (review)</span><span class="tool-tag tag-google">Google Sheet</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Screen applications against course criteria</div>
+          <div class="step-detail">School Director scores each application using the standard rubric in Notion. For Intensives and Masterclasses, shortlisted applicants receive a 15-minute intake call. Foundation courses do not require an intake call — the application form is the filter. The intake call is not an interview — it's a fit conversation. Its purpose is to set expectations and confirm commitment, not to intimidate.</div>
+          <div class="step-trigger">Trigger: Application window closes (Foundation) or rolling review (Intensive/Masterclass)</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director</span><span class="tool-tag tag-notion">Notion rubric</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Send acceptance communications</div>
+          <div class="step-detail">Accepted: personal email with welcome, course dates, payment instructions, what to prepare, and the pre-course assignment (see below). Waitlisted: honest, specific, timeline for next run. Declined: always responded to, never ghosted. Every response within 48 hours of decision.</div>
+          <div class="step-trigger">Trigger: Within 48h of decision</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director</span><span class="tool-tag tag-google">Gmail template</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Collect payment and confirmation</div>
+          <div class="step-detail">Enrolment is not confirmed until payment is received. School Director coordinates with Finance/COO on payment tracking. Compliance logs payment status in Google Sheet. If payment is outstanding 48h before course starts, School Director follows up — not chases, follows up. If payment is not received by Day 1, the seat is released to the waitlist.</div>
+          <div class="step-trigger">Trigger: Acceptance email sent</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">COO/Finance + Compliance</span><span class="tool-tag tag-google">Google Sheet</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Send pre-course assignment</div>
+          <div class="step-detail">Every student receives a pre-course assignment the week before the course starts. Not optional. Not homework — preparation. For an Intensive: write a 200-word description of your business and the one thing you want to solve. For a Masterclass: submit a current-state analysis of the problem you're bringing into the course. Students who complete this are 40% more engaged in Session 1.</div>
+          <div class="step-trigger">Trigger: 7 days before Course Day 1</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director</span><span class="tool-tag tag-google">Gmail</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">06</div>
+        <div class="step-content">
+          <div class="step-title">Onboarding session (Week 0 / Day 0)</div>
+          <div class="step-detail">30-minute online or in-person onboarding before the course begins. Covers: how sessions work, what's expected, the commitment agreement, how to get the most out of the course, and introductions. The course WhatsApp group is activated here. Instructor is present. Sets the tone for everything that follows.</div>
+          <div class="step-trigger">Trigger: 2–3 days before Session 1</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director + Instructor</span><span class="tool-tag tag-manual">Online / In-person</span></div>
+      </div>
+    </div>
+
+    <div class="phase-divider"><div class="phase-label">Process — Course Delivery Cadence</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Session reminder sent 24h before every session</div>
+          <div class="step-detail">WhatsApp message to course group: time, location/link, what to bring, and a one-line reminder of what this session covers. Consistent format every week. Homework reminder included if assignment is due.</div>
+          <div class="step-trigger">Trigger: 24 hours before each session</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director or assigned Volunteer</span><span class="tool-tag tag-whatsapp">WhatsApp</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Instructor runs session to the curriculum</div>
+          <div class="step-detail">School Director does not manage the session content — the curriculum does. School Director attends every session (or assigns a deputy) to observe quality, monitor engagement, and support the instructor if needed. Attendance is taken by a volunteer in the first 10 minutes and submitted to Compliance within 2 hours of session end.</div>
+          <div class="step-trigger">Trigger: Scheduled session time</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Instructor leads · School Director observes</span><span class="tool-tag tag-manual">In-person / Online</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Session assignment posted to WhatsApp group</div>
+          <div class="step-detail">Immediately after each session, the instructor or School Director posts: what was covered (one sentence), the assignment for this week (specific, actionable, linked to the session's learning objective), and the deadline. No vague tasks. Every assignment has a clear output that can be reviewed.</div>
+          <div class="step-trigger">Trigger: Within 1 hour of session end</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Instructor / School Director</span><span class="tool-tag tag-whatsapp">WhatsApp</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Track assignment submissions</div>
+          <div class="step-detail">School Director logs assignment submissions in Notion weekly tracker. Students who haven't submitted by the day before the next session receive a direct message — private, supportive, specific. "You haven't submitted the offer statement — is there something blocking you?" Not public, not shaming, not ignored.</div>
+          <div class="step-trigger">Trigger: Assignment deadline passes</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director</span><span class="tool-tag tag-notion">Notion tracker</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Mid-course check-in with instructor</div>
+          <div class="step-detail">After the halfway session, School Director has a brief 1:1 with the instructor. Covers: group energy and engagement, any students to watch, whether pacing needs adjusting, what support the instructor needs for the second half. Findings logged in Notion. If there are structural changes needed, they are made — the curriculum is a living document, not a fixed script.</div>
+          <div class="step-trigger">Trigger: Halfway point of course</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director + Instructor</span><span class="tool-tag tag-notion">Notion session notes</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">06</div>
+        <div class="step-content">
+          <div class="step-title">Flag at-risk students before final sessions</div>
+          <div class="step-detail">School Director reviews attendance and assignment completion data by Week 3 of an Intensive (or Week 5 of a Masterclass). Any student below 80% attendance or missing 2+ assignments receives a private check-in. At-risk students are supported, not written off. The completion rate metric starts here — not at graduation.</div>
+          <div class="step-trigger">Trigger: One week before final sessions begin</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director</span><span class="tool-tag tag-notion">Notion + WhatsApp direct</span></div>
+      </div>
+    </div>
+
+    <div class="phase-divider"><div class="phase-label">Process — Graduation & Alumni Pathway</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Final session — presentation day</div>
+          <div class="step-detail">The final session of every Intensive and Masterclass is a presentation day. Each student presents the deliverable from the final assignment (their 90-day plan, their strategy document, their business case — whatever the course produced). Peer feedback happens in the room. This session is the proof of learning. School Director facilitates, instructor supports.</div>
+          <div class="step-trigger">Trigger: Final session of course</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director (MC) + Instructor</span><span class="tool-tag tag-manual">In-person preferred</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Compile graduation eligibility list</div>
+          <div class="step-detail">Completion criteria: attended 80%+ of sessions, submitted all core assignments. School Director reviews data with Compliance. Borderline cases reviewed individually — School Director makes the final call. No group decision, no committee. The standard is clear; the decision is singular.</div>
+          <div class="step-trigger">Trigger: Day after final session</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director + Compliance</span><span class="tool-tag tag-google">Google Sheet + Notion</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Issue certificates and alumni status</div>
+          <div class="step-detail">Graduates receive their certificate by email within 3 days of final session. Compliance tags them in the master database. They are added to the Terra School Alumni WhatsApp group. Non-completers are contacted privately and kindly — with a clear path back in if they want it (next run of the same course, or a Foundation course to build the foundation they were missing).</div>
+          <div class="step-trigger">Trigger: Within 3 days of graduation list confirmed</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director + Compliance</span><span class="tool-tag tag-google">Gmail + Google Drive (certificates)</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Mentorship program invitation for eligible graduates</div>
+          <div class="step-detail">Within 1 week of graduation, School Director personally invites every graduate to consider the mentorship program. This is not a mass email — it is a direct, personalised message that references what they worked on in the course and why mentorship would be the right next step for them. School Director coordinates with Program Director (Mentorship) on timing and cohort availability.</div>
+          <div class="step-trigger">Trigger: Within 7 days of graduation</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director → Program Director (Mentorship)</span><span class="tool-tag tag-whatsapp">WhatsApp direct + Gmail</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Post-course retrospective</div>
+          <div class="step-detail">School Director and instructor run a 45-minute retrospective within 2 weeks of course end. Three questions: What do we keep? What do we change? What do we add? All curriculum updates are documented in Notion before the next run. Student feedback form results are reviewed here — not ignored. The course that runs next time is better than the one that just ran.</div>
+          <div class="step-trigger">Trigger: Within 14 days of final session</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director + Instructor</span><span class="tool-tag tag-notion">Notion retrospective template</span></div>
+      </div>
+    </div>
+
+    <div class="phase-divider"><div class="phase-label">Process — Instructor Management</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Build and maintain instructor pool</div>
+          <div class="step-detail">School Director maintains a database of 8–12 qualified instructors at all times. Sources: mentor alumni, workshop speakers, Terra community, external network. Every potential instructor is assessed before being added: have they done the thing they'd teach? Do they communicate in a way that works in a classroom? Would they represent Terra's values in front of students?</div>
+          <div class="step-trigger">Trigger: Ongoing. Reviewed quarterly.</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director</span><span class="tool-tag tag-notion">Notion instructor database</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Instructor onboarding for first-time facilitators</div>
+          <div class="step-detail">Before leading their first Terra course, every instructor completes a 1-hour onboarding with School Director. Covers: Terra's teaching philosophy, what students expect, how to run the practical exercises, how to give feedback in the room, how to handle difficult classroom dynamics, and what to do if a session runs off-track. This is mandatory. No exceptions for "experienced" facilitators.</div>
+          <div class="step-trigger">Trigger: First course confirmed</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">School Director</span><span class="tool-tag tag-manual">Direct 1:1 session</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Instructor compensation and agreements</div>
+          <div class="step-detail">Every instructor signs an instructor agreement before their course is published. Covers: delivery expectations, cancellation policy, intellectual property (curriculum co-designed with Terra is Terra's), payment terms, and conduct standards. School Director coordinates with COO on compensation model. Agreements stored in Google Drive under Instructor Profiles.</div>
+          <div class="step-trigger">Trigger: Course confirmed, before marketing launches</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">COO (agreement) + School Director (relationship)</span><span class="tool-tag tag-google">Google Drive</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- SYSTEMS ARCHITECTURE -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="systems">
+    <div class="section-eyebrow">Section 04</div>
+    <h2 class="section-title">Systems Architecture</h2>
+    <p class="section-body">Three tools. Everything in its designated place. No course information lives in personal email, WhatsApp history, or a private spreadsheet.</p>
+
+    <div class="system-block">
+      <div class="system-header">
+        <div class="system-icon icon-notion">N</div>
+        <div>
+          <div class="system-name">Notion — Operational Home</div>
+          <div class="system-role">Course management, curriculum design, student tracking, instructor records, and all briefs and reports.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <div class="subsection-title" style="margin-top:0">Notion Page Structure — School</div>
+        <ul class="db-list">
+          <li class="db-item">
+            <div><div class="db-name">🏫 School Home</div><div class="db-desc">Master page. Active courses at a glance, upcoming launches, instructor pipeline health, quick links. School Director's daily starting point.</div></div>
+            <span class="db-type tag-notion">Parent page</span>
+          </li>
+          <li class="db-item">
+            <div><div class="db-name">📚 Course Database</div><div class="db-desc">One row per course run ever. Fields: course name, tier, instructor, dates, student count, completion rate, status (design / marketing / active / completed / archived), COO sign-off checkbox. Filterable by tier and quarter.</div></div>
+            <span class="db-type tag-notion">Database</span>
+          </li>
+          <li class="db-item">
+            <div><div class="db-name">👥 Student Database</div><div class="db-desc">One row per student ever. Fields: name, contact, courses enrolled, completion status per course, alumni status, mentorship program status, payment status. Relations to Course database.</div></div>
+            <span class="db-type tag-notion">Database</span>
+          </li>
+          <li class="db-item">
+            <div><div class="db-name">🎓 Instructor Database</div><div class="db-desc">One row per instructor. Fields: name, contact, expertise domain, courses delivered, student rating average (internal), availability, status (active / on hold / alumni). Relations to Course database.</div></div>
+            <span class="db-type tag-notion">Database</span>
+          </li>
+          <li class="db-item">
+            <div><div class="db-name">📋 Curriculum Pages (per course)</div><div class="db-desc">One page per course. Contains: course brief, session-by-session curriculum (learning objective, content, exercise, assignment), instructor notes, and post-run retrospective updates. The curriculum is a living document — it improves every run.</div></div>
+            <span class="db-type tag-notion">Page per course</span>
+          </li>
+          <li class="db-item">
+            <div><div class="db-name">✅ Assignment Tracker (per active course)</div><div class="db-desc">One row per student per session. Fields: student name, session number, assignment submitted (checkbox), quality (optional note), notes. School Director reviews weekly. Flags at-risk students before final sessions.</div></div>
+            <span class="db-type tag-notion">Database</span>
+          </li>
+          <li class="db-item">
+            <div><div class="db-name">💡 Course Idea Log</div><div class="db-desc">Ideas for future courses, sourced from community signals. Each idea has: the source signal, the proposed tier, a provisional brief, and a status (idea / brief written / pending COO review / approved / shelved). Reviewed quarterly.</div></div>
+            <span class="db-type tag-notion">Database</span>
+          </li>
+          <li class="db-item">
+            <div><div class="db-name">📁 Brief Library</div><div class="db-desc">All Marketing and Logistics briefs, indexed by course and date. Brief history is never deleted — it is institutional memory.</div></div>
+            <span class="db-type tag-notion">Page library</span>
+          </li>
+        </ul>
+
+        <div class="subsection-title">Notion Course Database Schema</div>
+        <table class="schema-table">
+          <thead>
+            <tr><th>Field Name</th><th>Type</th><th>Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Course Name</td><td><span class="field-type">Title</span></td><td>e.g. "Revenue Strategy Intensive — Q1 2026"</td></tr>
+            <tr><td>Tier</td><td><span class="field-type">Select</span></td><td>Foundation / Intensive / Masterclass</td></tr>
+            <tr><td>Status</td><td><span class="field-type">Select</span></td><td>Design / Marketing / Enrolment / Active / Completed / Archived</td></tr>
+            <tr><td>Instructor</td><td><span class="field-type">Relation</span></td><td>Links to Instructor database</td></tr>
+            <tr><td>Start Date</td><td><span class="field-type">Date</span></td><td>First session date</td></tr>
+            <tr><td>End Date</td><td><span class="field-type">Date</span></td><td>Final session / graduation date</td></tr>
+            <tr><td>Price</td><td><span class="field-type">Number</span></td><td>Enrolment fee in USD</td></tr>
+            <tr><td>Max Students</td><td><span class="field-type">Number</span></td><td>15 (Foundation) / 12 (Intensive) / 8 (Masterclass)</td></tr>
+            <tr><td>Enrolled</td><td><span class="field-type">Number</span></td><td>Confirmed paying students</td></tr>
+            <tr><td>Graduates</td><td><span class="field-type">Number</span></td><td>Students who met completion criteria</td></tr>
+            <tr><td>Completion Rate</td><td><span class="field-type">Formula</span></td><td>Graduates / Enrolled %</td></tr>
+            <tr><td>Mentorship Conversions</td><td><span class="field-type">Number</span></td><td>Graduates who entered mentorship program</td></tr>
+            <tr><td>COO Sign-Off</td><td><span class="field-type">Checkbox</span></td><td>Must be checked before marketing launches</td></tr>
+            <tr><td>Retrospective Done</td><td><span class="field-type">Checkbox</span></td><td>Post-course retro completed and logged</td></tr>
+            <tr><td>Notes</td><td><span class="field-type">Text</span></td><td>Unusual context, changes made, standout moments</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="system-block" style="margin-top:2px;">
+      <div class="system-header">
+        <div class="system-icon icon-google">G</div>
+        <div>
+          <div class="system-name">Google Workspace — Enrolment, Payments & Files</div>
+          <div class="system-role">Applications, student data, payment tracking, certificates, and all signed agreements live in Google.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <div class="subsection-title" style="margin-top:0">Google Drive Folder Structure</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">📁 Terra School (root folder)</div><div class="db-desc">Shared with School Director and COO. Contains all sub-folders.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📁 Courses → [Year] → [Course Name] → Applications, Agreements, Assignments, Certificates</div><div class="db-desc">One folder per course run. Contains: application submissions, signed student commitment agreements, assignment submissions (digital), issued certificates, session notes.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📁 Instructors → [Instructor Name] → Bio, Headshot, Agreement, Briefs</div><div class="db-desc">One folder per instructor. Signed agreement required before any course launches. Never deleted.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📁 Templates</div><div class="db-desc">All email templates, course brief template, instructor agreement, student commitment agreement, certificate template, feedback form links. Master copies only — duplicate before use.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📊 Master Student Sheet (Google Sheet)</div><div class="db-desc">Maintained by Compliance. One tab per course run. Columns: student name, contact, payment status, sessions attended, assignments submitted, completion status, alumni tagged, mentorship conversion. School Director has view access.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="system-block" style="margin-top:2px;">
+      <div class="system-header">
+        <div class="system-icon icon-whatsapp">W</div>
+        <div>
+          <div class="system-name">WhatsApp — Student Communication Only</div>
+          <div class="system-role">Session reminders, assignment notifications, and course community. Never for documentation or decisions.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <div class="subsection-title" style="margin-top:0">WhatsApp Group Structure — School</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">[Course Name] — [Cohort] (one group per course run)</div><div class="db-desc">Students + Instructor + School Director. Session reminders, assignment posts, check-ins. Archived after graduation. 90-day auto-delete.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Terra School Alumni (permanent group)</div><div class="db-desc">All School graduates. Community updates, new course announcements, mentorship program invitations. School Director is admin.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Terra School — Ops (internal)</div><div class="db-desc">School Director, COO, Compliance Lead. Operational coordination only. Decisions go to Notion — not this group.</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- DOCUMENTATION LIBRARY -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="docs">
+    <div class="section-eyebrow">Section 05</div>
+    <h2 class="section-title">Documentation Library</h2>
+    <p class="section-body">Every document the School department owns. Who owns it, where it lives, and what it contains. Master copies in Google Drive Templates. Never edit the master — duplicate, then use.</p>
+
+    <div class="doc-grid">
+
+      <div class="doc-card">
+        <div class="doc-type tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Course Brief</div>
+        <div class="doc-owner">Owner: School Director · Created before curriculum design begins</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>The one outcome a student will achieve</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Who this is for — ICP description and business stage</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Why now — the community signal that validated this</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Course tier (Foundation / Intensive / Masterclass)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Suggested instructor profile</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Pricing recommendation</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>COO sign-off field</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Course Database</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Curriculum Design Document</div>
+        <div class="doc-owner">Owner: School Director + Instructor · Co-designed before launch</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Course overview and learning arc</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Session-by-session breakdown: objective, content, exercise, assignment</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Pre-course assignment (for Intensives and Masterclasses)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Final session format (presentation day structure)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Graduation criteria</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Post-run retrospective notes (updated after each run)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Curriculum Pages</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-google" style="background:rgba(74,140,111,0.1);color:#6abf99;border:1px solid rgba(74,140,111,0.25);">Google Form</div>
+        <div class="doc-name">Student Enrolment Application</div>
+        <div class="doc-owner">Owner: School Director · Active per course launch</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Full name, contact, business name</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Business stage and how long they've been operating</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>The one thing they want to achieve from this course</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What they've already tried in this area</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Availability confirmation (all session dates)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Commitment acknowledgment (attendance + assignment policy)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>How they heard about this course</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Forms folder</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">PDF Document</div>
+        <div class="doc-name">Student Commitment Agreement</div>
+        <div class="doc-owner">Owner: School Director · Signed at onboarding session</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Course overview — what the student has committed to</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Attendance policy — 80% minimum to graduate</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Assignment policy — all core assignments required</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Refund policy (linked to cancellation terms)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Community standards — how students treat each other in class</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What happens if commitment cannot be maintained</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Student signature and date</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Templates + Course folder (signed copy)</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">PDF Document</div>
+        <div class="doc-name">Instructor Agreement</div>
+        <div class="doc-owner">Owner: COO (legal) + School Director (relationship) · Signed before course launches</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Delivery scope — sessions, format, student numbers</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Cancellation and rescheduling policy (minimum 14-day notice)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Intellectual property terms (co-designed curriculum belongs to Terra)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Payment terms and amount</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Conduct and representation standards</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Confidentiality (student information)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Both signatures and date</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Instructor Profiles + Templates</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Marketing Brief — Per Course Launch</div>
+        <div class="doc-owner">Owner: School Director → Marketing · Sent minimum 4 weeks before launch</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Course name, tier, price, dates</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>The one outcome statement (exact wording for all assets)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Who this is for — ICP description in plain language</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Story angle (the problem this solves, not just the logistics)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Instructor profile — headshot, one-line bio, credibility angle</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Assets needed: reel, graphic, email copy, WhatsApp announcement</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Enrolment form link</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Approval deadline (24h turnaround from School Director)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Brief Library</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-google" style="background:rgba(74,140,111,0.1);color:#6abf99;border:1px solid rgba(74,140,111,0.25);">Google Form</div>
+        <div class="doc-name">Student Feedback Form (post-course)</div>
+        <div class="doc-owner">Owner: School Director · Sent within 3 days of final session</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Overall course rating (1–5)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Did you achieve what you came for? (Yes / Partially / No)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What was the most valuable part of the course?</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What would you change?</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>How was the instructor's delivery?</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Would you recommend this course to a peer? (NPS 0–10)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Are you interested in the Terra mentorship program? (Yes / Tell me more / Not yet)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Forms folder</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-google" style="background:rgba(74,140,111,0.1);color:#6abf99;border:1px solid rgba(74,140,111,0.25);">Google Form</div>
+        <div class="doc-name">Instructor Feedback Form (post-course)</div>
+        <div class="doc-owner">Owner: School Director · Sent within 3 days of final session</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Overall experience with Terra (1–5)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>How was the preparation and support from the School Director?</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>How engaged was the student group?</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What could Terra improve for instructors?</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Would you lead another Terra course? (Yes / Yes with changes / No)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Any curriculum changes you'd recommend for the next run?</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Forms folder</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Post-Course Retrospective</div>
+        <div class="doc-owner">Owner: School Director + Instructor · Completed within 14 days of final session</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Final numbers: enrolled, graduated, completion rate</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Mentorship conversions from this cohort</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Student NPS score</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What we keep (curriculum, format, delivery)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What we change for next run</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What we add (gaps identified)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Instructor assessment and decision (return / adjust / replace)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Curriculum updates actioned (links)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Next run recommendation and timing</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Curriculum Pages (course record)</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">Certificate Template</div>
+        <div class="doc-name">Course Completion Certificate</div>
+        <div class="doc-owner">Owner: School Director · Issued within 3 days of graduation</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Terra logo and visual brand</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Student full name</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Course name and tier</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Course dates</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Instructor name</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>School Director signature</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Date of completion</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Templates + Course folder (issued copies)</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- OPERATING RULES -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="rules">
+    <div class="section-eyebrow">Section 06</div>
+    <h2 class="section-title">Operating Rules</h2>
+    <p class="section-body">These protect the quality and integrity of Terra School. They exist because every shortcut taken in education has a compounding cost. Change them through the retrospective — not through convenience.</p>
+
+    <div class="rules-box">
+      <div class="rules-title">Non-Negotiable Operating Rules — School Department</div>
+      <div class="rule-item"><span class="rule-num">01</span>No course launches without COO sign-off. The brief must be written, the curriculum must be designed, and the instructor must be confirmed before any marketing goes out. In that order.</div>
+      <div class="rule-item"><span class="rule-num">02</span>Class size ceilings are absolute. Foundation: 15. Intensive: 12. Masterclass: 8. Demand exceeding capacity results in a waitlist and an additional run — not an expanded class size.</div>
+      <div class="rule-item"><span class="rule-num">03</span>Every instructor teaches from lived experience, not theory. The School Director is responsible for assessing this before any instructor is confirmed. Credentials are context, not qualification.</div>
+      <div class="rule-item"><span class="rule-num">04</span>Every instructor signs an instructor agreement before their course is announced. No agreement, no course. The intellectual property clause is non-negotiable — curricula co-designed with Terra belong to Terra.</div>
+      <div class="rule-item"><span class="rule-num">05</span>Every student signs a commitment agreement at onboarding. No agreement, no confirmed enrolment. If they won't sign, they won't commit. Both signals matter the same way.</div>
+      <div class="rule-item"><span class="rule-num">06</span>Every session has one clear learning objective. If the session cannot be described in "After this session, students can do X," the session is not ready to be delivered.</div>
+      <div class="rule-item"><span class="rule-num">07</span>Every assignment has a clear, reviewable output. "Reflect on your business" is not an assignment. "Write a 200-word description of your primary customer and the single reason they choose you over an alternative" is an assignment.</div>
+      <div class="rule-item"><span class="rule-num">08</span>At-risk students are contacted before the final sessions — not at graduation. The completion rate is the School Director's responsibility, not a number that happens to them.</div>
+      <div class="rule-item"><span class="rule-num">09</span>Every graduate receives a personal mentorship program invitation within 7 days of course completion. This is the strategic reason School exists. It does not happen automatically — it requires a direct, personalised outreach.</div>
+      <div class="rule-item"><span class="rule-num">10</span>Every course runs a retrospective within 14 days of completion. Curriculum updates are documented and applied before the next run. A course that runs twice with the same problems is a systems failure.</div>
+      <div class="rule-item"><span class="rule-num">11</span>Nothing important about a student, instructor, or course lives in personal email, WhatsApp history, or a personal device. If it's not in Notion or Google Drive, it doesn't exist for Terra.</div>
+      <div class="rule-item"><span class="rule-num">12</span>The School Director trains 2 successors who can run the full enrolment-to-graduation cycle independently. The curriculum document and the School Operations Manual are the primary handover tools.</div>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <div class="page-footer">
+    <div class="footer-left">"Education is not information. It's the ability to act."</div>
+    <div class="footer-right">
+      Terra Bali · School Operations Manual<br>
+      Department 05 · Internal Reference · v1.0
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
