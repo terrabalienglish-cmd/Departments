@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terra Bali — Volunteers Operations Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --surface: #0f0f0f;
+    --surface2: #131313;
+    --border: #1e1e1e;
+    --border2: #2a2a2a;
+    --purple: #5B2D8E;
+    --purple-light: #a67dd4;
+    --gold: #C9860A;
+    --gold-light: #F0A830;
+    --crimson: #8B1A3A;
+    --teal: #2A7A6F;
+    --teal-light: #4abfb0;
+    --text: #E8E0D5;
+    --muted: #555;
+    --soft: #888;
+    --google: #4A8C6F;
+    --whatsapp: #25A244;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; min-height: 100vh; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 40% at 20% 10%, rgba(139,26,58,0.06) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 5%, rgba(91,45,142,0.08) 0%, transparent 60%), radial-gradient(ellipse 40% 30% at 90% 90%, rgba(201,134,10,0.04) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+
+  .nav { position: sticky; top: 0; z-index: 100; background: rgba(8,8,8,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 52px; gap: 24px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .nav-circle { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--gold); box-shadow: 0 0 8px rgba(201,134,10,0.2); }
+  .nav-name { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 300; letter-spacing: 0.4em; }
+  .nav-links { display: flex; overflow-x: auto; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-link { font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0 12px; height: 52px; display: flex; align-items: center; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+  .nav-link:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  .main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 72px 40px 120px; }
+
+  .page-header { margin-bottom: 80px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
+  .page-eyebrow { font-size: 9px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 18px; }
+  .page-title { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; line-height: 1.15; margin-bottom: 20px; }
+  .page-body { font-size: 12.5px; line-height: 1.8; color: var(--soft); max-width: 580px; margin-bottom: 32px; }
+
+  .tool-legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+  .tool-badge { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--border); font-size: 9.5px; letter-spacing: 0.12em; }
+  .tool-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-notion { background: var(--purple-light); }
+  .dot-google { background: var(--google); }
+  .dot-whatsapp { background: var(--whatsapp); }
+
+  .section-block { margin-bottom: 80px; scroll-margin-top: 68px; }
+  .section-eyebrow { font-size: 9px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; margin-bottom: 8px; }
+  .section-body { font-size: 12px; color: var(--soft); line-height: 1.8; max-width: 620px; margin-bottom: 32px; }
+  .subsection-title { font-size: 10px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin: 32px 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  .process-flow { display: flex; flex-direction: column; gap: 2px; margin-bottom: 32px; }
+  .process-step { display: grid; grid-template-columns: 48px 1fr auto; gap: 0; background: var(--surface); border: 1px solid var(--border); overflow: hidden; transition: border-color 0.2s; }
+  .process-step:hover { border-color: var(--border2); }
+  .step-number { display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--muted); background: var(--surface2); border-right: 1px solid var(--border); padding: 16px 8px; flex-shrink: 0; }
+  .step-content { padding: 16px 20px; }
+  .step-title { font-size: 12px; color: var(--text); margin-bottom: 4px; }
+  .step-detail { font-size: 11px; color: var(--soft); line-height: 1.6; }
+  .step-trigger { font-size: 10px; color: var(--muted); margin-top: 6px; font-style: italic; }
+  .step-meta { padding: 16px 16px 16px 0; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; justify-content: center; }
+  .owner-tag { font-size: 8.5px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid var(--border2); color: var(--soft); white-space: nowrap; }
+  .tool-tag { font-size: 8px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid; white-space: nowrap; }
+  .tag-notion { border-color: rgba(166,125,212,0.3); color: var(--purple-light); background: rgba(91,45,142,0.08); }
+  .tag-google { border-color: rgba(74,140,111,0.3); color: #6abf99; background: rgba(74,140,111,0.08); }
+  .tag-whatsapp { border-color: rgba(37,162,68,0.3); color: #4cd470; background: rgba(37,162,68,0.08); }
+  .tag-manual { border-color: rgba(201,134,10,0.3); color: var(--gold-light); background: rgba(201,134,10,0.08); }
+  .step-connector { display: flex; justify-content: flex-start; padding-left: 24px; height: 16px; }
+  .connector-line { width: 1px; background: var(--border2); height: 100%; }
+
+  .phase-divider { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; margin: 28px 0 16px; }
+  .phase-label { font-size: 8.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
+  .phase-line { height: 1px; background: linear-gradient(to right, rgba(201,134,10,0.3), transparent); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .panel { background: var(--surface); border: 1px solid var(--border); padding: 24px 28px; }
+  .panel-title { font-size: 9.5px; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  .system-block { background: var(--surface); border: 1px solid var(--border); margin-bottom: 2px; overflow: hidden; }
+  .system-header { display: flex; align-items: center; gap: 14px; padding: 18px 24px; border-bottom: 1px solid var(--border); }
+  .system-icon { width: 32px; height: 32px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .icon-notion { background: rgba(91,45,142,0.2); border: 1px solid rgba(91,45,142,0.3); }
+  .icon-google { background: rgba(74,140,111,0.15); border: 1px solid rgba(74,140,111,0.25); }
+  .icon-whatsapp { background: rgba(37,162,68,0.15); border: 1px solid rgba(37,162,68,0.25); }
+  .system-name { font-size: 13px; color: var(--text); }
+  .system-role { font-size: 10px; color: var(--soft); margin-top: 2px; }
+  .system-body { padding: 20px 24px; }
+
+  .db-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+  .db-item { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; }
+  .db-item:last-child { border-bottom: none; }
+  .db-name { color: var(--text); margin-bottom: 3px; }
+  .db-desc { font-size: 10.5px; color: var(--soft); line-height: 1.5; }
+  .db-type { font-size: 8px; letter-spacing: 0.1em; padding: 3px 8px; white-space: nowrap; align-self: start; margin-top: 2px; }
+
+  .doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .doc-card { background: var(--surface); border: 1px solid var(--border); padding: 20px 22px; }
+  .doc-type { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; }
+  .doc-name { font-size: 13px; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+  .doc-owner { font-size: 10px; color: var(--muted); margin-bottom: 10px; }
+  .doc-fields { list-style: none; display: flex; flex-direction: column; gap: 0; }
+  .doc-field { font-size: 10.5px; color: var(--soft); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: baseline; }
+  .doc-field:last-child { border-bottom: none; }
+  .field-bullet { color: var(--gold); font-size: 8px; flex-shrink: 0; }
+  .doc-where { display: inline-flex; align-items: center; gap: 5px; font-size: 8.5px; margin-top: 12px; padding: 4px 10px; border: 1px solid var(--border2); color: var(--soft); }
+
+  .rules-box { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--crimson); padding: 22px 28px; margin-bottom: 2px; }
+  .rules-title { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: #c47; margin-bottom: 14px; }
+  .rule-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; color: var(--soft); line-height: 1.6; }
+  .rule-item:last-child { border-bottom: none; }
+  .rule-num { color: var(--gold); font-size: 10px; flex-shrink: 0; min-width: 20px; }
+
+  .highlight-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); padding: 22px 28px; margin-bottom: 2px; }
+  .highlight-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--gold-light); margin-bottom: 10px; }
+  .highlight-body { font-size: 12px; color: var(--soft); line-height: 1.8; max-width: 700px; }
+
+  .schema-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .schema-table th { font-size: 8.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border2); font-weight: 400; }
+  .schema-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--soft); vertical-align: top; line-height: 1.5; }
+  .schema-table tr:last-child td { border-bottom: none; }
+  .schema-table tr:hover td { background: rgba(255,255,255,0.01); }
+  .field-type { font-size: 9px; padding: 2px 7px; border-radius: 2px; background: var(--surface2); border: 1px solid var(--border2); color: var(--muted); white-space: nowrap; }
+
+  /* ROLE CARDS */
+  .role-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 24px; }
+  .role-card { background: var(--surface); border: 1px solid var(--border); padding: 20px 22px; border-top: 2px solid; }
+  .role-card-ops { border-top-color: var(--gold); }
+  .role-card-content { border-top-color: var(--purple-light); }
+  .role-card-community { border-top-color: var(--teal-light); }
+  .role-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; margin-bottom: 4px; }
+  .role-dept { font-size: 8.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .role-skills { font-size: 10.5px; color: var(--soft); line-height: 1.7; }
+  .role-grows { font-size: 10px; color: var(--purple-light); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); line-height: 1.6; }
+
+  /* CO-WORKING DAY SCHEDULE */
+  .day-schedule { display: flex; flex-direction: column; gap: 1px; }
+  .schedule-row { display: grid; grid-template-columns: 100px 1fr; gap: 1px; }
+  .schedule-time { background: var(--surface2); border: 1px solid var(--border); padding: 12px 16px; font-size: 10px; color: var(--gold); display: flex; align-items: center; white-space: nowrap; }
+  .schedule-block { border: 1px solid var(--border); padding: 14px 20px; }
+  .block-name { font-size: 12px; color: var(--text); margin-bottom: 3px; }
+  .block-detail { font-size: 10.5px; color: var(--soft); line-height: 1.6; }
+  .block-type { display: inline-block; font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; padding: 2px 7px; border: 1px solid; margin-top: 6px; }
+  .type-focus { border-color: rgba(201,134,10,0.3); color: var(--gold-light); background: rgba(201,134,10,0.06); }
+  .type-collab { border-color: rgba(166,125,212,0.3); color: var(--purple-light); background: rgba(91,45,142,0.06); }
+  .type-social { border-color: rgba(74,140,111,0.3); color: #6abf99; background: rgba(74,140,111,0.06); }
+  .type-energy { border-color: rgba(42,122,111,0.3); color: var(--teal-light); background: rgba(42,122,111,0.06); }
+  .type-reflect { border-color: rgba(139,26,58,0.3); color: #e07090; background: rgba(139,26,58,0.06); }
+
+  /* COLLAB PROTOCOL */
+  .collab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 24px; }
+  .collab-card { background: var(--surface); border: 1px solid var(--border); padding: 20px 22px; }
+  .collab-from { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .collab-arrow { font-size: 11px; color: var(--gold); margin-bottom: 8px; }
+  .collab-to { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--purple-light); margin-bottom: 12px; }
+  .collab-what { font-size: 11px; color: var(--text); margin-bottom: 6px; }
+  .collab-how { font-size: 10.5px; color: var(--soft); line-height: 1.6; }
+
+  /* COMMUNITY CALENDAR */
+  .community-cal { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-bottom: 24px; }
+  .cal-month { background: var(--surface); border: 1px solid var(--border); padding: 18px 20px; }
+  .cal-month-name { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+  .cal-events { display: flex; flex-direction: column; gap: 8px; }
+  .cal-ev { font-size: 11px; color: var(--soft); padding: 8px 10px; border: 1px solid var(--border); display: flex; gap: 8px; align-items: flex-start; line-height: 1.5; }
+  .cal-ev-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+  .dot-cowork { background: var(--gold); }
+  .dot-team { background: var(--purple-light); }
+  .dot-fun { background: var(--teal-light); }
+  .dot-learn { background: #e07090; }
+
+  /* GROWTH LADDER */
+  .ladder { display: flex; flex-direction: column; gap: 2px; }
+  .ladder-rung { display: grid; grid-template-columns: 140px 1fr 1fr; gap: 1px; }
+  .rung-level { background: var(--surface2); border: 1px solid var(--border); padding: 16px 18px; display: flex; flex-direction: column; justify-content: center; }
+  .rung-name { font-size: 11px; color: var(--text); margin-bottom: 3px; }
+  .rung-duration { font-size: 9px; color: var(--muted); }
+  .rung-cell { background: var(--surface); border: 1px solid var(--border); padding: 14px 18px; font-size: 11px; color: var(--soft); line-height: 1.6; }
+  .rung-header { background: var(--surface2); border: 1px solid var(--border); padding: 10px 18px; font-size: 8.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+
+  /* FUN DAY IDEAS */
+  .fun-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 24px; }
+  .fun-card { background: var(--surface); border: 1px solid var(--border); padding: 18px 20px; }
+  .fun-tag { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+  .fun-name { font-size: 13px; color: var(--text); margin-bottom: 8px; font-family: 'Cormorant Garamond', serif; font-weight: 300; }
+  .fun-detail { font-size: 11px; color: var(--soft); line-height: 1.6; }
+  .fun-why { font-size: 10px; color: var(--purple-light); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+
+  .page-footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-left { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; color: var(--muted); }
+  .footer-right { font-size: 8.5px; letter-spacing: 0.15em; color: var(--muted); text-align: right; line-height: 2; }
+
+  @media (max-width: 760px) {
+    .nav { padding: 0 16px; }
+    .main { padding: 48px 16px 80px; }
+    .two-col, .three-col, .doc-grid, .role-grid, .collab-grid, .fun-grid { grid-template-columns: 1fr; }
+    .community-cal { grid-template-columns: 1fr 1fr; }
+    .process-step { grid-template-columns: 40px 1fr; }
+    .step-meta { display: none; }
+    .page-title { font-size: 30px; }
+    .schedule-row { grid-template-columns: 80px 1fr; }
+    .ladder-rung { grid-template-columns: 100px 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-circle"></div>
+    <div class="nav-name">TERRA</div>
+  </div>
+  <div class="nav-links">
+    <a href="#overview" class="nav-link">Overview</a>
+    <a href="#roles" class="nav-link">Roles</a>
+    <a href="#onboarding" class="nav-link">Recruitment</a>
+    <a href="#cowork" class="nav-link">Co-Working Days</a>
+    <a href="#collab" class="nav-link">Cross-Collab</a>
+    <a href="#community" class="nav-link">Community Calendar</a>
+    <a href="#growth" class="nav-link">Growth Ladder</a>
+    <a href="#systems" class="nav-link">Systems</a>
+    <a href="#rules" class="nav-link">Rules</a>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header" id="overview">
+    <div class="page-eyebrow">Operations Manual · Department 06 · Volunteers</div>
+    <h1 class="page-title">Volunteers<br>Operations</h1>
+    <p class="page-body">
+      Volunteers are not unpaid staff. They are the most invested layer of the Terra community — founders, creatives, and operators who give their time because they believe in what Terra is building. This department exists to make sure that investment is returned: through real skills, real friendships, real growth. Volunteers who feel like they're growing stay. Volunteers who feel like they're serving leave. This manual builds the first kind of experience.
+    </p>
+
+    <div class="two-col" style="margin-top:0;">
+      <div class="panel">
+        <div class="panel-title">What This Document Covers</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Volunteer Roles</div><div class="db-desc">Every role, what it develops, and which departments it serves</div></div></li>
+          <li class="db-item"><div><div class="db-name">Recruitment & Onboarding</div><div class="db-desc">How volunteers are found, selected, and brought in properly</div></div></li>
+          <li class="db-item"><div><div class="db-name">Co-Working Days</div><div class="db-desc">Terra's structured cross-department productivity and learning days</div></div></li>
+          <li class="db-item"><div><div class="db-name">Cross-Collaboration Protocols</div><div class="db-desc">How volunteers from different departments learn from each other</div></div></li>
+          <li class="db-item"><div><div class="db-name">Community Calendar</div><div class="db-desc">The annual rhythm of team days, fun days, and learning events</div></div></li>
+          <li class="db-item"><div><div class="db-name">Volunteer Growth Ladder</div><div class="db-desc">How volunteers progress, take on more, and stay longer</div></div></li>
+          <li class="db-item"><div><div class="db-name">Churn Prevention Strategy</div><div class="db-desc">Why volunteers leave and how to make them stay</div></div></li>
+          <li class="db-item"><div><div class="db-name">Systems, Docs & Rules</div><div class="db-desc">Everything that runs the department operationally</div></div></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Department at a Glance</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Volunteer Lead</div><div class="db-desc">Owns this department. The culture builder. Trains 1 deputy.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Active Volunteer Target</div><div class="db-desc">10–15 active volunteers across all departments at all times</div></div></li>
+          <li class="db-item"><div><div class="db-name">Co-Working Days</div><div class="db-desc">Monthly. Cross-department. 5 hours. Always followed by social time.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Team Building Days</div><div class="db-desc">Quarterly. Structured fun. Builds the relationships that reduce churn.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Fun Days</div><div class="db-desc">Every 6 weeks. Informal. Bali-specific. No agenda.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Retention Target</div><div class="db-desc">70%+ of volunteers active after 6 months</div></div></li>
+          <li class="db-item"><div><div class="db-name">Success Metric</div><div class="db-desc">Volunteers report genuine skill growth. They refer other volunteers.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tool-legend">
+      <div class="tool-badge"><div class="tool-dot dot-notion"></div>Notion — operational home</div>
+      <div class="tool-badge"><div class="tool-dot dot-google"></div>Google — applications, data, drive</div>
+      <div class="tool-badge"><div class="tool-dot dot-whatsapp"></div>WhatsApp — community comms</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- WHY VOLUNTEERS LEAVE -->
+  <!-- ================================================================ -->
+  <div class="section-block">
+    <div class="section-eyebrow">The Problem to Solve</div>
+    <h2 class="section-title">Why Volunteers Leave</h2>
+    <p class="section-body">Before building the systems, understand the disease. Volunteer churn is almost never about time. It's about feeling.</p>
+
+    <div class="three-col">
+      <div class="panel" style="border-top: 2px solid var(--crimson);">
+        <div class="panel-title" style="color:#c47;">Reason 01 — They feel used</div>
+        <div style="font-size:11.5px;color:var(--soft);line-height:1.7;">They show up, do tasks, go home. Nobody asks them what they're learning or what they want to grow in. They feel like labor, not people. The fix: every volunteer has a growth goal and a person who checks in on it.</div>
+      </div>
+      <div class="panel" style="border-top: 2px solid var(--crimson);">
+        <div class="panel-title" style="color:#c47;">Reason 02 — They feel isolated</div>
+        <div style="font-size:11.5px;color:var(--soft);line-height:1.7;">They only know the 2 people in their department. Terra never becomes their community — just their task. The fix: co-working days and cross-department collaboration that build real friendships across the team.</div>
+      </div>
+      <div class="panel" style="border-top: 2px solid var(--crimson);">
+        <div class="panel-title" style="color:#c47;">Reason 03 — They can't see the point</div>
+        <div style="font-size:11.5px;color:var(--soft);line-height:1.7;">They don't see how their tasks connect to Terra's bigger picture. Attendance sheets feel pointless when you don't know what they feed into. The fix: regular visibility into the impact of what they're doing. Make the connection explicit and often.</div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:2px;">
+      <div class="highlight-title">The Fundamental Design Principle</div>
+      <div class="highlight-body">Every structure in this department — co-working days, growth ladders, fun days, cross-collaboration — exists to answer one question for every volunteer: "Am I growing here, and do I belong here?" If the answer to both is yes, they stay. If either is no, they eventually leave — regardless of how much they like Terra's mission.</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- VOLUNTEER ROLES -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="roles">
+    <div class="section-eyebrow">Section 01</div>
+    <h2 class="section-title">Volunteer Roles</h2>
+    <p class="section-body">Six volunteer roles. Each serves one or more departments and builds one or more real skills. Volunteers are matched to roles based on what they want to develop — not just what Terra needs. Both matter. If only Terra's needs are served, volunteers leave.</p>
+
+    <div class="role-grid">
+      <div class="role-card role-card-ops">
+        <div class="role-name">Events Crew</div>
+        <div class="role-dept">Serves: Workshops · Mentorship · Logistics</div>
+        <div class="role-skills">Set up, registration desk, attendee experience, breakdown. Arrives 60 minutes early. Stays until venue is reset. The face of Terra at the door.</div>
+        <div class="role-grows">Grows in: event production, people skills, operational execution, calm under pressure</div>
+      </div>
+      <div class="role-card role-card-content">
+        <div class="role-name">Content Crew</div>
+        <div class="role-dept">Serves: Marketing · Workshops · School</div>
+        <div class="role-skills">Photography, video, short-form content capture at events. Provides raw material to Marketing Lead within 24 hours. No posting without approval.</div>
+        <div class="role-grows">Grows in: visual storytelling, content strategy, brand voice, creative eye</div>
+      </div>
+      <div class="role-card role-card-community">
+        <div class="role-name">Compliance Crew</div>
+        <div class="role-dept">Serves: Compliance · All departments</div>
+        <div class="role-skills">Attendance tracking at workshops and mentorship sessions. Data submitted within 2 hours of each event. Accuracy is the job. No shortcuts.</div>
+        <div class="role-grows">Grows in: data discipline, systems thinking, operational consistency, attention to detail</div>
+      </div>
+      <div class="role-card role-card-ops">
+        <div class="role-name">Community Host</div>
+        <div class="role-dept">Serves: Workshops · School · Mentorship</div>
+        <div class="role-skills">Circulates at networking sessions. Connects attendees to each other. Warm, curious, represents Terra's values in every interaction. Captures new names missed at registration.</div>
+        <div class="role-grows">Grows in: networking, community building, conversation skills, relationship management</div>
+      </div>
+      <div class="role-card role-card-content">
+        <div class="role-name">Admin & Comms Crew</div>
+        <div class="role-dept">Serves: Mentorship · School · Sponsorship</div>
+        <div class="role-skills">Supports department leads with written comms, Notion updates, follow-up messages, and scheduling. Works inside established templates — does not go off-script. Trains directly under department leads.</div>
+        <div class="role-grows">Grows in: professional writing, systems management, operations, business administration</div>
+      </div>
+      <div class="role-card role-card-community">
+        <div class="role-name">School Support</div>
+        <div class="role-dept">Serves: School</div>
+        <div class="role-skills">Assists during School sessions: attends sessions, supports students with exercise facilitation, submits attendance to Compliance, follows up on assignment submission reminders. Works directly with School Director.</div>
+        <div class="role-grows">Grows in: teaching, facilitation, curriculum understanding, educational systems</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-title">The Matching Principle</div>
+      <div class="highlight-body">When a volunteer applies, the Volunteer Lead asks: what do you actually want to get better at over the next 6 months? The role assignment follows that answer. A founder who wants to get better at content goes to Content Crew — even if Events Crew is more urgent. Terra gets more from a motivated volunteer in the right role than an unwilling one in the wrong one.</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- RECRUITMENT & ONBOARDING -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="onboarding">
+    <div class="section-eyebrow">Section 02</div>
+    <h2 class="section-title">Recruitment & Onboarding</h2>
+    <p class="section-body">The best volunteer candidates are already in the Terra ecosystem — workshop attendees, School graduates, mentorship alumni. The Volunteer Lead watches for them. The process brings them in properly.</p>
+
+    <div class="phase-divider"><div class="phase-label">Process — Volunteer Recruitment</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Identify candidates from within the community</div>
+          <div class="step-detail">The best volunteer candidates show themselves before they're asked. They're the people who help set up without being told, who introduce people to each other at workshops, who engage deeply in School sessions. Volunteer Lead watches every event for these people. They are flagged in Notion with a note: "potential volunteer — observed [behaviour] at [event]."</div>
+          <div class="step-trigger">Trigger: Ongoing. At every Terra event.</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Volunteer Lead</span><span class="tool-tag tag-notion">Notion pipeline</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Personal invitation — never a public call</div>
+          <div class="step-detail">Volunteers are not recruited through a general "we need volunteers" post. They are personally invited. "I noticed how you handled the registration desk last week — have you thought about getting more involved in how Terra runs?" A personal invitation signals that they are specifically wanted, not generally needed. This distinction determines the quality of response.</div>
+          <div class="step-trigger">Trigger: Candidate identified and flagged</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Volunteer Lead</span><span class="tool-tag tag-whatsapp">WhatsApp direct or in-person</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Interest conversation — what do you want to grow in?</div>
+          <div class="step-detail">20-minute conversation. Not an interview. Three questions: What are you working on right now? What do you want to get better at in the next 6 months? How much time can you genuinely commit per month? These answers determine role fit. There are no wrong answers — only mismatched roles. Document the conversation in Notion.</div>
+          <div class="step-trigger">Trigger: Candidate expresses interest</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Volunteer Lead</span><span class="tool-tag tag-notion">Notion — volunteer record</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Role assignment and volunteer agreement</div>
+          <div class="step-detail">Based on the conversation, Volunteer Lead proposes a role. Explains exactly what the role involves, which department they'll work with, what they'll learn, and what the time commitment is. Volunteer signs the volunteer agreement — not a legal contract, a mutual commitment document. It protects both sides.</div>
+          <div class="step-trigger">Trigger: Role agreed</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Volunteer Lead</span><span class="tool-tag tag-google">Google Drive (signed agreement)</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Welcome to the volunteer team — proper onboarding session</div>
+          <div class="step-detail">60-minute onboarding with Volunteer Lead and the department lead they'll be working with. Covers: Terra's values, how the volunteer team works, their specific role in detail, the co-working day schedule, WhatsApp groups they're joining, who their buddy is (existing volunteer who mentors them for first 4 weeks). They leave with everything they need to show up to their first event.</div>
+          <div class="step-trigger">Trigger: Agreement signed</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Volunteer Lead + Department Lead</span><span class="tool-tag tag-manual">In-person or online</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">06</div>
+        <div class="step-content">
+          <div class="step-title">Buddy assigned — first 4 weeks of shadowing</div>
+          <div class="step-detail">Every new volunteer is paired with an existing volunteer from the same or adjacent role for their first 4 weeks. The buddy's job: answer questions, make introductions, include them in the social layer of the team. Not training — belonging. The buddy relationship is the single most important thing in the first month.</div>
+          <div class="step-trigger">Trigger: Onboarding complete</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Volunteer Lead assigns buddy</span><span class="tool-tag tag-whatsapp">WhatsApp introduction</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">07</div>
+        <div class="step-content">
+          <div class="step-title">30-day check-in from Volunteer Lead</div>
+          <div class="step-detail">One month after joining, Volunteer Lead checks in 1:1. How's the role feeling? Is the growth goal being met? Anything they want to change? This is the earliest intervention point. Most volunteers who leave do so silently — this check-in catches the problem before it becomes a departure.</div>
+          <div class="step-trigger">Trigger: 30 days after first event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Volunteer Lead</span><span class="tool-tag tag-whatsapp">Direct conversation</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- CO-WORKING DAYS -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="cowork">
+    <div class="section-eyebrow">Section 03</div>
+    <h2 class="section-title">Terra Co-Working Days</h2>
+    <p class="section-body">Monthly. Every volunteer, every department, in one place. Not a meeting. Not a training. A structured day of focused work, shared learning, and cross-department connection — followed by food and genuine time together. This is where the community is built.</p>
+
+    <div class="highlight-box">
+      <div class="highlight-title">The Design Intention</div>
+      <div class="highlight-body">Terra's Co-Working Day is inspired by structured productivity sessions but adapted for a community team — not a company. The goal is not maximum output. The goal is that after 5 hours together, every volunteer has done real work, learned something from someone outside their department, and feels closer to the people around them. That combination — usefulness plus belonging — is what keeps people showing up.</div>
+    </div>
+
+    <div class="subsection-title">Full Co-Working Day Schedule (5.5 Hours + Social)</div>
+
+    <div class="day-schedule">
+      <div class="schedule-row">
+        <div class="schedule-time">9:30am</div>
+        <div class="schedule-block" style="background:var(--surface2);">
+          <div class="block-name">Arrival & Setup</div>
+          <div class="block-detail">Volunteers arrive, get settled, coffee and food available. Volunteer Lead does a brief room welcome — sets the tone, not a long speech. Everyone writes their personal focus for the day on a sticky note or shared board: "Today I'm working on [X]."</div>
+          <div class="block-type type-social">Social</div>
+        </div>
+      </div>
+      <div class="schedule-row">
+        <div class="schedule-time">10:00am</div>
+        <div class="schedule-block">
+          <div class="block-name">Focused Work Block 1 — Individual Priority Task (90 min)</div>
+          <div class="block-detail">Everyone works on their single most important Terra task. No meetings. No group discussions. Heads down. Events Crew might be building their next event checklist. Content Crew editing reels. Admin Crew updating Notion. Each person works on what only they can advance today.</div>
+          <div class="block-type type-focus">Focused Work</div>
+        </div>
+      </div>
+      <div class="schedule-row">
+        <div class="schedule-time">11:30am</div>
+        <div class="schedule-block" style="background:var(--surface2);">
+          <div class="block-name">Active Break (15 min)</div>
+          <div class="block-detail">Everyone stands up. Volunteer Lead leads 5 minutes of light movement — stretching, a short walk around the venue, a breathing reset. Then 10 minutes of open conversation. No devices. Get water. Talk to someone from a different department.</div>
+          <div class="block-type type-energy">Energy Reset</div>
+        </div>
+      </div>
+      <div class="schedule-row">
+        <div class="schedule-time">11:45am</div>
+        <div class="schedule-block">
+          <div class="block-name">Cross-Department Skill Share (45 min)</div>
+          <div class="block-detail">The heart of the day. One volunteer from one department teaches or shares something with the whole group. 20 minutes presentation, 25 minutes open discussion. Topics rotate monthly across departments. Examples: Content Crew teaches "how to film a 60-second reel that converts." Compliance Crew shares "how to read attendance data to spot patterns." Events Crew shares "the 3 things that make a registration desk work." The presenter chooses their own topic — it must be something they've actually learned from doing.</div>
+          <div class="block-type type-collab">Cross-Department Learning</div>
+        </div>
+      </div>
+      <div class="schedule-row">
+        <div class="schedule-time">12:30pm</div>
+        <div class="schedule-block" style="background:var(--surface2);">
+          <div class="block-name">Lunch (45 min)</div>
+          <div class="block-detail">Proper lunch. Volunteer Lead organises food — either catered simply or a local warung near the venue. Seated together. No phones at the table. This is not a break from the day — it is part of the day. Relationships are built at meals, not in meetings.</div>
+          <div class="block-type type-social">Community</div>
+        </div>
+      </div>
+      <div class="schedule-row">
+        <div class="schedule-time">1:15pm</div>
+        <div class="schedule-block">
+          <div class="block-name">Focused Work Block 2 — Cross-Department Collaboration (60 min)</div>
+          <div class="block-detail">Structured cross-department pairing. Volunteer Lead assigns pairs or trios from different roles to work on a shared challenge for 60 minutes. See the Cross-Collaboration Protocols section for how pairings work. Each pair has a defined output — not "discuss" but "produce." A draft, a plan, a list, a decision. Real work, across departments, together.</div>
+          <div class="block-type type-collab">Cross-Collaboration</div>
+        </div>
+      </div>
+      <div class="schedule-row">
+        <div class="schedule-time">2:15pm</div>
+        <div class="schedule-block" style="background:var(--surface2);">
+          <div class="block-name">Active Break (10 min)</div>
+          <div class="block-detail">Short reset. Walk, stretch, water. Volunteer Lead uses this moment to informally check in with anyone who seems disengaged or low energy.</div>
+          <div class="block-type type-energy">Energy Reset</div>
+        </div>
+      </div>
+      <div class="schedule-row">
+        <div class="schedule-time">2:25pm</div>
+        <div class="schedule-block">
+          <div class="block-name">Focused Work Block 3 — Finish What You Started (60 min)</div>
+          <div class="block-detail">Final work block. Each person returns to their individual priority task and aims to reach a "done for today" state. The rule: by the end of this block, write down what you completed — not what you worked on. Completions are what go on the Wins Board.</div>
+          <div class="block-type type-focus">Focused Work</div>
+        </div>
+      </div>
+      <div class="schedule-row">
+        <div class="schedule-time">3:25pm</div>
+        <div class="schedule-block" style="background:var(--surface2);">
+          <div class="block-name">Wins Round & Close (20 min)</div>
+          <div class="block-detail">Everyone shares one thing they completed today — on the Wins Board (whiteboard, sticky notes, or shared Notion page). No minimising. "I finished editing that reel" counts. "I sorted out the registration sheet" counts. Then one thing they learned from someone else today. Volunteer Lead closes with a brief look ahead — what's coming up in Terra's world that they should know about.</div>
+          <div class="block-type type-reflect">Reflection</div>
+        </div>
+      </div>
+      <div class="schedule-row">
+        <div class="schedule-time">3:45pm</div>
+        <div class="schedule-block" style="background: rgba(42,122,111,0.08); border-color: rgba(42,122,111,0.2);">
+          <div class="block-name">Social Time — Optional but Encouraged (open ended)</div>
+          <div class="block-detail">The formal day is done. But the venue stays open and the energy stays warm. Drinks, food, or a nearby spot. Nobody is required to stay — but most do, because this is where the conversations happen that make people feel like they belong. Volunteer Lead stays for at least 1 hour.</div>
+          <div class="block-type type-social" style="border-color:rgba(42,122,111,0.4);color:var(--teal-light);background:rgba(42,122,111,0.08);">Community Time</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:24px;">
+      <div class="panel">
+        <div class="panel-title">Co-Working Day Logistics</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Frequency</div><div class="db-desc">Once per month. Same week each month (e.g. second Saturday). Consistency builds anticipation.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Venue</div><div class="db-desc">Co-working space, café with a private room, or a Terra sponsor venue. Reliable WiFi. Power sockets. Capacity for 10–20. Booked at least 2 weeks ahead by Logistics.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Who attends</div><div class="db-desc">All active volunteers. Department leads are invited but not required — their presence is a gift, not a given.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Skill Share Rotation</div><div class="db-desc">Monthly skill share presenter scheduled 2 months ahead. Every volunteer presents at least once per year. Volunteer Lead coordinates the schedule.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Wins Board</div><div class="db-desc">Physical whiteboard or Notion shared page. Wins stay visible. At the next co-working day, the previous month's wins are briefly celebrated before the new day begins.</div></div></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="panel-title">What Makes it Work vs What Kills It</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name" style="color:#6abf99;">Works: Consistent date and time</div><div class="db-desc">Volunteers plan their lives around it. Moving it breaks the habit.</div></div></li>
+          <li class="db-item"><div><div class="db-name" style="color:#6abf99;">Works: Real food at lunch</div><div class="db-desc">A proper shared meal is worth more than any team-building exercise.</div></div></li>
+          <li class="db-item"><div><div class="db-name" style="color:#6abf99;">Works: Skill share is volunteer-led, not leader-led</div><div class="db-desc">Peers teaching peers builds respect and confidence simultaneously.</div></div></li>
+          <li class="db-item"><div><div class="db-name" style="color:#e07070;">Kills it: Making it feel like a meeting</div><div class="db-desc">If the agenda is just Terra updates, nobody will want to come.</div></div></li>
+          <li class="db-item"><div><div class="db-name" style="color:#e07070;">Kills it: No social time at the end</div><div class="db-desc">The relationships form in unstructured time. Cutting it cuts the point.</div></div></li>
+          <li class="db-item"><div><div class="db-name" style="color:#e07070;">Kills it: Low-energy facilitation</div><div class="db-desc">The Volunteer Lead sets the energy ceiling for the room. They must be on.</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- CROSS-COLLABORATION PROTOCOLS -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="collab">
+    <div class="section-eyebrow">Section 04</div>
+    <h2 class="section-title">Cross-Collaboration Protocols</h2>
+    <p class="section-body">The 60-minute collaboration block during co-working days pairs volunteers from different departments on a shared challenge. These pairings are not random — they are deliberately matched to create knowledge transfer between roles that would not naturally interact. Here are the standard pairings and their collaboration briefs.</p>
+
+    <div class="collab-grid">
+      <div class="collab-card">
+        <div class="collab-from">Content Crew</div>
+        <div class="collab-arrow">↔</div>
+        <div class="collab-to">Events Crew</div>
+        <div class="collab-what">Challenge: "How do we capture better content at events without disrupting the event?"</div>
+        <div class="collab-how">Content Crew explains what shots and moments they need. Events Crew explains what's happening on the ground and when. Together they produce: a co-working day output brief — which moments at the next event are capturable, from where, without being intrusive. One A4 page, done in the session.</div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-from">Compliance Crew</div>
+        <div class="collab-arrow">↔</div>
+        <div class="collab-to">Community Host</div>
+        <div class="collab-what">Challenge: "How do we capture every attendee without making registration feel like a checkpoint?"</div>
+        <div class="collab-how">Compliance needs the data. Community Host knows how to make human interaction warm. Together they review the current registration process and redesign one moment in it — the greeting, the handoff, the way the form is presented — to feel like welcome, not admin.</div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-from">Admin & Comms Crew</div>
+        <div class="collab-arrow">↔</div>
+        <div class="collab-to">School Support</div>
+        <div class="collab-what">Challenge: "How do we make student communication feel personal at scale?"</div>
+        <div class="collab-how">Admin Crew owns the templates. School Support is in the room with students and knows how they actually communicate. Together they review one email template currently being used and rewrite it to sound like a person, not a system. The rewrite is the output — submitted to School Director after the session.</div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-from">Content Crew</div>
+        <div class="collab-arrow">↔</div>
+        <div class="collab-to">Community Host</div>
+        <div class="collab-what">Challenge: "What are the moments at Terra events worth documenting — and why?"</div>
+        <div class="collab-how">Community Host is in the room seeing what moves people. Content Crew decides what to film. Together they build: a list of the top 5 moments worth capturing at a Terra workshop and why each one matters for the story Terra is telling. This becomes a reference document for Content Crew at all future events.</div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-from">Events Crew</div>
+        <div class="collab-arrow">↔</div>
+        <div class="collab-to">Admin & Comms Crew</div>
+        <div class="collab-what">Challenge: "How do we brief Logistics better so events run smoother?"</div>
+        <div class="collab-how">Events Crew knows what breaks on the day. Admin Crew knows how to structure a brief clearly. Together they review the current event brief template and identify the 3 things that are always missing or unclear. Then they add them. The updated template is submitted to Logistics Lead.</div>
+      </div>
+      <div class="collab-card">
+        <div class="collab-from">School Support</div>
+        <div class="collab-arrow">↔</div>
+        <div class="collab-to">Compliance Crew</div>
+        <div class="collab-what">Challenge: "How do we make attendance data useful, not just accurate?"</div>
+        <div class="collab-how">Compliance has the data. School Support sees how it affects the classroom. Together they look at last cohort's attendance patterns and identify: what does the data reveal about when students disengage? The output is a one-paragraph observation submitted to the School Director — turning raw numbers into insight.</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-title">How Pairings Are Chosen Each Month</div>
+      <div class="highlight-body">Volunteer Lead selects 2–3 pairings for each co-working day based on: what challenges the departments are currently facing, which volunteers haven't worked together yet, and which knowledge transfers would create the most value right now. Pairings rotate so that over 6 months, every volunteer has worked directly with every other department at least once. This is not accidental — it's deliberate architecture.</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- COMMUNITY CALENDAR -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="community">
+    <div class="section-eyebrow">Section 05</div>
+    <h2 class="section-title">Volunteer Community Calendar</h2>
+    <p class="section-body">The annual rhythm of the volunteer team. Co-working days build productivity. Team building days build trust. Fun days build friendship. The combination builds a community that doesn't want to leave.</p>
+
+    <div class="three-col" style="margin-bottom:2px;">
+      <div class="panel">
+        <div class="panel-title">Event Type Legend</div>
+        <ul class="db-list">
+          <li class="db-item"><div style="display:flex;align-items:center;gap:10px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--gold);flex-shrink:0;"></div><div><div class="db-name">Co-Working Day</div><div class="db-desc">Monthly. Focused work + cross-collab + skill share + social</div></div></div></li>
+          <li class="db-item"><div style="display:flex;align-items:center;gap:10px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--purple-light);flex-shrink:0;"></div><div><div class="db-name">Team Building Day</div><div class="db-desc">Quarterly. Structured experience that builds trust</div></div></div></li>
+          <li class="db-item"><div style="display:flex;align-items:center;gap:10px;"><div style="width:10px;height:10px;border-radius:50%;background:var(--teal-light);flex-shrink:0;"></div><div><div class="db-name">Fun Day</div><div class="db-desc">Every 6 weeks. No agenda. Just people. Bali-specific.</div></div></div></li>
+          <li class="db-item"><div style="display:flex;align-items:center;gap:10px;"><div style="width:10px;height:10px;border-radius:50%;background:#e07090;flex-shrink:0;"></div><div><div class="db-name">Learning Event</div><div class="db-desc">Bi-monthly. External or internal speaker. Volunteers only.</div></div></div></li>
+        </ul>
+      </div>
+      <div class="panel" style="grid-column: span 2;">
+        <div class="panel-title">Annual Rhythm — Q1 Sample</div>
+        <div class="community-cal" style="grid-template-columns:1fr 1fr 1fr;margin-bottom:0;">
+          <div class="cal-month">
+            <div class="cal-month-name">January</div>
+            <div class="cal-events">
+              <div class="cal-ev"><div class="cal-ev-dot dot-cowork"></div>Co-Working Day #1<br>Skill share: Content Crew</div>
+              <div class="cal-ev"><div class="cal-ev-dot dot-learn"></div>Learning Event: Guest speaker from Bali founder community</div>
+            </div>
+          </div>
+          <div class="cal-month">
+            <div class="cal-month-name">February</div>
+            <div class="cal-events">
+              <div class="cal-ev"><div class="cal-ev-dot dot-cowork"></div>Co-Working Day #2<br>Skill share: Compliance Crew</div>
+              <div class="cal-ev"><div class="cal-ev-dot dot-fun"></div>Fun Day: Surf lesson + warung lunch, Canggu</div>
+            </div>
+          </div>
+          <div class="cal-month">
+            <div class="cal-month-name">March</div>
+            <div class="cal-events">
+              <div class="cal-ev"><div class="cal-ev-dot dot-cowork"></div>Co-Working Day #3<br>Skill share: Events Crew</div>
+              <div class="cal-ev"><div class="cal-ev-dot dot-team"></div>Q1 Team Building Day</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subsection-title">Team Building Days — Quarterly</div>
+    <p class="section-body" style="margin-bottom:20px;">Once per quarter. A half-day structured experience followed by an unstructured afternoon. The morning builds trust through a shared challenge. The afternoon builds friendship through shared time. Both are necessary.</p>
+
+    <div class="three-col" style="margin-bottom:2px;">
+      <div class="panel" style="border-top:2px solid var(--purple-light);">
+        <div class="panel-title">Q1 — Skill Exchange Workshop</div>
+        <div style="font-size:11.5px;color:var(--soft);line-height:1.7;margin-bottom:12px;">Morning: Every volunteer teaches the group one skill from their own life — not their Terra role. A volunteer who surfs teaches a paddling technique. One who codes shares a shortcut. One who cooks makes one dish. Completely non-work. It reveals who people are beyond their role.</div>
+        <div style="font-size:10px;color:var(--purple-light);">Why it works: When you know someone as a whole person, you're more committed to them. Churn is personal — the fix is personal.</div>
+      </div>
+      <div class="panel" style="border-top:2px solid var(--purple-light);">
+        <div class="panel-title">Q2 — Challenge Day</div>
+        <div style="font-size:11.5px;color:var(--soft);line-height:1.7;margin-bottom:12px;">Morning: Mixed-department teams tackle a real Terra problem together. Example: "Design the ideal volunteer onboarding experience." Each team presents to the Volunteer Lead and COO. Best idea gets implemented. Real stakes, real output, cross-department collaboration under light pressure.</div>
+        <div style="font-size:10px;color:var(--purple-light);">Why it works: Volunteers feel heard. Their ideas shape Terra. That ownership is a powerful retention mechanism.</div>
+      </div>
+      <div class="panel" style="border-top:2px solid var(--purple-light);">
+        <div class="panel-title">Q3 — Bali Exploration Day</div>
+        <div style="font-size:11.5px;color:var(--soft);line-height:1.7;margin-bottom:12px;">Full day. The team goes somewhere together — a different part of Bali none of them have been to, or an experience outside their usual social range. A rice field walk in Jatiluwih. A cooking class in Ubud. A sunrise at Batur. The activity is secondary to the day spent in each other's company.</div>
+        <div style="font-size:10px;color:var(--purple-light);">Why it works: Shared unusual experiences create disproportionate bonds. They'll talk about this day for months.</div>
+      </div>
+    </div>
+
+    <div class="subsection-title">Fun Days — Every 6 Weeks</div>
+    <p class="section-body" style="margin-bottom:20px;">No agenda. No outputs. No Notion updates. A group of people doing something enjoyable in Bali together. The Volunteer Lead organises it. The only rule: it must be something that only makes sense in Bali, and it must be easy to say yes to.</p>
+
+    <div class="fun-grid">
+      <div class="fun-card">
+        <div class="fun-tag" style="color:var(--teal-light);border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:12px;">Active</div>
+        <div class="fun-name">Sunrise Surf Session</div>
+        <div class="fun-detail">Rent boards, hire a local instructor for beginners. Canggu beach at 6am. Breakfast at a warung after. Back before 9am. Easy yes, low cost, physical endorphins, great photos.</div>
+        <div class="fun-why">Why: Physical shared experience + beautiful Bali setting = emotional memory that outlasts any team building exercise.</div>
+      </div>
+      <div class="fun-card">
+        <div class="fun-tag" style="color:var(--teal-light);border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:12px;">Social</div>
+        <div class="fun-name">Communal Cook & Eat</div>
+        <div class="fun-detail">Someone's villa or a rented kitchen space. Everyone brings one ingredient. Volunteer Lead sets a loose theme. Cook together, eat together, clean together. No phones during the meal.</div>
+        <div class="fun-why">Why: Cooking and eating together is the oldest form of community building. It works every time.</div>
+      </div>
+      <div class="fun-card">
+        <div class="fun-tag" style="color:var(--teal-light);border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:12px;">Cultural</div>
+        <div class="fun-name">Temple Visit & Local Guide</div>
+        <div class="fun-detail">One of Bali's lesser-visited temples. A local who can explain what they're seeing. Lunch at a nearby local place. Half day. Respectful, interesting, memorable.</div>
+        <div class="fun-why">Why: Shared cultural curiosity is a bonding mechanism. It signals that the team values depth over entertainment.</div>
+      </div>
+      <div class="fun-card">
+        <div class="fun-tag" style="color:var(--teal-light);border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:12px;">Playful</div>
+        <div class="fun-name">Bali Movie Night</div>
+        <div class="fun-detail">Outdoor or rooftop projector. Someone's place or a venue. One film chosen by vote in advance. Snacks, drinks, blankets. Optional: short "why I chose this film" from whoever suggested it.</div>
+        <div class="fun-why">Why: Low effort for the group, high intimacy. People share what they love. That's the point.</div>
+      </div>
+      <div class="fun-card">
+        <div class="fun-tag" style="color:var(--teal-light);border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:12px;">Active</div>
+        <div class="fun-name">Volleyball or Badminton</div>
+        <div class="fun-detail">Beach volleyball at Seminyak or a badminton court in Denpasar. Mixed teams, casual rules. Competitive enough to be fun, relaxed enough for everyone. Food and drinks after.</div>
+        <div class="fun-why">Why: Physical play removes hierarchies. Nobody cares who's the department lead when the ball is in the air.</div>
+      </div>
+      <div class="fun-card">
+        <div class="fun-tag" style="color:var(--teal-light);border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:12px;">Adventurous</div>
+        <div class="fun-name">Day Trip to the Mountains</div>
+        <div class="fun-detail">Munduk or Bedugul. Rent a van together. Waterfalls, warungs, views. Full day out of the usual Canggu-Seminyak orbit. Returns everyone with the same shared memory.</div>
+        <div class="fun-why">Why: Leaving the routine together is a bonding accelerant. The van ride alone builds more connection than most structured activities.</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- GROWTH LADDER -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="growth">
+    <div class="section-eyebrow">Section 06</div>
+    <h2 class="section-title">Volunteer Growth Ladder</h2>
+    <p class="section-body">Volunteers need to see a path, not just a role. The growth ladder shows what's possible — from first month to department leadership. Progress is recognised, not assumed. The Volunteer Lead checks in on each person's position every quarter.</p>
+
+    <div class="ladder">
+      <div class="ladder-rung">
+        <div style="width:140px;"></div>
+        <div class="rung-header">What They Do</div>
+        <div class="rung-header">What They Develop</div>
+      </div>
+      <div class="ladder-rung">
+        <div class="rung-level" style="border-top:2px solid var(--muted);">
+          <div class="rung-name">New Volunteer</div>
+          <div class="rung-duration">Months 1–2</div>
+        </div>
+        <div class="rung-cell">Shadows a buddy. Supports at events. Learns the role. Attends first co-working day. Does not own anything yet — observes and assists.</div>
+        <div class="rung-cell">Orientation, confidence, relationships. Understands how Terra works as a system, not just as a series of tasks.</div>
+      </div>
+      <div class="ladder-rung">
+        <div class="rung-level" style="border-top:2px solid var(--soft);">
+          <div class="rung-name">Active Volunteer</div>
+          <div class="rung-duration">Months 2–6</div>
+        </div>
+        <div class="rung-cell">Fully executing their role independently. Attends co-working days. Does their first skill share presentation. Works cross-department in collaboration blocks.</div>
+        <div class="rung-cell">Technical skills of their role. Cross-department understanding. Presenting and sharing knowledge. Reliability and consistency.</div>
+      </div>
+      <div class="ladder-rung">
+        <div class="rung-level" style="border-top:2px solid var(--gold);">
+          <div class="rung-name">Senior Volunteer</div>
+          <div class="rund-duration" style="font-size:9px;color:var(--muted);margin-top:3px;">Months 6–12</div>
+        </div>
+        <div class="rung-cell">Mentors new volunteers as a buddy. Contributes to how the role is structured — not just executes it. Proposes improvements to processes they see breaking. Involved in co-working day design.</div>
+        <div class="rung-cell">Leadership, mentoring, systems thinking. Their growth goal shifts from "I want to learn X" to "I want to improve how X works for everyone."</div>
+      </div>
+      <div class="ladder-rung">
+        <div class="rung-level" style="border-top:2px solid var(--purple-light);">
+          <div class="rung-name">Role Lead</div>
+          <div class="rung-duration">Month 12+</div>
+        </div>
+        <div class="rung-cell">Owns their volunteer role. Coordinates others in that role. Briefs their department's volunteer crew before events. Reports directly to department lead and Volunteer Lead. Has their own 1:1 with Volunteer Lead monthly.</div>
+        <div class="rung-cell">Management, coordination, accountability. Effectively operating as a junior department lead. Terra is investing in their development at a meaningful level.</div>
+      </div>
+    </div>
+
+    <div class="subsection-title">Quarterly Growth Review — Process</div>
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Volunteer self-assessment form sent 1 week before review</div>
+          <div class="step-detail">Short Google Form. Questions: What am I most proud of this quarter? What is one skill I've developed? What am I still struggling with? What do I want to focus on next quarter? Am I in the right role for where I want to go? This is their preparation — the conversation doesn't start from scratch.</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Volunteer Lead sends</span><span class="tool-tag tag-google">Google Form</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">20-minute 1:1 with Volunteer Lead</div>
+          <div class="step-detail">Not a performance review. A growth conversation. Volunteer Lead reads the self-assessment before the meeting. Conversation covers: what's working, what's not, what the next 90 days look like, and whether their ladder position should change. If a volunteer is ready to progress, it is named and acknowledged — not assumed.</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Volunteer Lead + Volunteer</span><span class="tool-tag tag-notion">Notion — volunteer record updated</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Exit conversation — if a volunteer leaves</div>
+          <div class="step-detail">If a volunteer decides to step back, Volunteer Lead has a short, kind conversation: what are they moving on to, what would have made them stay longer, is there a lighter-touch way to stay involved (occasional event support rather than full commitment)? Their exit is logged in Notion with the primary reason. Patterns across exits drive system changes — not individual blame.</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Volunteer Lead</span><span class="tool-tag tag-notion">Notion exit log</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- SYSTEMS ARCHITECTURE -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="systems">
+    <div class="section-eyebrow">Section 07</div>
+    <h2 class="section-title">Systems Architecture</h2>
+
+    <div class="system-block">
+      <div class="system-header">
+        <div class="system-icon icon-notion">N</div>
+        <div>
+          <div class="system-name">Notion — Volunteer Operational Home</div>
+          <div class="system-role">Every volunteer record, co-working day plan, growth review, and cross-collaboration output lives here.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <div class="subsection-title" style="margin-top:0">Notion Page Structure — Volunteers</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">🤝 Volunteers Home</div><div class="db-desc">Master page. Active volunteer count, upcoming events (co-working day, fun day), and current growth reviews due. Volunteer Lead's daily starting point.</div></div><span class="db-type tag-notion">Parent page</span></li>
+          <li class="db-item"><div><div class="db-name">👥 Volunteer Database</div><div class="db-desc">One row per volunteer ever. Fields: name, contact, role, department served, start date, current ladder level, buddy (for new volunteers), growth goal, status (active / on hold / alumni). Relations to co-working day attendance.</div></div><span class="db-type tag-notion">Database</span></li>
+          <li class="db-item"><div><div class="db-name">💡 Candidate Pipeline</div><div class="db-desc">People identified as potential volunteers. Fields: name, source (which event), observed behaviour, approach status, notes. Reviewed monthly by Volunteer Lead.</div></div><span class="db-type tag-notion">Database</span></li>
+          <li class="db-item"><div><div class="db-name">📅 Co-Working Day Pages</div><div class="db-desc">One page per co-working day. Contains: date, venue, attendees, skill share presenter and topic, cross-collaboration pairings and brief, Wins Board outputs, follow-up actions. Archive of all past days.</div></div><span class="db-type tag-notion">Page per session</span></li>
+          <li class="db-item"><div><div class="db-name">🌱 Growth Review Records</div><div class="db-desc">One entry per volunteer per quarter. Self-assessment summary, Volunteer Lead notes, ladder position confirmed, next quarter focus. Confidential — Volunteer Lead and COO access only.</div></div><span class="db-type tag-notion">Database</span></li>
+          <li class="db-item"><div><div class="db-name">📊 Exit Log</div><div class="db-desc">Every volunteer who leaves. Primary reason (role mismatch / time / moving on / dissatisfied / life change). Used to identify systemic patterns. Never for blame.</div></div><span class="db-type tag-notion">Database</span></li>
+          <li class="db-item"><div><div class="db-name">📋 Community Calendar (annual)</div><div class="db-desc">Full year of co-working days, team building days, fun days, and learning events. Published to the volunteer team at the start of each quarter. Changes communicated minimum 2 weeks ahead.</div></div><span class="db-type tag-notion">Planning page</span></li>
+        </ul>
+
+        <div class="subsection-title">Volunteer Database Schema</div>
+        <table class="schema-table">
+          <thead><tr><th>Field</th><th>Type</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>Volunteer Name</td><td><span class="field-type">Title</span></td><td>Full name</td></tr>
+            <tr><td>Role</td><td><span class="field-type">Select</span></td><td>Events Crew / Content Crew / Compliance Crew / Community Host / Admin & Comms / School Support</td></tr>
+            <tr><td>Department Served</td><td><span class="field-type">Multi-Select</span></td><td>Which departments they support</td></tr>
+            <tr><td>Ladder Level</td><td><span class="field-type">Select</span></td><td>New / Active / Senior / Role Lead</td></tr>
+            <tr><td>Start Date</td><td><span class="field-type">Date</span></td><td>First event they attended as a volunteer</td></tr>
+            <tr><td>Growth Goal</td><td><span class="field-type">Text</span></td><td>What they said they want to develop — in their own words</td></tr>
+            <tr><td>Buddy</td><td><span class="field-type">Relation</span></td><td>Links to their assigned buddy (another volunteer)</td></tr>
+            <tr><td>Status</td><td><span class="field-type">Select</span></td><td>Active / On Hold / Alumni</td></tr>
+            <tr><td>Next Review Due</td><td><span class="field-type">Date</span></td><td>Quarterly growth review date</td></tr>
+            <tr><td>Events Attended</td><td><span class="field-type">Number</span></td><td>Running count of Terra events supported</td></tr>
+            <tr><td>Co-Working Days Attended</td><td><span class="field-type">Number</span></td><td>Running count of co-working days attended</td></tr>
+            <tr><td>Referrals Made</td><td><span class="field-type">Number</span></td><td>Other volunteers they've brought in</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="system-block" style="margin-top:2px;">
+      <div class="system-header">
+        <div class="system-icon icon-whatsapp">W</div>
+        <div>
+          <div class="system-name">WhatsApp — Volunteer Community Groups</div>
+          <div class="system-role">The volunteer community lives here. Keep it warm, keep it relevant, keep it human.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Terra Volunteers (all-team group)</div><div class="db-desc">All active volunteers + Volunteer Lead + COO. Used for: co-working day reminders, fun day planning, community moments, celebrating wins, sharing relevant Terra updates. This group should feel like a team chat — not an announcement channel. Volunteer Lead sets the social tone.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Department volunteer sub-groups</div><div class="db-desc">One WhatsApp group per department volunteer cluster (e.g. "Terra Events Crew", "Terra Content Crew"). Operational coordination for that cluster. Department lead is admin. Volunteer Lead is added but observes only — this is the department's working space.</div></div></li>
+        </ul>
+        <div class="highlight-box" style="margin-top:16px;">
+          <div class="highlight-title">The Tone Rule for the Volunteer Group</div>
+          <div class="highlight-body">The Terra Volunteers WhatsApp group is not just an operational channel. It is the primary social layer of the volunteer community between co-working days and fun days. Volunteer Lead actively drives social conversation here — sharing a photo from an event, celebrating a volunteer by name when they do something well, asking the group casual questions that have nothing to do with tasks. If this group goes quiet except for logistics, the community is dying. Watch it like a living thing.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- DOCUMENTATION LIBRARY -->
+  <!-- ================================================================ -->
+  <div class="section-block">
+    <div class="section-eyebrow">Section 08</div>
+    <h2 class="section-title">Documentation Library</h2>
+
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-type tag-google" style="background:rgba(74,140,111,0.1);color:#6abf99;border:1px solid rgba(74,140,111,0.25);">Google Form</div>
+        <div class="doc-name">Volunteer Interest Application</div>
+        <div class="doc-owner">Owner: Volunteer Lead · Shared only via personal invitation</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Name, contact, how long in Bali</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What they do (business or work)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What they want to learn or develop in next 6 months</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Which volunteer role interests them (and why)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Hours available per month for Terra</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Why Terra specifically</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Forms folder</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">PDF Document</div>
+        <div class="doc-name">Volunteer Agreement</div>
+        <div class="doc-owner">Owner: Volunteer Lead · Signed before first event</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Role description and which department(s) they serve</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Time commitment expectation (events per month, co-working days)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Terra's values and what they mean for volunteers</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Confidentiality (what they hear inside Terra stays inside Terra)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Content rights (anything captured at events belongs to Terra)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Exit process — how to step back gracefully</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What Terra commits to them (growth, community, recognition)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Signature and date</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Templates + Volunteer Profiles folder</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Co-Working Day Plan</div>
+        <div class="doc-owner">Owner: Volunteer Lead · Created 2 weeks before each session</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Date, venue, expected attendees</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Skill share presenter and topic (confirmed)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Cross-department pairings and collaboration briefs</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Food and logistics plan (who brings what)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Wins Board format for the day</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Social plan for after (where, what)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Post-day: outputs logged, attendance noted, key moments captured</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Co-Working Day Pages</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-google" style="background:rgba(74,140,111,0.1);color:#6abf99;border:1px solid rgba(74,140,111,0.25);">Google Form</div>
+        <div class="doc-name">Quarterly Self-Assessment Form</div>
+        <div class="doc-owner">Owner: Volunteer Lead · Sent to all volunteers each quarter</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>What am I most proud of this quarter?</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>One skill I've genuinely developed</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What am I still finding hard?</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Am I in the right role for where I want to go?</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What do I want to focus on next quarter?</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>How connected do I feel to the volunteer team? (1–5)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Anything else Volunteer Lead should know?</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Forms folder</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Role Playbook (per role)</div>
+        <div class="doc-owner">Owner: Volunteer Lead + Role Lead · Updated after every co-working day retrospective</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>What this role does and why it matters</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Step-by-step for every task (e.g. events registration setup)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What good looks like — specific standards</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Common mistakes and how to avoid them</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Who to go to for questions (department lead contact)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Skills this role builds (with examples)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Volunteers Home (one per role)</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Volunteer Exit Interview Notes</div>
+        <div class="doc-owner">Owner: Volunteer Lead · Completed within 1 week of departure</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Volunteer name and role</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Time with Terra</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Primary reason for leaving (select from standard categories)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What they valued most</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What would have made them stay longer</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>System change suggested (if any)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Would they return? Would they refer?</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Alumni status: added to Terra Alumni WhatsApp</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Exit Log</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- OPERATING RULES -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="rules">
+    <div class="section-eyebrow">Section 09</div>
+    <h2 class="section-title">Operating Rules</h2>
+    <p class="section-body">These protect the quality of the volunteer experience. Every rule exists to prevent a specific form of churn. Know what each one is protecting against.</p>
+
+    <div class="rules-box">
+      <div class="rules-title">Non-Negotiable Operating Rules — Volunteers Department</div>
+      <div class="rule-item"><span class="rule-num">01</span>Volunteers are never recruited through a public "we need help" call. They are personally invited. The personal invitation is what signals that they are specifically wanted — not generally needed. This distinction determines the quality of who joins.</div>
+      <div class="rule-item"><span class="rule-num">02</span>Every volunteer is matched to a role based on their growth goal, not just Terra's needs. Both must be served. A volunteer in the wrong role for their growth will leave within 3 months regardless of mission alignment.</div>
+      <div class="rule-item"><span class="rule-num">03</span>Every new volunteer has a buddy for their first 4 weeks. The buddy's job is belonging, not training. The difference matters.</div>
+      <div class="rule-item"><span class="rule-num">04</span>The 30-day check-in happens. No exceptions. Most volunteers who leave do so silently — this check-in is the earliest intervention point.</div>
+      <div class="rule-item"><span class="rule-num">05</span>Co-working days are monthly, consistent, and always followed by social time. Moving the date breaks the habit. Cutting the social time cuts the point.</div>
+      <div class="rule-item"><span class="rule-num">06</span>The skill share at co-working days is always volunteer-led. Never Volunteer Lead or department lead as presenter. Peers teaching peers is more powerful and more respectful of volunteer capability.</div>
+      <div class="rule-item"><span class="rule-num">07</span>Cross-department pairings in collaboration blocks produce a tangible output — a document, a rewrite, a list, a decision. "We had a good chat" is not an output. Real work builds real respect between departments.</div>
+      <div class="rule-item"><span class="rule-num">08</span>Fun days have no agenda and no outputs. The moment a fun day becomes an opportunity for a Terra announcement or a team debrief, it stops being a fun day. Protect the category.</div>
+      <div class="rule-item"><span class="rule-num">09</span>Quarterly growth reviews happen for every active volunteer. Ladder progression is named explicitly — not assumed. Recognition that is felt is more powerful than recognition that exists on paper.</div>
+      <div class="rule-item"><span class="rule-num">10</span>Every volunteer who leaves has an exit conversation. Their reason is logged in Notion. When 3 volunteers leave for the same reason, it is a systems problem — not a people problem. Fix the system.</div>
+      <div class="rule-item"><span class="rule-num">11</span>The volunteer WhatsApp group is maintained as a social channel, not just an operational one. Volunteer Lead actively drives warmth and recognition in it. A quiet WhatsApp group is an early warning sign.</div>
+      <div class="rule-item"><span class="rule-num">12</span>Volunteers are publicly recognised at Terra events when they do something exceptional. Not constantly — specifically. Specific recognition has ten times the impact of general appreciation. The department lead and Volunteer Lead coordinate on who to name and for what.</div>
+    </div>
+  </div>
+
+
+  <!-- FOOTER -->
+  <div class="page-footer">
+    <div class="footer-left">"The community you build internally is the community you project externally."</div>
+    <div class="footer-right">
+      Terra Bali · Volunteers Operations Manual<br>
+      Department 06 · Internal Reference · v1.0
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
