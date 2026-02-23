@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terra Bali — Sponsorship Operations Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --surface: #0f0f0f;
+    --surface2: #131313;
+    --border: #1e1e1e;
+    --border2: #2a2a2a;
+    --purple: #5B2D8E;
+    --purple-light: #a67dd4;
+    --gold: #C9860A;
+    --gold-light: #F0A830;
+    --crimson: #8B1A3A;
+    --teal-light: #4abfb0;
+    --text: #E8E0D5;
+    --muted: #555;
+    --soft: #888;
+    --google: #4A8C6F;
+    --whatsapp: #25A244;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 40% at 20% 10%, rgba(139,26,58,0.06) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 5%, rgba(91,45,142,0.08) 0%, transparent 60%), radial-gradient(ellipse 40% 30% at 90% 90%, rgba(201,134,10,0.04) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+
+  .nav { position: sticky; top: 0; z-index: 100; background: rgba(8,8,8,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 40px; display: flex; align-items: center; height: 52px; gap: 24px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .nav-circle { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--gold); box-shadow: 0 0 8px rgba(201,134,10,0.2); }
+  .nav-name { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 300; letter-spacing: 0.4em; }
+  .nav-links { display: flex; overflow-x: auto; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-link { font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0 12px; height: 52px; display: flex; align-items: center; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+  .nav-link:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  .main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 72px 40px 120px; }
+
+  .page-header { margin-bottom: 80px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
+  .page-eyebrow { font-size: 9px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 18px; }
+  .page-title { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; line-height: 1.15; margin-bottom: 20px; }
+  .page-body { font-size: 12.5px; line-height: 1.8; color: var(--soft); max-width: 580px; margin-bottom: 32px; }
+
+  .tool-legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+  .tool-badge { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--border); font-size: 9.5px; letter-spacing: 0.12em; }
+  .tool-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-notion { background: var(--purple-light); }
+  .dot-google { background: var(--google); }
+
+  .section-block { margin-bottom: 80px; scroll-margin-top: 68px; }
+  .section-eyebrow { font-size: 9px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; margin-bottom: 8px; }
+  .section-body { font-size: 12px; color: var(--soft); line-height: 1.8; max-width: 620px; margin-bottom: 32px; }
+  .subsection-title { font-size: 10px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin: 32px 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  .process-flow { display: flex; flex-direction: column; gap: 2px; margin-bottom: 32px; }
+  .process-step { display: grid; grid-template-columns: 48px 1fr auto; background: var(--surface); border: 1px solid var(--border); overflow: hidden; }
+  .step-number { display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--muted); background: var(--surface2); border-right: 1px solid var(--border); padding: 16px 8px; flex-shrink: 0; }
+  .step-content { padding: 16px 20px; }
+  .step-title { font-size: 12px; color: var(--text); margin-bottom: 4px; }
+  .step-detail { font-size: 11px; color: var(--soft); line-height: 1.6; }
+  .step-trigger { font-size: 10px; color: var(--muted); margin-top: 6px; font-style: italic; }
+  .step-meta { padding: 16px 16px 16px 0; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; justify-content: center; }
+  .owner-tag { font-size: 8.5px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid var(--border2); color: var(--soft); white-space: nowrap; }
+  .tool-tag { font-size: 8px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid; white-space: nowrap; }
+  .tag-notion { border-color: rgba(166,125,212,0.3); color: var(--purple-light); background: rgba(91,45,142,0.08); }
+  .tag-google { border-color: rgba(74,140,111,0.3); color: #6abf99; background: rgba(74,140,111,0.08); }
+  .tag-manual { border-color: rgba(201,134,10,0.3); color: var(--gold-light); background: rgba(201,134,10,0.08); }
+  .step-connector { display: flex; justify-content: flex-start; padding-left: 24px; height: 16px; }
+  .connector-line { width: 1px; background: var(--border2); height: 100%; }
+
+  .phase-divider { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; margin: 28px 0 16px; }
+  .phase-label { font-size: 8.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
+  .phase-line { height: 1px; background: linear-gradient(to right, rgba(201,134,10,0.3), transparent); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .panel { background: var(--surface); border: 1px solid var(--border); padding: 24px 28px; }
+  .panel-title { font-size: 9.5px; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  .db-list { list-style: none; }
+  .db-item { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; }
+  .db-item:last-child { border-bottom: none; }
+  .db-name { color: var(--text); margin-bottom: 3px; }
+  .db-desc { font-size: 10.5px; color: var(--soft); line-height: 1.5; }
+  .db-type { font-size: 8px; letter-spacing: 0.1em; padding: 3px 8px; white-space: nowrap; align-self: start; margin-top: 2px; }
+
+  .doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .doc-card { background: var(--surface); border: 1px solid var(--border); padding: 20px 22px; }
+  .doc-type-tag { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; }
+  .doc-name { font-size: 13px; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+  .doc-owner { font-size: 10px; color: var(--muted); margin-bottom: 10px; }
+  .doc-fields { list-style: none; }
+  .doc-field { font-size: 10.5px; color: var(--soft); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; gap: 8px; }
+  .doc-field:last-child { border-bottom: none; }
+  .field-bullet { color: var(--gold); font-size: 8px; flex-shrink: 0; margin-top: 2px; }
+  .doc-where { display: inline-flex; align-items: center; gap: 5px; font-size: 8.5px; margin-top: 12px; padding: 4px 10px; border: 1px solid var(--border2); color: var(--soft); }
+
+  .rules-box { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--crimson); padding: 22px 28px; }
+  .rules-title { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: #c47; margin-bottom: 14px; }
+  .rule-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; color: var(--soft); line-height: 1.6; }
+  .rule-item:last-child { border-bottom: none; }
+  .rule-num { color: var(--gold); font-size: 10px; flex-shrink: 0; min-width: 20px; }
+
+  .highlight-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); padding: 22px 28px; margin-bottom: 2px; }
+  .highlight-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--gold-light); margin-bottom: 10px; }
+  .highlight-body { font-size: 12px; color: var(--soft); line-height: 1.8; max-width: 700px; }
+
+  .schema-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .schema-table th { font-size: 8.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border2); font-weight: 400; }
+  .schema-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--soft); vertical-align: top; line-height: 1.5; }
+  .schema-table tr:last-child td { border-bottom: none; }
+  .field-type { font-size: 9px; padding: 2px 7px; background: var(--surface2); border: 1px solid var(--border2); color: var(--muted); white-space: nowrap; }
+
+  /* TIER CARDS */
+  .tier-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 24px; }
+  .tier-card { background: var(--surface); border: 1px solid var(--border); padding: 24px 24px; }
+  .tier-founding { border-top: 3px solid var(--gold-light); }
+  .tier-partner { border-top: 3px solid var(--purple-light); }
+  .tier-community { border-top: 3px solid var(--teal-light); }
+  .tier-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; margin-bottom: 4px; }
+  .tier-level { font-size: 8.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .tier-price { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--gold-light); margin-bottom: 4px; }
+  .tier-price-note { font-size: 9px; color: var(--muted); margin-bottom: 18px; }
+  .tier-benefits { list-style: none; }
+  .tier-benefit { font-size: 11px; color: var(--soft); padding: 7px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; line-height: 1.5; }
+  .tier-benefit:last-child { border-bottom: none; }
+  .tb-check { color: var(--gold); font-size: 9px; flex-shrink: 0; margin-top: 2px; }
+  .tier-limit { font-size: 9px; color: var(--muted); margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
+
+  /* PIPELINE STAGES */
+  .pipeline-stages { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; margin-bottom: 24px; }
+  .stage { background: var(--surface); border: 1px solid var(--border); padding: 16px 16px; border-top: 2px solid var(--border2); text-align: center; }
+  .stage-active { border-top-color: var(--gold); }
+  .stage-num { font-size: 9px; letter-spacing: 0.18em; color: var(--muted); margin-bottom: 8px; }
+  .stage-name { font-size: 11.5px; color: var(--text); margin-bottom: 6px; line-height: 1.4; }
+  .stage-action { font-size: 10px; color: var(--soft); line-height: 1.5; }
+
+  /* FULFILMENT TABLE */
+  .fulfil-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+  .fulfil-table th { font-size: 8.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border2); font-weight: 400; background: var(--surface2); }
+  .fulfil-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 11px; color: var(--soft); vertical-align: top; line-height: 1.6; }
+  .fulfil-table tr:last-child td { border-bottom: none; }
+  .ft-item { color: var(--text); font-size: 11.5px; margin-bottom: 3px; }
+  .ft-who { font-size: 9px; color: var(--muted); }
+  .ft-sla { font-size: 9px; color: var(--gold); }
+  .status-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+  .sd-green { background: #4abfb0; }
+  .sd-gold { background: var(--gold); }
+  .sd-red { background: #c47; }
+
+  .system-block { background: var(--surface); border: 1px solid var(--border); margin-bottom: 2px; overflow: hidden; }
+  .system-header { display: flex; align-items: center; gap: 14px; padding: 18px 24px; border-bottom: 1px solid var(--border); }
+  .system-icon { width: 32px; height: 32px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .icon-notion { background: rgba(91,45,142,0.2); border: 1px solid rgba(91,45,142,0.3); }
+  .icon-google { background: rgba(74,140,111,0.15); border: 1px solid rgba(74,140,111,0.25); }
+  .system-name { font-size: 13px; color: var(--text); }
+  .system-role { font-size: 10px; color: var(--soft); margin-top: 2px; }
+  .system-body { padding: 20px 24px; }
+
+  .page-footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-left { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; color: var(--muted); }
+  .footer-right { font-size: 8.5px; letter-spacing: 0.15em; color: var(--muted); text-align: right; line-height: 2; }
+
+  @media (max-width: 760px) {
+    .nav { padding: 0 16px; }
+    .main { padding: 48px 16px 80px; }
+    .two-col, .three-col, .doc-grid, .tier-grid { grid-template-columns: 1fr; }
+    .pipeline-stages { grid-template-columns: 1fr 1fr; }
+    .process-step { grid-template-columns: 40px 1fr; }
+    .step-meta { display: none; }
+    .page-title { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-circle"></div>
+    <div class="nav-name">TERRA</div>
+  </div>
+  <div class="nav-links">
+    <a href="#overview" class="nav-link">Overview</a>
+    <a href="#philosophy" class="nav-link">Philosophy</a>
+    <a href="#tiers" class="nav-link">Sponsor Tiers</a>
+    <a href="#pipeline" class="nav-link">Pipeline</a>
+    <a href="#fulfilment" class="nav-link">Fulfilment</a>
+    <a href="#renewal" class="nav-link">Renewal</a>
+    <a href="#boundaries" class="nav-link">Boundaries</a>
+    <a href="#systems" class="nav-link">Systems</a>
+    <a href="#rules" class="nav-link">Rules</a>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- HEADER -->
+  <div class="page-header" id="overview">
+    <div class="page-eyebrow">Operations Manual · Department 10 · Sponsorship</div>
+    <h1 class="page-title">Sponsorship<br>Operations</h1>
+    <p class="page-body">
+      Sponsorship is not fundraising. It is the art of identifying businesses whose interests genuinely align with Terra's community — and building relationships that make Terra more valuable to founders, not more commercial. Every sponsor is a partner. Every partnership has clear deliverables, clear limits, and a clear renewal conversation. This department protects Terra's integrity while funding its growth.
+    </p>
+
+    <div class="two-col" style="margin-top:0;">
+      <div class="panel">
+        <div class="panel-title">What This Document Covers</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Sponsorship Philosophy</div><div class="db-desc">The principles that govern every sponsor relationship and what Terra will and will not do</div></div></li>
+          <li class="db-item"><div><div class="db-name">Sponsor Tiers</div><div class="db-desc">Three partnership levels with defined benefits, limits, and pricing</div></div></li>
+          <li class="db-item"><div><div class="db-name">Pipeline & Acquisition Process</div><div class="db-desc">How sponsors are identified, approached, and converted</div></div></li>
+          <li class="db-item"><div><div class="db-name">Fulfilment Process</div><div class="db-desc">How Terra delivers on every sponsorship commitment — on time, as agreed</div></div></li>
+          <li class="db-item"><div><div class="db-name">Renewal Process</div><div class="db-desc">How sponsor relationships are maintained and renewed</div></div></li>
+          <li class="db-item"><div><div class="db-name">Sponsorship Boundaries</div><div class="db-desc">What Terra will not do for any sponsor — and how to communicate it</div></div></li>
+          <li class="db-item"><div><div class="db-name">Systems & Documentation</div><div class="db-desc">Notion pipeline, Google Drive contracts, and reporting</div></div></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Department at a Glance</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Sponsorship Lead</div><div class="db-desc">Owns all sponsor relationships. Signs nothing without COO approval. Trains 1 deputy.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Active Sponsor Target</div><div class="db-desc">3–6 active sponsors at any time. Quality over volume. Never dependent on one sponsor for more than 40% of sponsorship revenue.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Pipeline Target</div><div class="db-desc">Minimum 3 qualified prospects in pipeline at all times. No pipeline = vulnerability.</div></div></li>
+          <li class="db-item"><div><div class="db-name">CEO Involvement</div><div class="db-desc">CEO is the relationship anchor for all Founding Sponsors. Sponsorship Lead manages operationally.</div></div></li>
+          <li class="db-item"><div><div class="db-name">COO Approval</div><div class="db-desc">Required for every agreement before signing. No exceptions.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Community Integrity</div><div class="db-desc">No sponsor ever gets access to attendee data, editorial control, or the right to decline speakers.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tool-legend">
+      <div class="tool-badge"><div class="tool-dot dot-notion"></div>Notion — pipeline, fulfilment tracker, records</div>
+      <div class="tool-badge"><div class="tool-dot dot-google"></div>Google — contracts, proposals, reporting</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- PHILOSOPHY -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="philosophy">
+    <div class="section-eyebrow">Section 01</div>
+    <h2 class="section-title">Sponsorship Philosophy</h2>
+    <p class="section-body">The single most important question in every sponsorship conversation is: does this brand make Terra more valuable to our founders, or does it make Terra more commercial? If the answer is the latter, the conversation ends.</p>
+
+    <div class="highlight-box">
+      <div class="highlight-title">The Right Sponsor</div>
+      <div class="highlight-body">The right sponsor is one whose product or service a Terra founder would genuinely want to know about — independent of the sponsorship. A co-working space, a business bank account for international founders, a legal service for company formation, a tool that solves a real founder problem. The test is simple: if a workshop attendee learned about this sponsor through Terra, would they thank Terra for the introduction — or feel like they'd been sold to? The answer to that question determines whether we proceed.</div>
+    </div>
+
+    <div class="two-col" style="margin-top:24px;">
+      <div class="panel" style="border-top:2px solid var(--teal-light);">
+        <div class="panel-title">What Terra Offers Sponsors</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Access to a curated founder community</div><div class="db-desc">Not a mass audience. A specific, high-quality community of founders building real businesses. The density of the right person per event is what makes Terra valuable to sponsors — not the volume.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Brand visibility at events</div><div class="db-desc">Signage, verbal mention, materials at registration desk or in the room. Clearly visible, not intrusive.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Co-branded content (Partner tier and above)</div><div class="db-desc">One branded content piece per month. Approved by Marketing. Must provide genuine value to founders — not a product advertisement.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Venue partnership (Community tier)</div><div class="db-desc">For venues that host Terra events — reduced or waived venue fees in exchange for Terra's consistent presence and brand association.</div></div></li>
+        </ul>
+      </div>
+      <div class="panel" style="border-top:2px solid var(--crimson);">
+        <div class="panel-title">What Terra Does Not Offer — Ever</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Attendee contact data</div><div class="db-desc">No sponsor receives any attendee's name, WhatsApp, or email. This is a permanent, non-negotiable limit. Any sponsor who asks for this is declined immediately — and the request is logged as a signal about their intentions.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Editorial control</div><div class="db-desc">No sponsor influences who speaks at Terra events, what topics are covered, or what Terra's programs teach. Content is entirely Terra's domain.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Speaker slots in exchange for sponsorship</div><div class="db-desc">Speakers are selected on merit. A sponsor who wants a speaking slot must apply through the normal speaker pipeline. Sponsorship and speaking are separate tracks that never intersect.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Exclusive category rights that limit Terra's freedom</div><div class="db-desc">Sponsors do not get exclusivity that prevents Terra from running programs, inviting speakers, or developing partnerships that serve founders — even if they compete with the sponsor.</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- SPONSOR TIERS -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="tiers">
+    <div class="section-eyebrow">Section 02</div>
+    <h2 class="section-title">Sponsor Tiers</h2>
+    <p class="section-body">Three tiers. Each is a clearly defined package — not a starting point for negotiation. Custom arrangements require COO approval and must be documented with the same rigour as standard tiers. Pricing is indicative and reviewed quarterly by COO.</p>
+
+    <div class="tier-grid">
+      <div class="tier-card tier-founding">
+        <div class="tier-name">Founding Sponsor</div>
+        <div class="tier-level">Tier 01 · Strategic Partner</div>
+        <div class="tier-price">IDR 15M</div>
+        <div class="tier-price-note">per quarter · maximum 2 active</div>
+        <ul class="tier-benefits">
+          <li class="tier-benefit"><span class="tb-check">✓</span>Named as Founding Sponsor on all Terra communications and materials</li>
+          <li class="tier-benefit"><span class="tb-check">✓</span>Logo on event signage at all Terra events for the quarter</li>
+          <li class="tier-benefit"><span class="tb-check">✓</span>One co-branded content piece per month (Marketing-approved, value-first)</li>
+          <li class="tier-benefit"><span class="tb-check">✓</span>Brief verbal acknowledgement at each Terra event (30 seconds maximum)</li>
+          <li class="tier-benefit"><span class="tb-check">✓</span>Optional: one branded item at registration desk per event (e.g. QR code card, leaflet)</li>
+          <li class="tier-benefit"><span class="tb-check">✓</span>Quarterly review meeting with Sponsorship Lead and CEO</li>
+          <li class="tier-benefit"><span class="tb-check">✓</span>First right of renewal 30 days before quarter end</li>
+        </ul>
+        <div class="tier-limit">Maximum 2 Founding Sponsors at any time. CEO maintains this relationship personally.</div>
+      </div>
+
+      <div class="tier-card tier-partner">
+        <div class="tier-name">Partner Sponsor</div>
+        <div class="tier-level">Tier 02 · Program Partner</div>
+        <div class="tier-price">IDR 7M</div>
+        <div class="tier-price-note">per quarter · maximum 3 active</div>
+        <ul class="tier-benefits">
+          <li class="tier-benefit"><span class="tb-check">✓</span>Logo on event signage at Terra events in their sponsored category (e.g. all Canggu events, or all School events)</li>
+          <li class="tier-benefit"><span class="tb-check">✓</span>One co-branded content piece per month in their category</li>
+          <li class="tier-benefit"><span class="tb-check">✓</span>One branded item at registration desk for events in their category</li>
+          <li class="tier-benefit"><span class="tb-check">✓</span>Mention in post-event WhatsApp recap (one line, not promotional)</li>
+          <li class="tier-benefit"><span class="tb-check">✓</span>Monthly check-in with Sponsorship Lead</li>
+          <li class="tier-benefit"><span class="tb-check">✓</span>First right of renewal 30 days before quarter end</li>
+        </ul>
+        <div class="tier-limit">Maximum 3 Partner Sponsors. Sponsorship Lead owns these relationships with COO oversight.</div>
+      </div>
+
+      <div class="tier-card tier-community">
+        <div class="tier-name">Community Sponsor</div>
+        <div class="tier-level">Tier 03 · Venue & In-Kind</div>
+        <div class="tier-price">In-Kind</div>
+        <div class="tier-price-note">venue, product, or service · no cash</div>
+        <ul class="tier-benefits">
+          <li class="tier-benefit"><span class="tb-check">✓</span>For venues: venue name used in all event communications as the host location</li>
+          <li class="tier-benefit"><span class="tb-check">✓</span>For product/service sponsors: one mention in the relevant event's communications</li>
+          <li class="tier-benefit"><span class="tb-check">✓</span>Small signage or presence at the specific events they support</li>
+          <li class="tier-benefit"><span class="tb-check">✓</span>Social media mention (one post per quarter, not per event)</li>
+        </ul>
+        <div class="tier-limit">No cap — but must pass the Right Sponsor test. In-kind value assessed by Sponsorship Lead and approved by COO before agreement.</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-title">On Custom Arrangements</div>
+      <div class="highlight-body">Sponsors occasionally propose arrangements that don't fit neatly into a tier — a higher budget in exchange for something non-standard, or a package combining elements from multiple tiers. These conversations are not declined outright. They are taken to COO, who evaluates whether the custom arrangement serves Terra's community interests. If it does, a custom agreement is drafted with the same rigour as a standard tier agreement. The test is always: does this serve founders, or does it compromise the environment we've built for them?</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- PIPELINE & ACQUISITION -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="pipeline">
+    <div class="section-eyebrow">Section 03</div>
+    <h2 class="section-title">Pipeline & Acquisition</h2>
+    <p class="section-body">Sponsors are not found through cold outreach. They emerge from Terra's existing network — businesses that founders already use and trust, co-working spaces that already host founders, tools that already solve the problems Terra's community faces. The pipeline is warm by design.</p>
+
+    <div class="subsection-title">Pipeline Stages</div>
+    <div class="pipeline-stages">
+      <div class="stage stage-active">
+        <div class="stage-num">Stage 1</div>
+        <div class="stage-name">Identified</div>
+        <div class="stage-action">Added to pipeline. Right Sponsor test passed by Sponsorship Lead. Source noted.</div>
+      </div>
+      <div class="stage stage-active">
+        <div class="stage-num">Stage 2</div>
+        <div class="stage-name">Qualified</div>
+        <div class="stage-action">Initial conversation held. Genuine alignment confirmed. Budget range understood.</div>
+      </div>
+      <div class="stage stage-active">
+        <div class="stage-num">Stage 3</div>
+        <div class="stage-name">Proposed</div>
+        <div class="stage-action">Formal proposal sent. Tier recommended. COO aware. Response window: 14 days.</div>
+      </div>
+      <div class="stage stage-active">
+        <div class="stage-num">Stage 4</div>
+        <div class="stage-name">Agreed</div>
+        <div class="stage-action">Terms agreed. Agreement drafted. COO review. CEO review for Founding tier.</div>
+      </div>
+      <div class="stage stage-active">
+        <div class="stage-num">Stage 5</div>
+        <div class="stage-name">Active</div>
+        <div class="stage-action">Agreement signed. Payment confirmed. Fulfilment process begins. Compliance notified.</div>
+      </div>
+    </div>
+
+    <div class="phase-divider"><div class="phase-label">Process — Sponsor Acquisition</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Identify candidate from Terra's network — not from cold research</div>
+          <div class="step-detail">The best sponsor candidates are already orbiting Terra. Sources: businesses whose founders attend Terra events, co-working spaces in Seminyak/Canggu/Ubud that already host the community, tools and services mentioned positively in workshop Q&As, businesses that have already expressed interest in the Terra community. When a candidate is identified, Sponsorship Lead applies the Right Sponsor test before doing anything else. If they pass, they are added to the pipeline in Notion with the source noted.</div>
+          <div class="step-trigger">Trigger: Candidate identified from any source</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Sponsorship Lead</span><span class="tool-tag tag-notion">Notion pipeline — Stage 1</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Initial conversation — understand their goals before presenting ours</div>
+          <div class="step-detail">Sponsorship Lead initiates contact through the warmest available route — mutual connection, existing relationship, or direct outreach. The first conversation is not a pitch. It is a discovery conversation: what are they trying to achieve with their marketing? Who are they trying to reach? What does partnership mean to them? Sponsorship Lead listens for two things: genuine alignment with the Terra community, and realistic budget expectations. If either is absent, the conversation ends gracefully — the candidate is moved to "not now" in the pipeline, not deleted.</div>
+          <div class="step-trigger">Trigger: Stage 1 — candidate in pipeline</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Sponsorship Lead</span><span class="tool-tag tag-notion">Notion — Stage 2, notes logged</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Prepare and send the proposal — one clear recommendation</div>
+          <div class="step-detail">After qualification, Sponsorship Lead prepares a one-to-two-page proposal from the standard template. The proposal leads with Terra's community profile — who attends, what they're building, why the community is valuable — before presenting the tier recommendation. Sponsorship Lead recommends one specific tier based on what they learned in the qualification conversation. Presenting all three tiers and asking them to choose signals that Terra hasn't done the work. One recommendation, well-reasoned. COO is informed before the proposal is sent.</div>
+          <div class="step-trigger">Trigger: Qualification conversation complete</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Sponsorship Lead (COO aware)</span><span class="tool-tag tag-google">Google Drive — proposal PDF</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Follow up once at day 7 — then hold</div>
+          <div class="step-detail">If no response within 7 days of sending the proposal, Sponsorship Lead sends one follow-up: a short, warm message asking if they had a chance to review and if they have any questions. If no response after the follow-up, Sponsorship Lead waits 30 days then sends one final message. If still no response, the prospect is moved to "dormant" in the pipeline — not deleted, not chased again. The right sponsors respond. Chasing the wrong ones wastes relationship capital.</div>
+          <div class="step-trigger">Trigger: 7 days after proposal sent</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Sponsorship Lead</span><span class="tool-tag tag-notion">Notion pipeline — follow-up date</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Terms agreed → draft agreement → COO review → sign</div>
+          <div class="step-detail">When a sponsor agrees in principle, Sponsorship Lead prepares the agreement from the standard template. The agreement specifies: tier, duration (one quarter standard), exact deliverables (list every benefit clearly), payment amount and schedule, cancellation terms (30-day notice from either party), what Terra will not do (stated explicitly — attendee data, editorial control), and renewal terms. COO reviews every agreement before it is sent to the sponsor. CEO reviews Founding Sponsor agreements. Nothing is signed without these approvals. Signed agreement stored in Google Drive immediately.</div>
+          <div class="step-trigger">Trigger: Sponsor agrees to proceed</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Sponsorship Lead → COO (→ CEO if Founding)</span><span class="tool-tag tag-google">Google Drive — signed agreement</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">06</div>
+        <div class="step-content">
+          <div class="step-title">Payment confirmed → activate sponsor in all systems</div>
+          <div class="step-detail">Sponsor is not "active" until payment is confirmed. COO confirms payment receipt. Sponsorship Lead then: updates pipeline to "Active," notifies Marketing Lead (with brief on what content is due), notifies Logistics Lead (with event visibility requirements), notifies Compliance Lead (for commitment tracking). Sponsor receives a confirmation message from Sponsorship Lead: "Welcome — here's what to expect in the first two weeks."</div>
+          <div class="step-trigger">Trigger: Payment confirmed by COO</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">COO confirms → Sponsorship Lead activates</span><span class="tool-tag tag-notion">Notion — all departments notified</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- FULFILMENT -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="fulfilment">
+    <div class="section-eyebrow">Section 04</div>
+    <h2 class="section-title">Sponsorship Fulfilment</h2>
+    <p class="section-body">Fulfilment is where most sponsorship relationships succeed or fail. The agreement is easy to sign. Delivering on every benefit, on time, without being chased — that is what earns renewal. The Sponsorship Lead owns this entirely. Departments execute. Sponsorship Lead tracks.</p>
+
+    <div class="highlight-box">
+      <div class="highlight-title">The Fulfilment Standard</div>
+      <div class="highlight-body">Every sponsor benefit is delivered proactively — before the sponsor asks. The Sponsorship Lead does not wait for a sponsor to say "we didn't see our logo at last night's event." The checklist is completed before every event. The content is briefed to Marketing before the monthly deadline. The quarterly review is booked before the quarter ends. Sponsors who are surprised by things not happening become ex-sponsors. Sponsors who are surprised by things happening before they asked become long-term partners.</div>
+    </div>
+
+    <div class="subsection-title">Fulfilment Responsibilities by Benefit</div>
+    <table class="fulfil-table">
+      <thead>
+        <tr><th>Benefit</th><th>Responsible</th><th>SLA</th><th>Tracked In</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="ft-item">Logo on event signage</div>Correct logo, correct size, correct placement per brief</td>
+          <td class="ft-who">Logistics Lead (setup) · Sponsorship Lead (brief)</td>
+          <td class="ft-sla">Sponsor assets briefed to Logistics 14 days before first event of quarter</td>
+          <td>Notion — event fulfilment checklist</td>
+        </tr>
+        <tr>
+          <td><div class="ft-item">Verbal acknowledgement at events</div>30 seconds maximum. Script approved by Sponsorship Lead and Marketing.</td>
+          <td class="ft-who">Workshop Director (delivery) · Sponsorship Lead (script approval)</td>
+          <td class="ft-sla">Script confirmed before each event. Never improvised.</td>
+          <td>Event run-of-show (Logistics)</td>
+        </tr>
+        <tr>
+          <td><div class="ft-item">Co-branded content piece</div>One per month. Value-first. Marketing-approved. Sponsor sees before publish.</td>
+          <td class="ft-who">Marketing Lead (produces) · Sponsorship Lead (briefs + coordinates approval)</td>
+          <td class="ft-sla">Briefed to Marketing by 15th of each month for that month's content</td>
+          <td>Notion — Marketing content calendar</td>
+        </tr>
+        <tr>
+          <td><div class="ft-item">Registration desk presence</div>Sponsor's card, leaflet, or QR code at the desk per agreement</td>
+          <td class="ft-who">Logistics Lead (desk setup) · Sponsorship Lead (materials provided)</td>
+          <td class="ft-sla">Materials delivered to Logistics Lead minimum 5 days before event</td>
+          <td>Event setup checklist (Logistics)</td>
+        </tr>
+        <tr>
+          <td><div class="ft-item">Post-event WhatsApp mention</div>One line in the recap message. Not promotional. Informational.</td>
+          <td class="ft-who">Marketing Lead (drafts) · Sponsorship Lead (approves wording)</td>
+          <td class="ft-sla">Approved before the event so it is ready to send in the recap</td>
+          <td>Notion — Marketing calendar</td>
+        </tr>
+        <tr>
+          <td><div class="ft-item">Monthly check-in</div>Sponsorship Lead speaks with sponsor. Updates on Terra activity. Listens for feedback.</td>
+          <td class="ft-who">Sponsorship Lead</td>
+          <td class="ft-sla">Booked in the first week of each month. 20–30 minutes. Notes logged in Notion.</td>
+          <td>Notion — sponsor record</td>
+        </tr>
+        <tr>
+          <td><div class="ft-item">Quarterly review (Founding Sponsors)</div>Formal review with metrics, renewal conversation, and forward planning.</td>
+          <td class="ft-who">Sponsorship Lead + CEO</td>
+          <td class="ft-sla">Booked minimum 3 weeks before quarter end. Deck prepared by Sponsorship Lead.</td>
+          <td>Notion — sponsor record · Google Drive (deck)</td>
+        </tr>
+        <tr>
+          <td><div class="ft-item">Quarterly sponsor report</div>Summary of what was delivered and key Terra metrics for the quarter.</td>
+          <td class="ft-who">Sponsorship Lead (compiles) · Compliance Lead (provides metrics)</td>
+          <td class="ft-sla">Sent within 7 days of quarter end to all active sponsors</td>
+          <td>Google Drive — sponsor reports folder</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="phase-divider"><div class="phase-label">Process — Quarterly Sponsor Report</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Request quarter metrics from Compliance Lead — last week of quarter</div>
+          <div class="step-detail">Sponsorship Lead requests from Compliance Lead: total events hosted this quarter, total attendance across all events, average event size, School enrolments, mentorship cohort activity. These are the metrics that demonstrate the community's health and activity — the foundation of the sponsor report.</div>
+          <div class="step-trigger">Trigger: 7 days before quarter end</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Sponsorship Lead → Compliance Lead</span><span class="tool-tag tag-notion">Notion request</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Compile fulfilment summary — what was delivered vs. agreed</div>
+          <div class="step-detail">For each sponsor: list every benefit in their agreement and confirm delivery status. Green: delivered on time and as agreed. Amber: delivered but late or partial. Red: not delivered (must include explanation and remediation offer). The sponsor report is honest. If something was missed, it is acknowledged — not omitted. Sponsors respect honesty. They do not respect silence.</div>
+          <div class="step-trigger">Trigger: Compliance metrics received</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Sponsorship Lead</span><span class="tool-tag tag-google">Google Drive — report template</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Send report to sponsor with a personal note from Sponsorship Lead</div>
+          <div class="step-detail">Report sent as a PDF. Accompanied by a short, personal WhatsApp or email from Sponsorship Lead — not a generic "please find attached." Two sentences: what the quarter delivered for their brand, and what's coming next quarter that they should know about. For Founding Sponsors, CEO adds a personal note. This is the moment that sets up the renewal conversation.</div>
+          <div class="step-trigger">Trigger: Within 7 days of quarter end</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Sponsorship Lead (+ CEO for Founding)</span><span class="tool-tag tag-google">Google Drive + WhatsApp</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- RENEWAL -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="renewal">
+    <div class="section-eyebrow">Section 05</div>
+    <h2 class="section-title">Renewal Process</h2>
+    <p class="section-body">Renewal should never be a surprise conversation. The Sponsorship Lead manages each relationship so that renewal is the obvious and expected next step — not a negotiation that starts from scratch at the end of every quarter.</p>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Flag renewal 45 days before quarter end</div>
+          <div class="step-detail">Notion reminder set at the start of every sponsor's agreement: 45 days before expiry, Sponsorship Lead reviews the relationship. Is the sponsor happy? Are all benefits being delivered? Is there any open issue? If yes — it must be resolved before the renewal conversation. A renewal conversation that starts with an unresolved complaint is a difficult renewal conversation.</div>
+          <div class="step-trigger">Trigger: Notion auto-reminder at 45 days</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Sponsorship Lead</span><span class="tool-tag tag-notion">Notion reminder</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Renewal conversation — 30 days before quarter end</div>
+          <div class="step-detail">First right of renewal is offered 30 days before the quarter ends — as defined in every agreement. Sponsorship Lead initiates the conversation: "We'd love to continue the partnership into next quarter — are you in?" For Founding Sponsors, CEO is on this call. The conversation starts from the value delivered this quarter, not from the price. If the sponsor wants to adjust their tier up or down, that is discussed here — not left to the last minute.</div>
+          <div class="step-trigger">Trigger: 30 days before quarter end</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Sponsorship Lead (+ CEO for Founding)</span><span class="tool-tag tag-manual">Call or in-person</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Renewal agreed → new agreement drafted and signed before current one expires</div>
+          <div class="step-detail">If the sponsor renews, a new agreement is prepared from the template. Even if terms are identical, a new agreement is signed. The old agreement's end date is the new agreement's start date — no gap, no ambiguity. COO reviews and approves. Payment confirmed before new quarter begins. Compliance updated.</div>
+          <div class="step-trigger">Trigger: Renewal agreed</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Sponsorship Lead → COO</span><span class="tool-tag tag-google">Google Drive — new signed agreement</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Sponsor does not renew — graceful close and pipeline activation</div>
+          <div class="step-detail">If a sponsor does not renew, Sponsorship Lead thanks them sincerely — by phone or in person, not by WhatsApp message. Asks one question: "Is there anything we could have done differently?" Logs the answer in Notion. Removes them from active sponsor systems. Notifies Marketing and Logistics that this sponsor's benefits end at the agreement date. Sponsor pipeline is immediately reviewed — Sponsorship Lead must identify a replacement candidate within 14 days of a non-renewal.</div>
+          <div class="step-trigger">Trigger: Sponsor confirms non-renewal</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Sponsorship Lead</span><span class="tool-tag tag-notion">Notion — sponsor record closed</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- BOUNDARIES -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="boundaries">
+    <div class="section-eyebrow">Section 06</div>
+    <h2 class="section-title">Sponsorship Boundaries</h2>
+    <p class="section-body">These are the lines Terra does not cross for any sponsor at any tier. They protect the community's trust in Terra. Once that trust is broken — even once — it is very difficult to rebuild. The Sponsorship Lead knows these boundaries and can articulate them clearly and confidently to any sponsor who pushes.</p>
+
+    <div class="three-col">
+      <div class="panel" style="border-top: 2px solid var(--crimson);">
+        <div class="panel-title" style="color:#c47;">Hard Boundary 01</div>
+        <div style="font-size:13px;font-family:'Cormorant Garamond',serif;font-weight:300;color:var(--text);margin-bottom:10px;">No attendee data. Ever.</div>
+        <div style="font-size:11px;color:var(--soft);line-height:1.7;margin-bottom:12px;">No sponsor receives any attendee's contact information — not as part of a tier, not as a custom arrangement, not as a "one-time exception." If a sponsor requests this, Sponsorship Lead declines immediately and logs the request as a red flag about their intentions.</div>
+        <div style="font-size:10px;color:#c47;">How to say it: "Our community members trust Terra with their data. We don't share it — with anyone. That's part of why they keep coming back, which is why you're here."</div>
+      </div>
+      <div class="panel" style="border-top: 2px solid var(--crimson);">
+        <div class="panel-title" style="color:#c47;">Hard Boundary 02</div>
+        <div style="font-size:13px;font-family:'Cormorant Garamond',serif;font-weight:300;color:var(--text);margin-bottom:10px;">No editorial control.</div>
+        <div style="font-size:11px;color:var(--soft);line-height:1.7;margin-bottom:12px;">Sponsors do not influence who speaks at Terra events, what topics are discussed, what Terra's programs teach, or what Terra publishes. If a sponsor says "we'd prefer you didn't invite [speaker]" or "we'd like the workshop to cover [topic]," Sponsorship Lead declines and explains why.</div>
+        <div style="font-size:10px;color:#c47;">How to say it: "Our content is chosen by our community's needs, not by our sponsors. That independence is what makes our events worth sponsoring."</div>
+      </div>
+      <div class="panel" style="border-top: 2px solid var(--crimson);">
+        <div class="panel-title" style="color:#c47;">Hard Boundary 03</div>
+        <div style="font-size:11.5px;color:var(--text);margin-bottom:8px;">No speaking slot in exchange for sponsorship.</div>
+        <div style="font-size:11px;color:var(--soft);line-height:1.7;margin-bottom:10px;">Speaker selection and sponsorship are permanently separate tracks. A sponsor can apply to speak through the normal speaker pipeline — their application is assessed on merit, not on their financial contribution to Terra. This is non-negotiable.</div>
+        <div class="panel-title" style="color:#c47;margin-top:16px;">Hard Boundary 04</div>
+        <div style="font-size:11.5px;color:var(--text);margin-bottom:8px;">No exclusivity that restricts Terra's programs.</div>
+        <div style="font-size:11px;color:var(--soft);line-height:1.7;">A sponsor cannot prevent Terra from inviting speakers, running programs, or forming partnerships — even if those entities compete with the sponsor. Exclusivity in branding is acceptable. Exclusivity in operations is not.</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- SYSTEMS -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="systems">
+    <div class="section-eyebrow">Section 07</div>
+    <h2 class="section-title">Systems Architecture</h2>
+
+    <div class="system-block">
+      <div class="system-header">
+        <div class="system-icon icon-notion">N</div>
+        <div>
+          <div class="system-name">Notion — Sponsorship Operational Home</div>
+          <div class="system-role">Pipeline stages, sponsor records, fulfilment tracking, monthly check-in notes.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <div class="subsection-title" style="margin-top:0">Notion Structure — Sponsorship</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">💼 Sponsorship Home</div><div class="db-desc">Master page. Active sponsor count, pipeline health (qualified prospects count), upcoming renewal dates, overdue fulfilment items. Sponsorship Lead's daily starting point.</div></div><span class="db-type tag-notion">Parent page</span></li>
+          <li class="db-item"><div><div class="db-name">🔄 Sponsor Pipeline Database</div><div class="db-desc">One row per prospect and active sponsor. Stage, tier, source, last contact date, next action, notes. Filtered views: Active Sponsors / In Pipeline / Dormant / Closed.</div></div><span class="db-type tag-notion">Database</span></li>
+          <li class="db-item"><div><div class="db-name">✅ Fulfilment Tracker</div><div class="db-desc">Per active sponsor, per quarter. One row per benefit. Status: Not started / In progress / Delivered / Late / Missed. Sponsorship Lead reviews weekly. Any "Late" or "Missed" triggers an immediate action.</div></div><span class="db-type tag-notion">Database</span></li>
+          <li class="db-item"><div><div class="db-name">📝 Sponsor Records</div><div class="db-desc">One page per sponsor ever. Includes: all agreements (links to Google Drive), check-in notes, renewal history, any issues and how they were resolved. This is the institutional memory of every sponsor relationship.</div></div><span class="db-type tag-notion">Page per sponsor</span></li>
+          <li class="db-item"><div><div class="db-name">⚠️ Boundaries Log</div><div class="db-desc">Any request from a sponsor that crossed a boundary — logged with date, what was requested, and how it was declined. Never deleted. Used to identify patterns in problematic sponsor behaviour.</div></div><span class="db-type tag-notion">Database</span></li>
+        </ul>
+
+        <div class="subsection-title">Sponsor Pipeline Database Schema</div>
+        <table class="schema-table">
+          <thead><tr><th>Field</th><th>Type</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>Sponsor / Prospect Name</td><td><span class="field-type">Title</span></td><td>Company name</td></tr>
+            <tr><td>Contact Name</td><td><span class="field-type">Text</span></td><td>Primary decision-maker at the company</td></tr>
+            <tr><td>Contact WhatsApp / Email</td><td><span class="field-type">Text</span></td><td>Primary contact method</td></tr>
+            <tr><td>Stage</td><td><span class="field-type">Select</span></td><td>Identified / Qualified / Proposed / Agreed / Active / Dormant / Closed</td></tr>
+            <tr><td>Tier</td><td><span class="field-type">Select</span></td><td>Founding / Partner / Community / Custom / TBD</td></tr>
+            <tr><td>Source</td><td><span class="field-type">Select</span></td><td>Community referral / Terra event attendee / Network / Inbound / Other</td></tr>
+            <tr><td>Right Sponsor Test</td><td><span class="field-type">Checkbox</span></td><td>Passed before pipeline entry. Required.</td></tr>
+            <tr><td>Agreement Start</td><td><span class="field-type">Date</span></td><td>Start of current agreement</td></tr>
+            <tr><td>Agreement End</td><td><span class="field-type">Date</span></td><td>End of current agreement — Notion reminds 45 days before</td></tr>
+            <tr><td>Payment Status</td><td><span class="field-type">Select</span></td><td>Awaiting / Confirmed / Outstanding — managed with Compliance</td></tr>
+            <tr><td>COO Approved</td><td><span class="field-type">Checkbox</span></td><td>COO has reviewed and approved the agreement</td></tr>
+            <tr><td>Last Contact Date</td><td><span class="field-type">Date</span></td><td>Date of last meaningful contact</td></tr>
+            <tr><td>Next Action</td><td><span class="field-type">Text</span></td><td>What happens next and when</td></tr>
+            <tr><td>Notes</td><td><span class="field-type">Text</span></td><td>Running notes from all conversations. Most recent first.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="system-block" style="margin-top:2px;">
+      <div class="system-header">
+        <div class="system-icon icon-google">G</div>
+        <div>
+          <div class="system-name">Google Workspace — Contracts, Proposals & Reports</div>
+          <div class="system-role">All signed agreements, proposals, and quarterly reports stored in Google Drive. Permanent archive.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">📁 Terra Sponsorship (root folder)</div><div class="db-desc">Shared with Sponsorship Lead and COO. All sub-folders below.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📁 Active Sponsors → [Sponsor Name]</div><div class="db-desc">One folder per active sponsor. Contains: signed agreement (PDF), proposal sent, quarterly reports, any correspondence that should be on record. When a sponsor is no longer active, folder moves to Archive.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📁 Archive → [Sponsor Name]</div><div class="db-desc">All past sponsor folders. Never deleted. If a past sponsor re-engages, their history is immediately accessible.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📁 Templates</div><div class="db-desc">Sponsorship proposal template (one per tier), sponsor agreement template (one per tier), quarterly report template, community profile document (Terra's audience and reach — updated quarterly by Compliance). Master copies. Clone before use.</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- DOCUMENTATION LIBRARY -->
+  <!-- ================================================================ -->
+  <div class="section-block">
+    <div class="section-eyebrow">Section 08</div>
+    <h2 class="section-title">Documentation Library</h2>
+
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-type-tag" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">PDF Document</div>
+        <div class="doc-name">Sponsorship Proposal</div>
+        <div class="doc-owner">Owner: Sponsorship Lead · One per qualified prospect · COO aware before sending</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Terra's story — who we are and what we're building in Bali</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Community profile: who attends, what they're building, why they're valuable</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Program overview: workshops, School, mentorship — the three touchpoints</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Quarter activity metrics (from Compliance): events, attendance, growth</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Recommended tier and why it fits this specific sponsor</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Exact benefits for the recommended tier — itemised clearly</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What Terra does not offer (stated honestly — builds trust)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Next step: "Let's talk" — not a pressured close</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Templates (clone per prospect)</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type-tag" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">PDF Document</div>
+        <div class="doc-name">Sponsor Agreement</div>
+        <div class="doc-owner">Owner: Sponsorship Lead drafts · COO reviews · Both parties sign</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Parties: Terra Bali and [Sponsor Company]</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Tier and duration (start date to end date)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Full list of deliverables — every benefit stated explicitly</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Payment: amount, currency, due date, method</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Cancellation: 30 days written notice from either party</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Explicit limits: attendee data, editorial control, speaker slots (all stated as exclusions)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Content approval: sponsor sees co-branded content before publish, 24h turnaround</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Renewal: first right of renewal 30 days before expiry</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Signatures + date</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Active Sponsors / [Sponsor Name]</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type-tag tag-google" style="background:rgba(74,140,111,0.1);color:#6abf99;border:1px solid rgba(74,140,111,0.25);">PDF Template</div>
+        <div class="doc-name">Quarterly Sponsor Report</div>
+        <div class="doc-owner">Owner: Sponsorship Lead · Sent within 7 days of quarter end · One per active sponsor</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Quarter overview: events held, total attendance, community growth</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Fulfilment summary: every agreed benefit with delivery status</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Any missed benefits: acknowledged with explanation and remediation</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Co-branded content: links or thumbnails of content produced</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Looking ahead: what's coming next quarter that's relevant to this sponsor</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Renewal invitation (if applicable)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Active Sponsors / [Sponsor Name]</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type-tag tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Reference</div>
+        <div class="doc-name">Terra Community Profile</div>
+        <div class="doc-owner">Owner: Compliance Lead produces · Sponsorship Lead uses · Updated quarterly</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Total active community size (past 12-month attendees)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Average event attendance (by location)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Community profile: founder stage, industry split (survey-based, updated annually)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Program metrics: School enrolments, mentorship cohort size</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Growth rate: quarter-on-quarter new community members</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Instagram reach (from Marketing)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>WhatsApp community size</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Sponsorship Home (linked) + Google Drive · Templates</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- RULES -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="rules">
+    <div class="section-eyebrow">Section 09</div>
+    <h2 class="section-title">Operating Rules</h2>
+
+    <div class="rules-box">
+      <div class="rules-title">Non-Negotiable Operating Rules — Sponsorship Department</div>
+      <div class="rule-item"><span class="rule-num">01</span>No sponsor receives attendee contact data. Not as a tier benefit, not as a custom arrangement, not as a one-time exception. Any request for attendee data is a red flag that is logged and reported to COO. This boundary is the foundation of community trust — it is not negotiable for any amount of money.</div>
+      <div class="rule-item"><span class="rule-num">02</span>No agreement is signed without COO written approval. No agreement for a Founding Sponsor is signed without CEO approval. The Sponsorship Lead presents, COO and CEO decide. This is not bureaucracy — it is accountability for the commitments Terra makes.</div>
+      <div class="rule-item"><span class="rule-num">03</span>A sponsor is not considered active until payment is confirmed by COO. Benefits do not begin until payment clears. No exceptions. The agreement defines this — and Sponsorship Lead reminds every sponsor of it before the quarter begins.</div>
+      <div class="rule-item"><span class="rule-num">04</span>Fulfilment is tracked proactively. Sponsorship Lead reviews the fulfilment tracker every week. Any benefit that is late is addressed immediately — not at the monthly check-in. Sponsors who receive their benefits early or on time renew. Sponsors who have to chase do not.</div>
+      <div class="rule-item"><span class="rule-num">05</span>The pipeline maintains a minimum of 3 qualified prospects at all times. When a sponsor does not renew, the pipeline must produce a replacement within 14 days. A sponsorship department with no pipeline is one non-renewal away from a revenue gap.</div>
+      <div class="rule-item"><span class="rule-num">06</span>Terra does not accept sponsorship from businesses whose products or services Terra would not recommend to its founders independently. The Right Sponsor test is applied before any prospect enters the pipeline. If a sponsor is only valuable to Terra financially and not valuable to Terra's founders, they are not the right sponsor.</div>
+      <div class="rule-item"><span class="rule-num">07</span>Sponsorship and speaking are permanently separate tracks. A sponsor who also wants to speak applies through the standard speaker pipeline. Their application is assessed on merit only. Sponsorship Lead communicates this clearly to every sponsor who raises it — before it becomes an expectation.</div>
+      <div class="rule-item"><span class="rule-num">08</span>Co-branded content is approved by Marketing Lead before the sponsor sees it, and approved by the sponsor before it is published. Both approvals are required. The Marketing Lead's approval protects Terra's voice. The sponsor's approval protects the relationship.</div>
+      <div class="rule-item"><span class="rule-num">09</span>The quarterly sponsor report is sent within 7 days of quarter end — whether the quarter went well or not. If a benefit was missed, it is acknowledged in the report with an explanation and a remediation offer. Transparency in delivery builds more renewal trust than a perfect quarter that goes unreported.</div>
+      <div class="rule-item"><span class="rule-num">10</span>Terra is never dependent on a single sponsor for more than 40% of sponsorship revenue. This concentration limit protects Terra's operational independence. A sponsor who represents 60% of sponsorship revenue has disproportionate leverage over the organisation — even if they never exercise it explicitly. Diversification is protection.</div>
+      <div class="rule-item"><span class="rule-num">11</span>When a sponsor does not renew, the Sponsorship Lead closes the relationship by phone or in person — not by message. One question is asked: "Is there anything we could have done differently?" The answer is logged. Patterns in non-renewal reasons drive improvements to the offering.</div>
+      <div class="rule-item"><span class="rule-num">12</span>The Sponsorship Lead trains a deputy who can manage the full pipeline cycle — identification to renewal — independently. Sponsor relationships are relationship assets, not personal property. They survive leadership transitions if the systems and records are maintained well.</div>
+    </div>
+  </div>
+
+
+  <div class="page-footer">
+    <div class="footer-left">"The right sponsor is one our founders would thank us for introducing."</div>
+    <div class="footer-right">Terra Bali · Sponsorship Operations Manual<br>Department 10 · Internal Reference · v1.0</div>
+  </div>
+
+</div>
+</body>
+</html>
