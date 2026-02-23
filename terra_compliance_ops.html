@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terra Bali — Compliance Operations Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --surface: #0f0f0f;
+    --surface2: #131313;
+    --border: #1e1e1e;
+    --border2: #2a2a2a;
+    --purple: #5B2D8E;
+    --purple-light: #a67dd4;
+    --gold: #C9860A;
+    --gold-light: #F0A830;
+    --crimson: #8B1A3A;
+    --teal-light: #4abfb0;
+    --text: #E8E0D5;
+    --muted: #555;
+    --soft: #888;
+    --google: #4A8C6F;
+    --whatsapp: #25A244;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 40% at 20% 10%, rgba(139,26,58,0.06) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 5%, rgba(91,45,142,0.08) 0%, transparent 60%), radial-gradient(ellipse 40% 30% at 90% 90%, rgba(201,134,10,0.04) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+
+  .nav { position: sticky; top: 0; z-index: 100; background: rgba(8,8,8,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 40px; display: flex; align-items: center; height: 52px; gap: 24px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .nav-circle { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--gold); box-shadow: 0 0 8px rgba(201,134,10,0.2); }
+  .nav-name { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 300; letter-spacing: 0.4em; }
+  .nav-links { display: flex; overflow-x: auto; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-link { font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0 12px; height: 52px; display: flex; align-items: center; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+  .nav-link:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  .main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 72px 40px 120px; }
+
+  .page-header { margin-bottom: 80px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
+  .page-eyebrow { font-size: 9px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 18px; }
+  .page-title { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; line-height: 1.15; margin-bottom: 20px; }
+  .page-body { font-size: 12.5px; line-height: 1.8; color: var(--soft); max-width: 580px; margin-bottom: 32px; }
+
+  .tool-legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+  .tool-badge { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--border); font-size: 9.5px; letter-spacing: 0.12em; }
+  .tool-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-notion { background: var(--purple-light); }
+  .dot-google { background: var(--google); }
+
+  .section-block { margin-bottom: 80px; scroll-margin-top: 68px; }
+  .section-eyebrow { font-size: 9px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; margin-bottom: 8px; }
+  .section-body { font-size: 12px; color: var(--soft); line-height: 1.8; max-width: 620px; margin-bottom: 32px; }
+  .subsection-title { font-size: 10px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin: 32px 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  .process-flow { display: flex; flex-direction: column; gap: 2px; margin-bottom: 32px; }
+  .process-step { display: grid; grid-template-columns: 48px 1fr auto; background: var(--surface); border: 1px solid var(--border); overflow: hidden; }
+  .step-number { display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--muted); background: var(--surface2); border-right: 1px solid var(--border); padding: 16px 8px; flex-shrink: 0; }
+  .step-content { padding: 16px 20px; }
+  .step-title { font-size: 12px; color: var(--text); margin-bottom: 4px; }
+  .step-detail { font-size: 11px; color: var(--soft); line-height: 1.6; }
+  .step-trigger { font-size: 10px; color: var(--muted); margin-top: 6px; font-style: italic; }
+  .step-meta { padding: 16px 16px 16px 0; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; justify-content: center; }
+  .owner-tag { font-size: 8.5px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid var(--border2); color: var(--soft); white-space: nowrap; }
+  .tool-tag { font-size: 8px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid; white-space: nowrap; }
+  .tag-notion { border-color: rgba(166,125,212,0.3); color: var(--purple-light); background: rgba(91,45,142,0.08); }
+  .tag-google { border-color: rgba(74,140,111,0.3); color: #6abf99; background: rgba(74,140,111,0.08); }
+  .step-connector { display: flex; justify-content: flex-start; padding-left: 24px; height: 16px; }
+  .connector-line { width: 1px; background: var(--border2); height: 100%; }
+
+  .phase-divider { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; margin: 28px 0 16px; }
+  .phase-label { font-size: 8.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
+  .phase-line { height: 1px; background: linear-gradient(to right, rgba(201,134,10,0.3), transparent); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .panel { background: var(--surface); border: 1px solid var(--border); padding: 24px 28px; }
+  .panel-title { font-size: 9.5px; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  .db-list { list-style: none; }
+  .db-item { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; }
+  .db-item:last-child { border-bottom: none; }
+  .db-name { color: var(--text); margin-bottom: 3px; }
+  .db-desc { font-size: 10.5px; color: var(--soft); line-height: 1.5; }
+  .db-type { font-size: 8px; letter-spacing: 0.1em; padding: 3px 8px; white-space: nowrap; align-self: start; margin-top: 2px; }
+
+  .doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .doc-card { background: var(--surface); border: 1px solid var(--border); padding: 20px 22px; }
+  .doc-type-tag { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; }
+  .doc-name { font-size: 13px; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+  .doc-owner { font-size: 10px; color: var(--muted); margin-bottom: 10px; }
+  .doc-fields { list-style: none; }
+  .doc-field { font-size: 10.5px; color: var(--soft); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; gap: 8px; }
+  .doc-field:last-child { border-bottom: none; }
+  .field-bullet { color: var(--gold); font-size: 8px; flex-shrink: 0; margin-top: 2px; }
+  .doc-where { display: inline-flex; align-items: center; gap: 5px; font-size: 8.5px; margin-top: 12px; padding: 4px 10px; border: 1px solid var(--border2); color: var(--soft); }
+
+  .rules-box { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--crimson); padding: 22px 28px; }
+  .rules-title { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: #c47; margin-bottom: 14px; }
+  .rule-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; color: var(--soft); line-height: 1.6; }
+  .rule-item:last-child { border-bottom: none; }
+  .rule-num { color: var(--gold); font-size: 10px; flex-shrink: 0; min-width: 20px; }
+
+  .highlight-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); padding: 22px 28px; margin-bottom: 2px; }
+  .highlight-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--gold-light); margin-bottom: 10px; }
+  .highlight-body { font-size: 12px; color: var(--soft); line-height: 1.8; max-width: 700px; }
+
+  .schema-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .schema-table th { font-size: 8.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border2); font-weight: 400; }
+  .schema-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--soft); vertical-align: top; line-height: 1.5; }
+  .schema-table tr:last-child td { border-bottom: none; }
+  .field-type { font-size: 9px; padding: 2px 7px; background: var(--surface2); border: 1px solid var(--border2); color: var(--muted); white-space: nowrap; }
+
+  /* DATA FLOW DIAGRAM */
+  .data-flow { display: flex; flex-direction: column; gap: 1px; margin-bottom: 24px; }
+  .flow-row { display: grid; grid-template-columns: 180px 40px 1fr; gap: 1px; align-items: center; }
+  .flow-source { background: var(--surface2); border: 1px solid var(--border); padding: 14px 18px; }
+  .flow-source-name { font-size: 11.5px; color: var(--text); margin-bottom: 3px; }
+  .flow-source-when { font-size: 10px; color: var(--gold); }
+  .flow-arrow { display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 16px; background: var(--bg); }
+  .flow-dest { background: var(--surface); border: 1px solid var(--border); padding: 14px 18px; }
+  .flow-what { font-size: 11px; color: var(--soft); line-height: 1.6; }
+  .flow-sla { font-size: 9.5px; color: var(--gold); margin-top: 6px; }
+
+  /* REPORT CARDS */
+  .report-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 24px; }
+  .report-card { background: var(--surface); border: 1px solid var(--border); padding: 20px 22px; border-top: 2px solid; }
+  .rc-weekly { border-top-color: var(--teal-light); }
+  .rc-monthly { border-top-color: var(--gold); }
+  .rc-quarterly { border-top-color: var(--purple-light); }
+  .report-freq { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .report-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; margin-bottom: 12px; }
+  .report-audience { font-size: 10px; color: var(--muted); margin-bottom: 12px; }
+  .report-contains { list-style: none; }
+  .report-item { font-size: 11px; color: var(--soft); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; gap: 8px; }
+  .report-item:last-child { border-bottom: none; }
+  .ri-bullet { color: var(--gold); font-size: 8px; flex-shrink: 0; margin-top: 3px; }
+
+  /* MASTER SHEET */
+  .sheet-tab { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--border); font-size: 9.5px; letter-spacing: 0.1em; margin: 4px 4px 4px 0; }
+  .tab-active { border-color: var(--gold); color: var(--gold-light); background: rgba(201,134,10,0.06); }
+
+  .system-block { background: var(--surface); border: 1px solid var(--border); margin-bottom: 2px; overflow: hidden; }
+  .system-header { display: flex; align-items: center; gap: 14px; padding: 18px 24px; border-bottom: 1px solid var(--border); }
+  .system-icon { width: 32px; height: 32px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .icon-notion { background: rgba(91,45,142,0.2); border: 1px solid rgba(91,45,142,0.3); }
+  .icon-google { background: rgba(74,140,111,0.15); border: 1px solid rgba(74,140,111,0.25); }
+  .system-name { font-size: 13px; color: var(--text); }
+  .system-role { font-size: 10px; color: var(--soft); margin-top: 2px; }
+  .system-body { padding: 20px 24px; }
+
+  .page-footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-left { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; color: var(--muted); }
+  .footer-right { font-size: 8.5px; letter-spacing: 0.15em; color: var(--muted); text-align: right; line-height: 2; }
+
+  @media (max-width: 760px) {
+    .nav { padding: 0 16px; }
+    .main { padding: 48px 16px 80px; }
+    .two-col, .three-col, .doc-grid, .report-grid { grid-template-columns: 1fr; }
+    .process-step { grid-template-columns: 40px 1fr; }
+    .step-meta { display: none; }
+    .page-title { font-size: 30px; }
+    .flow-row { grid-template-columns: 130px 30px 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-circle"></div>
+    <div class="nav-name">TERRA</div>
+  </div>
+  <div class="nav-links">
+    <a href="#overview" class="nav-link">Overview</a>
+    <a href="#mandate" class="nav-link">Mandate</a>
+    <a href="#dataflow" class="nav-link">Data Flow</a>
+    <a href="#attendance" class="nav-link">Attendance</a>
+    <a href="#people" class="nav-link">People Database</a>
+    <a href="#fines" class="nav-link">Fines</a>
+    <a href="#reporting" class="nav-link">Reporting</a>
+    <a href="#systems" class="nav-link">Systems</a>
+    <a href="#rules" class="nav-link">Rules</a>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- HEADER -->
+  <div class="page-header" id="overview">
+    <div class="page-eyebrow">Operations Manual · Department 09 · Compliance</div>
+    <h1 class="page-title">Compliance<br>Operations</h1>
+    <p class="page-body">
+      Compliance is Terra's memory. Every person who attends an event, enrolls in a course, or enters the mentorship program exists as a record in the Compliance system. Every absence, completion, and conversion is logged. Without accurate data, every other department is operating on assumption. Compliance converts the human activity of Terra into the institutional knowledge that drives every strategic decision.
+    </p>
+
+    <div class="two-col" style="margin-top:0;">
+      <div class="panel">
+        <div class="panel-title">What This Document Covers</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Compliance Mandate</div><div class="db-desc">What Compliance owns, what it doesn't, and why the distinction matters</div></div></li>
+          <li class="db-item"><div><div class="db-name">Data Flow Architecture</div><div class="db-desc">Where data comes from, when, and where it goes</div></div></li>
+          <li class="db-item"><div><div class="db-name">Attendance Tracking Process</div><div class="db-desc">How every event's attendance is captured, verified, and logged</div></div></li>
+          <li class="db-item"><div><div class="db-name">People Database</div><div class="db-desc">The master record of every person who has entered Terra's ecosystem</div></div></li>
+          <li class="db-item"><div><div class="db-name">Fines & Agreements Tracker</div><div class="db-desc">How financial commitments and penalties are tracked</div></div></li>
+          <li class="db-item"><div><div class="db-name">Reporting Cadence</div><div class="db-desc">What reports Compliance produces, for whom, and how often</div></div></li>
+          <li class="db-item"><div><div class="db-name">Systems Architecture</div><div class="db-desc">The Google Sheets structure and Notion integration</div></div></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Department at a Glance</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Compliance Lead</div><div class="db-desc">Owns all data systems. Access to all master sheets. Trains 1 deputy. No data leaves without their oversight.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Compliance Crew (Volunteers)</div><div class="db-desc">Attendance capture at every event. Data uploaded within 2h of event end.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Data Upload SLA</div><div class="db-desc">Attendance data in master sheet within 2 hours of every event. No exceptions.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Weekly Report</div><div class="db-desc">Every Monday. Attendance summary for previous week sent to COO and all department leads.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Monthly Report</div><div class="db-desc">Last day of month. Full funnel report. COO, CEO, and all department leads.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Data Integrity Standard</div><div class="db-desc">Zero missing records. Every person who enters a Terra event exists in the system.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tool-legend">
+      <div class="tool-badge"><div class="tool-dot dot-google"></div>Google Sheets — master data infrastructure</div>
+      <div class="tool-badge"><div class="tool-dot dot-notion"></div>Notion — reporting, flags, meeting records</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- MANDATE -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="mandate">
+    <div class="section-eyebrow">Section 01</div>
+    <h2 class="section-title">The Compliance Mandate</h2>
+    <p class="section-body">Compliance has one purpose: to ensure that every action, commitment, and person in the Terra ecosystem is accurately recorded and that the records are accessible to those who need them when they need them.</p>
+
+    <div class="highlight-box">
+      <div class="highlight-title">Why This Department Exists</div>
+      <div class="highlight-body">Terra runs on relationships and programs — workshops, courses, mentorship cohorts. Every one of these generates data: who attended, who enrolled, who completed, who converted from one program to the next. Without a system that captures and maintains this data with precision, Terra cannot measure what is working, cannot identify who needs follow-up, cannot track financial commitments, and cannot make strategic decisions from evidence. Compliance is the difference between an organisation that knows what it is doing and one that believes it does.</div>
+    </div>
+
+    <div class="two-col" style="margin-top:24px;">
+      <div class="panel" style="border-top:2px solid var(--teal-light);">
+        <div class="panel-title">Compliance Owns</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">The People Database</div><div class="db-desc">Master record of every person who has interacted with Terra — attendee, student, mentee, mentor, volunteer, sponsor.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Attendance records</div><div class="db-desc">Every event, every session, every course — who was there and who was not.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Completion and graduation records</div><div class="db-desc">Who completed School courses. Who graduated from mentorship. Alumni status.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Fines and financial commitments tracker</div><div class="db-desc">Mentor fines, payment status for School, sponsorship payment tracking — not accounting, but the record layer.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Reporting</div><div class="db-desc">Weekly and monthly data reports to COO, CEO, and department leads.</div></div></li>
+        </ul>
+      </div>
+      <div class="panel" style="border-top:2px solid var(--crimson);">
+        <div class="panel-title">Compliance Does Not Own</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Decisions based on the data</div><div class="db-desc">Compliance surfaces the data. Department leads and COO make decisions from it. Compliance Lead does not tell departments what to do — they show them what is true.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Financial accounting</div><div class="db-desc">Compliance tracks payment status and commitments. Actual financial management sits with COO.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Relationship follow-up</div><div class="db-desc">Compliance flags who needs a follow-up call. The relevant department lead makes the call.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Data from outside Terra's programs</div><div class="db-desc">Compliance records what happens inside Terra's programs. External community data is Marketing's domain.</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- DATA FLOW -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="dataflow">
+    <div class="section-eyebrow">Section 02</div>
+    <h2 class="section-title">Data Flow Architecture</h2>
+    <p class="section-body">Data enters Compliance from five sources. Each has a defined trigger, a defined format, and a defined deadline. Compliance Lead is responsible for ensuring all upstream sources deliver on time — and for following up when they don't.</p>
+
+    <div class="data-flow">
+      <div class="flow-row">
+        <div class="flow-source">
+          <div class="flow-source-name">Workshop Events</div>
+          <div class="flow-source-when">Each workshop</div>
+        </div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-dest">
+          <div class="flow-what">Compliance Crew captures every attendee at registration desk. Name, contact, how they heard about Terra, first-time or returning. Uploaded to Master Attendance Sheet → Workshops tab within 2 hours of event end.</div>
+          <div class="flow-sla">SLA: 2h post-event · Owner: Compliance Crew</div>
+        </div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-source">
+          <div class="flow-source-name">School Sessions</div>
+          <div class="flow-source-when">Each session</div>
+        </div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-dest">
+          <div class="flow-what">Compliance Crew or School Support takes attendance within 10 minutes of session start. Submitted to master sheet within 2 hours. School Director is view-only on this data but does not own it.</div>
+          <div class="flow-sla">SLA: 2h post-session · Owner: Compliance Crew / School Support</div>
+        </div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-source">
+          <div class="flow-source-name">Mentorship Sessions</div>
+          <div class="flow-source-when">Weekly</div>
+        </div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-dest">
+          <div class="flow-what">Program Director or mentor logs session completion in the mentorship tracker (Notion). Compliance Lead reconciles weekly against the schedule — flags any session not marked complete by Wednesday each week for the previous week.</div>
+          <div class="flow-sla">SLA: Compliance Lead reconciles every Wednesday</div>
+        </div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-source">
+          <div class="flow-source-name">School Enrolment</div>
+          <div class="flow-source-when">Per course</div>
+        </div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-dest">
+          <div class="flow-what">School Director sends confirmed enrolment list to Compliance Lead within 48h of enrolment closing. Compliance Lead creates student records in People Database and links to the course. Payment status recorded from School Director confirmation.</div>
+          <div class="flow-sla">SLA: 48h after enrolment closes · Owner: School Director sends → Compliance Lead records</div>
+        </div>
+      </div>
+      <div class="flow-row">
+        <div class="flow-source">
+          <div class="flow-source-name">Mentorship Applications</div>
+          <div class="flow-source-when">Per cohort</div>
+        </div>
+        <div class="flow-arrow">›</div>
+        <div class="flow-dest">
+          <div class="flow-what">Program Director sends confirmed cohort list to Compliance Lead before cohort kick-off. Compliance Lead creates or updates mentee and mentor records in People Database. Cohort record created. Session schedule logged.</div>
+          <div class="flow-sla">SLA: Before cohort kick-off · Owner: Program Director sends → Compliance Lead records</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-title">The Data Integrity Principle</div>
+      <div class="highlight-body">Every piece of data Compliance holds must be accurate to the day it was entered. Compliance Lead does not estimate, does not round, does not fill gaps with guesses. If a data point is missing, it is flagged as missing — not approximated. A system with known gaps is more trustworthy than a system with hidden approximations. Department leads make better decisions when they know exactly where the data ends.</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- ATTENDANCE TRACKING -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="attendance">
+    <div class="section-eyebrow">Section 03</div>
+    <h2 class="section-title">Attendance Tracking</h2>
+    <p class="section-body">Attendance is the most frequently captured data in Terra. Every workshop, every School session, every mentorship meeting generates an attendance record. The standard is simple: every person who enters a Terra event is counted and identified. No one passes through uncaptured.</p>
+
+    <div class="phase-divider"><div class="phase-label">Process — Event Attendance Capture</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Compliance Crew positioned at registration desk before doors open</div>
+          <div class="step-detail">Compliance Crew arrives with Logistics (T-60min). Registration desk is set up by Logistics — Compliance Crew operates it. The registration method for each event is specified in the Logistics brief: QR code Google Form, paper list, or both. Both methods must be available at every event as backup. QR code is tested before doors open.</div>
+          <div class="step-trigger">Trigger: T-60min before event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Compliance Crew</span><span class="tool-tag tag-google">Google Form QR</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Capture every attendee — no exceptions, no shortcuts</div>
+          <div class="step-detail">Every person who enters is captured: name, WhatsApp number, email, first-time at Terra or returning, how they heard about the event (for first-timers). If someone refuses to give their details, they are noted as "uncaptured attendee" with a tally. No one enters without at least being acknowledged at the registration desk. Community Host supports for anyone who slips through during networking.</div>
+          <div class="step-trigger">Trigger: Doors open</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Compliance Crew</span><span class="tool-tag tag-google">Google Form</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Late arrivals captured during networking / post-talk</div>
+          <div class="step-detail">Compliance Crew stays alert to anyone who arrived after the talk started and did not register. During the networking portion, Compliance Crew or Community Host identifies and captures them. Final headcount before event close confirmed against registration count — if the gap is more than 2, Compliance Crew does a sweep of the room for uncaptured attendees.</div>
+          <div class="step-trigger">Trigger: Talk ends, networking begins</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Compliance Crew + Community Host</span><span class="tool-tag tag-google">Google Form or paper</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Upload data to master sheet within 2 hours of event end</div>
+          <div class="step-detail">If data was captured via Google Form, it is already in the sheet — Compliance Crew confirms the form responses populated correctly and adds any paper-captured entries manually. Final count confirmed. Any "uncaptured" tally noted. Data upload confirmed to Logistics Lead by WhatsApp message: "[Event name] — [number] attendees captured and logged." If paper list was used, all entries must be typed into the sheet within 2 hours.</div>
+          <div class="step-trigger">Trigger: Event ends</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Compliance Crew → Compliance Lead</span><span class="tool-tag tag-google">Master Attendance Sheet</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Compliance Lead reconciles and updates People Database</div>
+          <div class="step-detail">Within 24 hours of each event, Compliance Lead reviews the uploaded attendance data. New names are added to the People Database. Returning attendees have their "events attended" count updated. First-time attendees from workshop referral sources are flagged for Marketing — useful for tracking which channels are converting. Any data quality issues (duplicate entries, missing contact info) are resolved immediately.</div>
+          <div class="step-trigger">Trigger: Within 24h of upload confirmation</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Compliance Lead</span><span class="tool-tag tag-google">People Database</span></div>
+      </div>
+    </div>
+
+    <div class="subsection-title">School Session Attendance — Specific Protocol</div>
+    <p class="section-body" style="margin-bottom:20px;">School attendance is subject to the 80% completion threshold — missing 2+ sessions risks a student's graduation eligibility. This makes School attendance data more consequential than workshop attendance. The School Director relies on Compliance data to identify at-risk students.</p>
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-title">Capture Standard</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Taken within first 10 minutes</div><div class="db-desc">Every School session. Marked: Present / Absent / Late (arrived after 10min mark).</div></div></li>
+          <li class="db-item"><div><div class="db-name">Uploaded within 2 hours</div><div class="db-desc">To the School Sessions tab in the master sheet. School Director view only.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Running completion rate formula</div><div class="db-desc">Each student's running attendance % auto-calculated. At-risk threshold: below 80%.</div></div></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Flagging Protocol</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Flag triggered at 2 absences</div><div class="db-desc">Compliance Lead flags the student in Notion and notifies School Director same day.</div></div></li>
+          <li class="db-item"><div><div class="db-name">School Director action</div><div class="db-desc">School Director contacts student privately. Compliance does not contact the student.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Graduation eligibility list</div><div class="db-desc">Compliance Lead produces this list for School Director before final session: eligible (≥80%) / borderline / ineligible.</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- PEOPLE DATABASE -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="people">
+    <div class="section-eyebrow">Section 04</div>
+    <h2 class="section-title">The People Database</h2>
+    <p class="section-body">The single most important asset Compliance maintains. Every person who has interacted with Terra — as an attendee, student, mentee, mentor, volunteer, or sponsor — has one record in the People Database. This record follows them as they move through the Terra ecosystem.</p>
+
+    <div class="highlight-box">
+      <div class="highlight-title">One Person, One Record — Always</div>
+      <div class="highlight-body">A founder who attends a workshop, then enrolls in School, then enters mentorship is one person with one record — not three separate entries across three departments. The People Database is the thread that connects the whole Terra journey for each individual. Every department works from their own view of this data, but the record is owned and maintained by Compliance. This is what makes funnel tracking possible.</div>
+    </div>
+
+    <div class="subsection-title">People Database Schema</div>
+    <table class="schema-table">
+      <thead><tr><th>Field</th><th>Type</th><th>Purpose / Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Full Name</td><td><span class="field-type">Title</span></td><td>Legal or commonly used name</td></tr>
+        <tr><td>WhatsApp Number</td><td><span class="field-type">Phone</span></td><td>Primary contact. Must include country code.</td></tr>
+        <tr><td>Email</td><td><span class="field-type">Email</span></td><td>Used for School and Mentorship formal comms</td></tr>
+        <tr><td>First Seen</td><td><span class="field-type">Date</span></td><td>Date of their first Terra interaction — date added to database</td></tr>
+        <tr><td>First Entry Point</td><td><span class="field-type">Select</span></td><td>Workshop / School / Mentorship / Online / Referral / Volunteer / Sponsor</td></tr>
+        <tr><td>How They Heard (first time)</td><td><span class="field-type">Select</span></td><td>Instagram / WhatsApp Community / Friend referral / Google / Other — from first registration form</td></tr>
+        <tr><td>Workshops Attended</td><td><span class="field-type">Number</span></td><td>Running count. Auto-updated from attendance sheet reconciliation.</td></tr>
+        <tr><td>School Courses Enrolled</td><td><span class="field-type">Relation / Number</span></td><td>Links to course records. Count of courses.</td></tr>
+        <tr><td>School Courses Completed</td><td><span class="field-type">Number</span></td><td>Completed with ≥80% attendance and core assignments</td></tr>
+        <tr><td>Mentorship Status</td><td><span class="field-type">Select</span></td><td>Never applied / Applied / In cohort / Graduated / Alumni</td></tr>
+        <tr><td>Cohort</td><td><span class="field-type">Text</span></td><td>e.g. "Cohort 3 — Q1 2026" if applicable</td></tr>
+        <tr><td>Volunteer Status</td><td><span class="field-type">Select</span></td><td>Not a volunteer / Active volunteer / Volunteer alumni</td></tr>
+        <tr><td>Alumni Status</td><td><span class="field-type">Checkbox</span></td><td>Has completed at least one School course or mentorship cohort</td></tr>
+        <tr><td>Payment Status</td><td><span class="field-type">Select</span></td><td>N/A / Paid / Outstanding / Waived — for School and Mentorship only</td></tr>
+        <tr><td>Notes</td><td><span class="field-type">Text</span></td><td>Any relevant context added by Compliance Lead. Not shared widely. Examples: "referred by [mentor]", "applied for mentorship twice"</td></tr>
+        <tr><td>Last Updated</td><td><span class="field-type">Last Edited Time</span></td><td>Auto. Compliance Lead reviews any record not updated in 6 months to check if still active.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="subsection-title">Who Has Access to What</div>
+    <div class="three-col">
+      <div class="panel">
+        <div class="panel-title">Full Access</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Compliance Lead</div><div class="db-desc">All fields. Read, write, delete. Owns the database.</div></div></li>
+          <li class="db-item"><div><div class="db-name">COO</div><div class="db-desc">All fields. Read only. No direct edits — all changes requested via Compliance Lead.</div></div></li>
+          <li class="db-item"><div><div class="db-name">CEO / Anton</div><div class="db-desc">All fields. Read only for strategic oversight.</div></div></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Filtered View Access</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">School Director</div><div class="db-desc">View of School students only: enrolment, attendance, completion, payment status</div></div></li>
+          <li class="db-item"><div><div class="db-name">Program Director (Mentorship)</div><div class="db-desc">View of mentees and mentors: cohort, session records, graduation status</div></div></li>
+          <li class="db-item"><div><div class="db-name">Workshop Director</div><div class="db-desc">View of workshop attendees: event history, conversion to School/Mentorship</div></div></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="panel-title">No Direct Access</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Marketing Lead</div><div class="db-desc">Receives aggregated reports only. No access to individual contact data.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Volunteer Lead</div><div class="db-desc">Receives volunteer-specific summary. No access to full People Database.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Compliance Crew (volunteers)</div><div class="db-desc">Access to registration forms and the upload sheet only. No access to the full database.</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- FINES & AGREEMENTS -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="fines">
+    <div class="section-eyebrow">Section 05</div>
+    <h2 class="section-title">Fines & Financial Commitments</h2>
+    <p class="section-body">Compliance tracks financial commitments that arise from Terra's programs — mentor session fines, School payment status, sponsorship commitment tracking. Compliance does not collect money and does not chase payments directly. It maintains the record and surfaces the status to COO.</p>
+
+    <div class="two-col">
+      <div class="panel" style="border-top: 2px solid var(--gold);">
+        <div class="panel-title">What Compliance Tracks</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Mentor session fines</div><div class="db-desc">Mentors who cancel or miss sessions without the required notice period are subject to a fine (amount defined in the Mentorship agreement). Compliance logs the fine when triggered by Program Director. Status: outstanding / paid / waived. COO resolves.</div></div></li>
+          <li class="db-item"><div><div class="db-name">School payment status</div><div class="db-desc">Every enrolled student: paid / outstanding / payment plan / waived. Updated by Compliance Lead when School Director confirms payment. Outstanding payments flagged to COO weekly if unresolved for 7+ days after enrolment.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Sponsorship commitments</div><div class="db-desc">Sponsorship Lead logs the agreed amount and schedule. Compliance tracks whether payment has been received and confirmed by COO. Compliance does not chase sponsors — Sponsorship Lead does. Compliance surfaces the status.</div></div></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="panel-title">How Fines Are Triggered</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Mentor no-show or late cancellation</div><div class="db-desc">Program Director identifies the breach, confirms it against the mentorship agreement, and notifies Compliance Lead in writing (WhatsApp or Notion comment). Compliance Lead creates the fine record. Program Director notifies the mentor. COO approves any waiver.</div></div></li>
+          <li class="db-item"><div><div class="db-name">School non-payment</div><div class="db-desc">Compliance Lead flags to COO if a student's payment is outstanding 7 days after their enrolment confirmation date. School Director is copied. Action is COO's decision.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Waiver process</div><div class="db-desc">Only COO can approve a waiver of any fine or committed payment. Compliance records the waiver decision and the reason. Waivers are never assumed — they are explicitly confirmed in writing.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="subsection-title">Fines & Commitments Tracker Schema</div>
+    <table class="schema-table">
+      <thead><tr><th>Field</th><th>Type</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td>Person / Organisation</td><td><span class="field-type">Relation</span></td><td>Links to People Database record</td></tr>
+        <tr><td>Type</td><td><span class="field-type">Select</span></td><td>Mentor Fine / School Payment / Sponsorship Commitment / Other</td></tr>
+        <tr><td>Amount (IDR)</td><td><span class="field-type">Number</span></td><td>Full amount due</td></tr>
+        <tr><td>Due Date</td><td><span class="field-type">Date</span></td><td>Date payment is due or fine was triggered</td></tr>
+        <tr><td>Status</td><td><span class="field-type">Select</span></td><td>Outstanding / Paid / Waived / In dispute</td></tr>
+        <tr><td>Triggered By</td><td><span class="field-type">Text</span></td><td>Which breach, which missed payment, which agreement clause</td></tr>
+        <tr><td>Notified</td><td><span class="field-type">Checkbox</span></td><td>Has the person been formally notified?</td></tr>
+        <tr><td>COO Aware</td><td><span class="field-type">Checkbox</span></td><td>Has COO been informed? Required for all items.</td></tr>
+        <tr><td>Waiver Approved By</td><td><span class="field-type">Text</span></td><td>COO name and date if waived</td></tr>
+        <tr><td>Resolution Date</td><td><span class="field-type">Date</span></td><td>Date paid or waived</td></tr>
+        <tr><td>Notes</td><td><span class="field-type">Text</span></td><td>Any relevant context</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- REPORTING -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="reporting">
+    <div class="section-eyebrow">Section 06</div>
+    <h2 class="section-title">Reporting Cadence</h2>
+    <p class="section-body">Three reports. Weekly, monthly, and quarterly. Each serves a different decision-making need. The weekly report keeps operations honest. The monthly report drives strategy. The quarterly report reveals the long arc.</p>
+
+    <div class="report-grid">
+      <div class="report-card rc-weekly">
+        <div class="report-freq">Every Monday</div>
+        <div class="report-name">Weekly Activity Report</div>
+        <div class="report-audience">→ COO + all department leads</div>
+        <ul class="report-contains">
+          <li class="report-item"><span class="ri-bullet">▸</span>Events held last week (name, date, attendance)</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>School sessions held (which course, attendance rate per session)</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>At-risk School students flagged (below 80% threshold)</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>Mentorship sessions completed vs scheduled</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>Outstanding fines or payments (count and total value)</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>Any data gaps from last week (missing uploads, incomplete records)</li>
+        </ul>
+      </div>
+      <div class="report-card rc-monthly">
+        <div class="report-freq">Last Day of Month</div>
+        <div class="report-name">Monthly Funnel Report</div>
+        <div class="report-audience">→ COO + CEO + all department leads</div>
+        <ul class="report-contains">
+          <li class="report-item"><span class="ri-bullet">▸</span>Total new people entered Terra ecosystem this month</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>Workshop attendance: total, avg per event, returning vs new</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>Workshop → School conversion rate this month</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>School → Mentorship conversion rate this month</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>School completion rates by course</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>Mentorship cohort health (sessions completed, any mentor issues)</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>Referral source breakdown (Instagram / WhatsApp / friend / other)</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>Outstanding payments summary</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>One compliance observation (pattern Compliance Lead has noticed)</li>
+        </ul>
+      </div>
+      <div class="report-card rc-quarterly">
+        <div class="report-freq">End of Quarter</div>
+        <div class="report-name">Quarterly Trends Report</div>
+        <div class="report-audience">→ COO + CEO (strategic review)</div>
+        <ul class="report-contains">
+          <li class="report-item"><span class="ri-bullet">▸</span>Total community size (all active Terra contacts)</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>Quarter-on-quarter growth in new entries</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>Funnel conversion rates: workshop → school → mentorship (vs prior quarter)</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>Alumni count growth</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>Mentor fine and payment resolution rate</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>Data quality audit findings</li>
+          <li class="report-item"><span class="ri-bullet">▸</span>Compliance Lead's systemic observations — patterns across the quarter that warrant strategic attention</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-title">The Compliance Observation</div>
+      <div class="highlight-body">Every monthly report ends with one observation from the Compliance Lead — a pattern in the data that a department lead or COO may not have noticed. This is the department's highest-value contribution beyond data accuracy. Examples: "Workshop attendees who hear about Terra through Instagram register at a 40% lower rate than those referred by a friend." Or: "School students who attended 3+ workshops before enrolling have a 20% higher completion rate." The data tells a story. Compliance Lead's job is to read it.</div>
+    </div>
+
+    <div class="phase-divider"><div class="phase-label">Process — Monthly Funnel Report Build</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Pull all data from master sheets — last day of month</div>
+          <div class="step-detail">Compliance Lead exports or summarises data from: Master Attendance Sheet (workshop + school tabs), People Database (new entries, alumni count), Mentorship session log, Fines & Commitments tracker. All data from the calendar month. Takes 30–45 minutes for an experienced Compliance Lead with a well-maintained system.</div>
+          <div class="step-trigger">Trigger: Last day of month</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Compliance Lead</span><span class="tool-tag tag-google">Master Sheets</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Calculate funnel conversion rates</div>
+          <div class="step-detail">Three key conversion calculations: (1) Of workshop attendees this month, how many enrolled in School this month or in the following month? (2) Of School graduates, how many applied for mentorship? (3) Overall: what percentage of new Terra contacts have progressed beyond a single workshop? These numbers are the health metrics of Terra's entire program model.</div>
+          <div class="step-trigger">Trigger: Data pulled</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Compliance Lead</span><span class="tool-tag tag-google">Google Sheets formulas</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Write the Compliance Observation</div>
+          <div class="step-detail">One to three sentences. A genuine pattern — not a commentary on whether things are going well. The observation is most useful when it is specific and surprising: something the data reveals that a department lead could not have seen without this aggregated view. Never generic ("attendance was lower this month" is not an observation — it is a data point).</div>
+          <div class="step-trigger">Trigger: Calculations complete</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Compliance Lead</span><span class="tool-tag tag-notion">Notion report page</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Publish to Notion and notify recipients</div>
+          <div class="step-detail">Monthly report published to Notion (Compliance Reports section). COO, CEO, and all department leads notified via WhatsApp: "Monthly Funnel Report for [Month] is live in Notion — [one-line summary of the most important number]." Report is not sent as an attachment — it lives in Notion. If a department lead has a question, they respond in Notion or ask Compliance Lead directly.</div>
+          <div class="step-trigger">Trigger: Report complete (last day of month)</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Compliance Lead</span><span class="tool-tag tag-notion">Notion</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- SYSTEMS -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="systems">
+    <div class="section-eyebrow">Section 07</div>
+    <h2 class="section-title">Systems Architecture</h2>
+
+    <div class="system-block">
+      <div class="system-header">
+        <div class="system-icon icon-google">G</div>
+        <div>
+          <div class="system-name">Google Sheets — Master Data Infrastructure</div>
+          <div class="system-role">All Terra data lives in Google Sheets. Notion holds reports and flags. Google holds the source of truth.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <div class="subsection-title" style="margin-top:0">Master Sheet Structure</div>
+        <p style="font-size:11px;color:var(--soft);margin-bottom:16px;">One Google Sheets workbook: "Terra Bali — Master Data." Multiple tabs. Compliance Lead is owner. COO is editor. Department leads are viewers of relevant tabs only.</p>
+
+        <div style="margin-bottom:20px;">
+          <div class="sheet-tab tab-active">📋 People Database</div>
+          <div class="sheet-tab tab-active">🎪 Workshop Attendance</div>
+          <div class="sheet-tab tab-active">📚 School Sessions</div>
+          <div class="sheet-tab tab-active">🤝 Mentorship Sessions</div>
+          <div class="sheet-tab tab-active">💰 Fines & Commitments</div>
+          <div class="sheet-tab tab-active">📊 Monthly Summary (auto)</div>
+        </div>
+
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">People Database tab</div><div class="db-desc">One row per person. All fields from the schema above. Sorted by First Seen date. Filter views shared with department leads (scoped to their program's records only).</div></div><span class="db-type tag-google">Google Sheets</span></li>
+          <li class="db-item"><div><div class="db-name">Workshop Attendance tab</div><div class="db-desc">One row per attendee per event. Columns: event name, date, location, attendee name (linked to People DB via email), first time / returning, referral source. New tab section added per event month for easy navigation.</div></div><span class="db-type tag-google">Google Sheets</span></li>
+          <li class="db-item"><div><div class="db-name">School Sessions tab</div><div class="db-desc">One section per course, per cohort. Columns: student name, session 1 through session N (present/absent/late), running attendance %, completion status. At-risk conditional formatting: any student below 80% highlighted automatically.</div></div><span class="db-type tag-google">Google Sheets</span></li>
+          <li class="db-item"><div><div class="db-name">Mentorship Sessions tab</div><div class="db-desc">One section per cohort. Columns: mentor name, mentee name, scheduled sessions, sessions completed, sessions missed. Missed sessions auto-flagged for Compliance Lead review on Wednesdays.</div></div><span class="db-type tag-google">Google Sheets</span></li>
+          <li class="db-item"><div><div class="db-name">Fines & Commitments tab</div><div class="db-desc">All schema fields above. Sorted by due date. Outstanding items highlighted. COO filters for items requiring action.</div></div><span class="db-type tag-google">Google Sheets</span></li>
+          <li class="db-item"><div><div class="db-name">Monthly Summary tab</div><div class="db-desc">Auto-calculated from other tabs using formulas. Populates: total workshop attendees per month, new vs returning, School enrolments, School completions, mentorship cohort completions, conversion rates. This tab feeds the monthly report — Compliance Lead reviews and annotates before publishing.</div></div><span class="db-type tag-google">Google Sheets (formulas)</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="system-block" style="margin-top:2px;">
+      <div class="system-header">
+        <div class="system-icon icon-notion">N</div>
+        <div>
+          <div class="system-name">Notion — Reports, Flags & Compliance Records</div>
+          <div class="system-role">Weekly and monthly reports live here. At-risk flags. Waiver records. Compliance Lead's operational workspace.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">📊 Compliance Home</div><div class="db-desc">Master page. Links to latest weekly report, latest monthly report, outstanding flags, and quick links to master sheets. Compliance Lead's daily landing page.</div></div><span class="db-type tag-notion">Parent page</span></li>
+          <li class="db-item"><div><div class="db-name">📅 Weekly Reports (archive)</div><div class="db-desc">One page per weekly report. Permanent archive. Never deleted. COO and all department leads have view access.</div></div><span class="db-type tag-notion">Page per week</span></li>
+          <li class="db-item"><div><div class="db-name">📈 Monthly Reports (archive)</div><div class="db-desc">One page per monthly funnel report. Permanent archive. CEO, COO, all department leads.</div></div><span class="db-type tag-notion">Page per month</span></li>
+          <li class="db-item"><div><div class="db-name">🚩 Active Flags</div><div class="db-desc">Database of current flags: at-risk School students, outstanding fines, missing data uploads, mentorship session gaps. Each flag has an owner (department lead or COO) and a resolution date. Resolved flags are archived.</div></div><span class="db-type tag-notion">Database</span></li>
+          <li class="db-item"><div><div class="db-name">✅ Waiver Log</div><div class="db-desc">Every waiver ever approved. Person, amount, reason, COO sign-off, date. Permanent record — never deleted. Used in quarterly audit.</div></div><span class="db-type tag-notion">Database</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- DOCUMENTATION LIBRARY -->
+  <!-- ================================================================ -->
+  <div class="section-block">
+    <div class="section-eyebrow">Section 08</div>
+    <h2 class="section-title">Documentation Library</h2>
+
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-type-tag tag-google" style="background:rgba(74,140,111,0.1);color:#6abf99;border:1px solid rgba(74,140,111,0.25);">Google Form</div>
+        <div class="doc-name">Event Registration Form</div>
+        <div class="doc-owner">Owner: Compliance Lead · One master template — cloned per event</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Full name (required)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>WhatsApp number (required, with country code prompt)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Email (optional for workshops, required for School)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>First time at Terra? (Yes / No)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>If first time: How did you hear about us?</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Consent to be contacted about future Terra events (checkbox)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Forms (clone for each event)</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type-tag tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Weekly Activity Report</div>
+        <div class="doc-owner">Owner: Compliance Lead · Published every Monday by 10am</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Week dates (Mon–Sun)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Events held: name, date, attendance</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>School sessions: course, session number, attendance rate</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>At-risk School students (names to School Director only)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Mentorship sessions completed vs scheduled</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Outstanding financial items count</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Data gaps or upload delays</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Weekly Reports</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type-tag tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Monthly Funnel Report</div>
+        <div class="doc-owner">Owner: Compliance Lead · Published last day of each month</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>All fields from the Reporting section above</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Funnel conversion rates with prior month comparison</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Referral source breakdown as percentages</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>The Compliance Observation (required — never left blank)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Outstanding items requiring COO decision</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Monthly Reports</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type-tag" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">SOP Document</div>
+        <div class="doc-name">Data Upload Standard Operating Procedure</div>
+        <div class="doc-owner">Owner: Compliance Lead · Reference document for Compliance Crew training</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Step-by-step: how to confirm a Google Form populated correctly</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Step-by-step: how to add paper-captured entries to the master sheet</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>How to handle duplicate names</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>How to flag a data quality issue</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>The confirmation message to send Logistics Lead after upload</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What to do if upload cannot be completed within 2 hours</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Compliance Home</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- RULES -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="rules">
+    <div class="section-eyebrow">Section 09</div>
+    <h2 class="section-title">Operating Rules</h2>
+
+    <div class="rules-box">
+      <div class="rules-title">Non-Negotiable Operating Rules — Compliance Department</div>
+      <div class="rule-item"><span class="rule-num">01</span>Attendance data is uploaded within 2 hours of every event ending. Not "tonight" — within 2 hours. If the Compliance Crew member cannot complete the upload within 2 hours, they contact Compliance Lead immediately. The Compliance Lead completes it themselves. The 2-hour rule is what makes the weekly report reliable.</div>
+      <div class="rule-item"><span class="rule-num">02</span>One person, one record. The People Database never has duplicate entries. If a duplicate is discovered, Compliance Lead merges them within 24 hours and documents what created the duplicate. Duplicates corrupt conversion rate calculations — they are not a minor error.</div>
+      <div class="rule-item"><span class="rule-num">03</span>The Compliance Lead never estimates or approximates data. If the data is missing, it is recorded as missing. A known gap is more honest and more useful than an approximation. Department leads can work with a known gap. They cannot work with data they believe is accurate but is not.</div>
+      <div class="rule-item"><span class="rule-num">04</span>The weekly report is published every Monday by 10am. Not "early in the week." Monday 10am. Department leads plan their week from this report. Consistency is what makes it useful.</div>
+      <div class="rule-item"><span class="rule-num">05</span>Compliance Lead does not make decisions based on the data — they surface it. If a School student is at risk, Compliance flags it to School Director. School Director acts. If a fine is outstanding, Compliance flags it to COO. COO acts. Compliance's authority is in the accuracy of the data, not in the decisions it drives.</div>
+      <div class="rule-item"><span class="rule-num">06</span>No waiver of any fine or financial commitment is valid without COO written approval. Compliance Lead never approves a waiver independently. The Waiver Log is permanent — every waiver recorded forever, with the reason.</div>
+      <div class="rule-item"><span class="rule-num">07</span>The monthly Compliance Observation is never skipped. It is the highest-value contribution the department makes beyond data accuracy. Compliance Lead is required to produce one — even if the observation is "this month's data showed no unusual patterns — prior month's pattern of [X] was not repeated."</div>
+      <div class="rule-item"><span class="rule-num">08</span>Compliance Crew have access only to what they need to do their job: the registration form and the upload sheet. They do not have access to the People Database, the Fines tracker, or the reporting system. Access is commensurate with function.</div>
+      <div class="rule-item"><span class="rule-num">09</span>The master Google Sheet is never shared outside of the defined access list. Not forwarded, not screenshot-shared in WhatsApp, not shared "temporarily" with anyone. Data privacy is a trust issue — Terra's founders shared their contact information to attend an event, not to be shared.</div>
+      <div class="rule-item"><span class="rule-num">10</span>Compliance Lead conducts a data quality audit each quarter — reviewing the People Database for: duplicate records, incomplete records, outdated status fields, and formula errors in the Monthly Summary tab. Findings are documented and resolved within 2 weeks of the audit.</div>
+      <div class="rule-item"><span class="rule-num">11</span>The quarterly Trends Report is presented to COO and CEO as a narrative — not just a spreadsheet export. Compliance Lead writes 3–5 sentences of interpretation for the most significant patterns before submitting. Numbers without context do not drive decisions.</div>
+      <div class="rule-item"><span class="rule-num">12</span>Compliance Lead trains a deputy who can produce the weekly report, the monthly funnel report, and maintain the People Database independently. The institutional memory of Terra's data cannot live in one person's head.</div>
+    </div>
+  </div>
+
+
+  <div class="page-footer">
+    <div class="footer-left">"Data is only as valuable as the decisions it makes possible."</div>
+    <div class="footer-right">Terra Bali · Compliance Operations Manual<br>Department 09 · Internal Reference · v1.0</div>
+  </div>
+
+</div>
+</body>
+</html>
