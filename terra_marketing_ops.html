@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terra Bali — Marketing Operations Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --surface: #0f0f0f;
+    --surface2: #131313;
+    --border: #1e1e1e;
+    --border2: #2a2a2a;
+    --purple: #5B2D8E;
+    --purple-light: #a67dd4;
+    --gold: #C9860A;
+    --gold-light: #F0A830;
+    --crimson: #8B1A3A;
+    --text: #E8E0D5;
+    --muted: #555;
+    --soft: #888;
+    --google: #4A8C6F;
+    --whatsapp: #25A244;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; min-height: 100vh; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 40% at 20% 10%, rgba(139,26,58,0.06) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 5%, rgba(91,45,142,0.08) 0%, transparent 60%), radial-gradient(ellipse 40% 30% at 90% 90%, rgba(201,134,10,0.04) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+
+  .nav { position: sticky; top: 0; z-index: 100; background: rgba(8,8,8,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 40px; display: flex; align-items: center; justify-content: space-between; height: 52px; gap: 24px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .nav-circle { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--gold); box-shadow: 0 0 8px rgba(201,134,10,0.2); }
+  .nav-name { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 300; letter-spacing: 0.4em; }
+  .nav-links { display: flex; overflow-x: auto; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-link { font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0 12px; height: 52px; display: flex; align-items: center; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+  .nav-link:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  .main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 72px 40px 120px; }
+
+  .page-header { margin-bottom: 80px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
+  .page-eyebrow { font-size: 9px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 18px; }
+  .page-title { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; line-height: 1.15; margin-bottom: 20px; }
+  .page-body { font-size: 12.5px; line-height: 1.8; color: var(--soft); max-width: 580px; margin-bottom: 32px; }
+
+  .tool-legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+  .tool-badge { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--border); font-size: 9.5px; letter-spacing: 0.12em; }
+  .tool-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-notion { background: var(--purple-light); }
+  .dot-google { background: var(--google); }
+  .dot-whatsapp { background: var(--whatsapp); }
+
+  .section-block { margin-bottom: 80px; scroll-margin-top: 68px; }
+  .section-eyebrow { font-size: 9px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; margin-bottom: 8px; }
+  .section-body { font-size: 12px; color: var(--soft); line-height: 1.8; max-width: 620px; margin-bottom: 32px; }
+  .subsection-title { font-size: 10px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin: 32px 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  .process-flow { display: flex; flex-direction: column; gap: 2px; margin-bottom: 32px; }
+  .process-step { display: grid; grid-template-columns: 48px 1fr auto; background: var(--surface); border: 1px solid var(--border); overflow: hidden; }
+  .step-number { display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--muted); background: var(--surface2); border-right: 1px solid var(--border); padding: 16px 8px; flex-shrink: 0; }
+  .step-content { padding: 16px 20px; }
+  .step-title { font-size: 12px; color: var(--text); margin-bottom: 4px; }
+  .step-detail { font-size: 11px; color: var(--soft); line-height: 1.6; }
+  .step-trigger { font-size: 10px; color: var(--muted); margin-top: 6px; font-style: italic; }
+  .step-meta { padding: 16px 16px 16px 0; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; justify-content: center; }
+  .owner-tag { font-size: 8.5px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid var(--border2); color: var(--soft); white-space: nowrap; }
+  .tool-tag { font-size: 8px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid; white-space: nowrap; }
+  .tag-notion { border-color: rgba(166,125,212,0.3); color: var(--purple-light); background: rgba(91,45,142,0.08); }
+  .tag-google { border-color: rgba(74,140,111,0.3); color: #6abf99; background: rgba(74,140,111,0.08); }
+  .tag-whatsapp { border-color: rgba(37,162,68,0.3); color: #4cd470; background: rgba(37,162,68,0.08); }
+  .tag-manual { border-color: rgba(201,134,10,0.3); color: var(--gold-light); background: rgba(201,134,10,0.08); }
+  .step-connector { display: flex; justify-content: flex-start; padding-left: 24px; height: 16px; }
+  .connector-line { width: 1px; background: var(--border2); height: 100%; }
+
+  .phase-divider { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; margin: 28px 0 16px; }
+  .phase-label { font-size: 8.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
+  .phase-line { height: 1px; background: linear-gradient(to right, rgba(201,134,10,0.3), transparent); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .panel { background: var(--surface); border: 1px solid var(--border); padding: 24px 28px; }
+  .panel-title { font-size: 9.5px; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  .db-list { list-style: none; }
+  .db-item { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; }
+  .db-item:last-child { border-bottom: none; }
+  .db-name { color: var(--text); margin-bottom: 3px; }
+  .db-desc { font-size: 10.5px; color: var(--soft); line-height: 1.5; }
+  .db-type { font-size: 8px; letter-spacing: 0.1em; padding: 3px 8px; white-space: nowrap; align-self: start; margin-top: 2px; }
+
+  .doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .doc-card { background: var(--surface); border: 1px solid var(--border); padding: 20px 22px; }
+  .doc-type { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; }
+  .doc-name { font-size: 13px; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+  .doc-owner { font-size: 10px; color: var(--muted); margin-bottom: 10px; }
+  .doc-fields { list-style: none; }
+  .doc-field { font-size: 10.5px; color: var(--soft); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; gap: 8px; align-items: baseline; }
+  .doc-field:last-child { border-bottom: none; }
+  .field-bullet { color: var(--gold); font-size: 8px; flex-shrink: 0; }
+  .doc-where { display: inline-flex; align-items: center; gap: 5px; font-size: 8.5px; margin-top: 12px; padding: 4px 10px; border: 1px solid var(--border2); color: var(--soft); }
+
+  .rules-box { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--crimson); padding: 22px 28px; }
+  .rules-title { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: #c47; margin-bottom: 14px; }
+  .rule-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; color: var(--soft); line-height: 1.6; }
+  .rule-item:last-child { border-bottom: none; }
+  .rule-num { color: var(--gold); font-size: 10px; flex-shrink: 0; min-width: 20px; }
+
+  .highlight-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); padding: 22px 28px; margin-bottom: 2px; }
+  .highlight-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--gold-light); margin-bottom: 10px; }
+  .highlight-body { font-size: 12px; color: var(--soft); line-height: 1.8; max-width: 700px; }
+
+  .schema-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .schema-table th { font-size: 8.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border2); font-weight: 400; }
+  .schema-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--soft); vertical-align: top; line-height: 1.5; }
+  .schema-table tr:last-child td { border-bottom: none; }
+  .field-type { font-size: 9px; padding: 2px 7px; background: var(--surface2); border: 1px solid var(--border2); color: var(--muted); white-space: nowrap; }
+
+  /* CONTENT PILLARS */
+  .pillar-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 2px; margin-bottom: 24px; }
+  .pillar { background: var(--surface); border: 1px solid var(--border); padding: 20px 18px; border-top: 3px solid; }
+  .pillar-p1 { border-top-color: var(--gold); }
+  .pillar-p2 { border-top-color: var(--purple-light); }
+  .pillar-p3 { border-top-color: #4abfb0; }
+  .pillar-p4 { border-top-color: #e07090; }
+  .pillar-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 300; margin-bottom: 6px; }
+  .pillar-pct { font-size: 9px; letter-spacing: 0.15em; color: var(--muted); margin-bottom: 12px; }
+  .pillar-desc { font-size: 11px; color: var(--soft); line-height: 1.7; margin-bottom: 10px; }
+  .pillar-ex { font-size: 10px; color: var(--purple-light); padding-top: 10px; border-top: 1px solid var(--border); line-height: 1.6; }
+
+  /* CONTENT CALENDAR */
+  .week-grid { display: grid; grid-template-columns: 60px 1fr 1fr 1fr 1fr 1fr 1fr 1fr; gap: 1px; margin-bottom: 2px; }
+  .wg-label { background: var(--surface2); border: 1px solid var(--border); padding: 8px 10px; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; }
+  .wg-day { background: var(--surface2); border: 1px solid var(--border); padding: 8px 10px; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); text-align: center; }
+  .wg-cell { background: var(--surface); border: 1px solid var(--border); padding: 10px 10px; font-size: 10px; color: var(--soft); line-height: 1.5; min-height: 50px; }
+  .wg-cell.active { background: var(--surface2); }
+  .wg-task { display: inline-block; font-size: 9px; padding: 2px 6px; border: 1px solid; margin-bottom: 3px; }
+  .wg-post { border-color: rgba(201,134,10,0.3); color: var(--gold-light); background: rgba(201,134,10,0.06); }
+  .wg-story { border-color: rgba(166,125,212,0.3); color: var(--purple-light); background: rgba(91,45,142,0.06); }
+  .wg-wa { border-color: rgba(37,162,68,0.3); color: #4cd470; background: rgba(37,162,68,0.06); }
+  .wg-email { border-color: rgba(74,140,111,0.3); color: #6abf99; background: rgba(74,140,111,0.06); }
+  .wg-reel { border-color: rgba(139,26,58,0.3); color: #e07090; background: rgba(139,26,58,0.06); }
+
+  /* BRIEF FLOW */
+  .brief-flow { display: grid; grid-template-columns: 1fr 40px 1fr 40px 1fr; gap: 0; align-items: center; margin-bottom: 24px; }
+  .brief-box { background: var(--surface); border: 1px solid var(--border); padding: 18px 20px; }
+  .brief-arrow { display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 18px; }
+  .brief-from { font-size: 8.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .brief-title { font-size: 12px; color: var(--text); margin-bottom: 6px; }
+  .brief-detail { font-size: 10.5px; color: var(--soft); line-height: 1.6; }
+  .brief-sla { font-size: 9px; color: var(--gold); margin-top: 8px; }
+
+  /* CHANNEL TABLE */
+  .channel-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+  .channel-table th { font-size: 8.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border2); font-weight: 400; background: var(--surface2); }
+  .channel-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 11px; color: var(--soft); vertical-align: top; line-height: 1.6; }
+  .channel-table tr:last-child td { border-bottom: none; }
+  .ch-name { color: var(--text); font-size: 12px; }
+
+  /* METRICS */
+  .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-bottom: 24px; }
+  .metric-card { background: var(--surface); border: 1px solid var(--border); padding: 20px 18px; text-align: center; }
+  .metric-value { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--gold-light); margin-bottom: 6px; }
+  .metric-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .metric-desc { font-size: 10px; color: var(--soft); line-height: 1.5; }
+
+  .system-block { background: var(--surface); border: 1px solid var(--border); margin-bottom: 2px; overflow: hidden; }
+  .system-header { display: flex; align-items: center; gap: 14px; padding: 18px 24px; border-bottom: 1px solid var(--border); }
+  .system-icon { width: 32px; height: 32px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .icon-notion { background: rgba(91,45,142,0.2); border: 1px solid rgba(91,45,142,0.3); }
+  .icon-google { background: rgba(74,140,111,0.15); border: 1px solid rgba(74,140,111,0.25); }
+  .icon-whatsapp { background: rgba(37,162,68,0.15); border: 1px solid rgba(37,162,68,0.25); }
+  .system-name { font-size: 13px; color: var(--text); }
+  .system-role { font-size: 10px; color: var(--soft); margin-top: 2px; }
+  .system-body { padding: 20px 24px; }
+
+  .page-footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-left { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; color: var(--muted); }
+  .footer-right { font-size: 8.5px; letter-spacing: 0.15em; color: var(--muted); text-align: right; line-height: 2; }
+
+  @media (max-width: 760px) {
+    .nav { padding: 0 16px; }
+    .main { padding: 48px 16px 80px; }
+    .two-col, .three-col, .doc-grid, .pillar-grid, .metric-grid { grid-template-columns: 1fr 1fr; }
+    .process-step { grid-template-columns: 40px 1fr; }
+    .step-meta { display: none; }
+    .page-title { font-size: 30px; }
+    .brief-flow { grid-template-columns: 1fr; }
+    .brief-arrow { transform: rotate(90deg); }
+    .week-grid { grid-template-columns: 50px 1fr 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-circle"></div>
+    <div class="nav-name">TERRA</div>
+  </div>
+  <div class="nav-links">
+    <a href="#overview" class="nav-link">Overview</a>
+    <a href="#strategy" class="nav-link">Strategy</a>
+    <a href="#pillars" class="nav-link">Content Pillars</a>
+    <a href="#calendar" class="nav-link">Content Calendar</a>
+    <a href="#briefs" class="nav-link">Brief Process</a>
+    <a href="#channels" class="nav-link">Channels</a>
+    <a href="#approval" class="nav-link">Approval Flow</a>
+    <a href="#metrics" class="nav-link">Metrics</a>
+    <a href="#systems" class="nav-link">Systems</a>
+    <a href="#rules" class="nav-link">Rules</a>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header" id="overview">
+    <div class="page-eyebrow">Operations Manual · Department 07 · Marketing</div>
+    <h1 class="page-title">Marketing<br>Operations</h1>
+    <p class="page-body">
+      Marketing's job at Terra is not to grow a following. It is to move the right founder from stranger to workshop attendee to School student to mentorship applicant. Every piece of content, every post, every message should serve that journey. This manual defines how Marketing is briefed, how content is produced and approved, how channels are managed, and how performance is measured.
+    </p>
+
+    <div class="two-col" style="margin-top:0;">
+      <div class="panel">
+        <div class="panel-title">What This Document Covers</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Marketing Strategy & Purpose</div><div class="db-desc">What Marketing is actually trying to do at Terra — and what it is not</div></div></li>
+          <li class="db-item"><div><div class="db-name">Content Pillars</div><div class="db-desc">The four story categories that govern all content production</div></div></li>
+          <li class="db-item"><div><div class="db-name">Monthly Content Calendar Process</div><div class="db-desc">How the calendar is built, approved, and published each month</div></div></li>
+          <li class="db-item"><div><div class="db-name">Brief Intake Process</div><div class="db-desc">How Marketing receives, processes, and delivers on briefs from other departments</div></div></li>
+          <li class="db-item"><div><div class="db-name">Channel Management</div><div class="db-desc">What each channel is for, posting cadence, and what doesn't belong</div></div></li>
+          <li class="db-item"><div><div class="db-name">Content Approval Flow</div><div class="db-desc">Every piece of content must be approved before it publishes. Here's how.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Monthly Performance Review</div><div class="db-desc">What gets measured, how often, and what triggers a strategy change</div></div></li>
+          <li class="db-item"><div><div class="db-name">Systems & Documentation Library</div><div class="db-desc">Notion, Google, and every template the department owns</div></div></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Department at a Glance</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Marketing Lead</div><div class="db-desc">Owns strategy, calendar, briefs, and approval. Trains 1 deputy.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Content Crew (Volunteers)</div><div class="db-desc">Photography, video capture at events. Raw assets delivered within 24h.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Posting Cadence</div><div class="db-desc">Minimum 4 posts per week across Instagram + WhatsApp. Quality over volume.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Brief SLA</div><div class="db-desc">Marketing delivers first assets within 5 business days of receiving a complete brief</div></div></li>
+          <li class="db-item"><div><div class="db-name">Approval Rule</div><div class="db-desc">Zero content published without department lead approval. Zero exceptions.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Primary Metric</div><div class="db-desc">Funnel entries per month (not followers, not likes)</div></div></li>
+          <li class="db-item"><div><div class="db-name">Secondary Metric</div><div class="db-desc">Reach and engagement rate on workshop/course promotion posts</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tool-legend">
+      <div class="tool-badge"><div class="tool-dot dot-notion"></div>Notion — calendar, briefs, approvals</div>
+      <div class="tool-badge"><div class="tool-dot dot-google"></div>Google — drive, analytics, forms</div>
+      <div class="tool-badge"><div class="tool-dot dot-whatsapp"></div>WhatsApp — community broadcast</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- MARKETING STRATEGY -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="strategy">
+    <div class="section-eyebrow">Section 01</div>
+    <h2 class="section-title">Marketing Strategy</h2>
+    <p class="section-body">Terra is not trying to build a large audience. It is trying to build a precise one. Every strategy decision flows from that distinction.</p>
+
+    <div class="highlight-box">
+      <div class="highlight-title">The One Job</div>
+      <div class="highlight-body">Marketing's singular job is to move the right founder one step further along the Terra journey. A founder who has never heard of Terra should leave their first encounter wanting to attend a workshop. A founder who attended a workshop should leave feeling like School or mentorship is the natural next step. Marketing does not broadcast — it narrows. Every post, every caption, every story should be written to one specific person at one specific stage of their journey.</div>
+    </div>
+
+    <div class="subsection-title">What Marketing Is and Is Not</div>
+    <div class="two-col">
+      <div class="panel" style="border-top: 2px solid #4abfb0;">
+        <div class="panel-title" style="color:#4abfb0;">Marketing IS</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Funnel activation</div><div class="db-desc">Every piece of content has a clear next step for the reader — attend, apply, register, respond.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Community storytelling</div><div class="db-desc">Founder stories, mentor stories, transformation moments. Real people, real results.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Event promotion with story</div><div class="db-desc">Not "Workshop this Friday" but "The reason we're talking about revenue models this Friday."</div></div></li>
+          <li class="db-item"><div><div class="db-name">Trust building over time</div><div class="db-desc">Consistent voice, consistent values, consistent quality. Terra should look and sound the same every time.</div></div></li>
+        </ul>
+      </div>
+      <div class="panel" style="border-top: 2px solid var(--crimson);">
+        <div class="panel-title" style="color:#c47;">Marketing IS NOT</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Follower chasing</div><div class="db-desc">10,000 followers who are not founders in Bali are worth less than 500 who are. Volume is a vanity metric at this stage.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Trend-led content</div><div class="db-desc">Terra does not post trending audio reels or participate in content trends that have nothing to do with founders. Consistency of identity beats viral moments.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Announcement broadcasting</div><div class="db-desc">"Join our workshop on Friday at 6pm" is not a post. It's a calendar entry. Content tells a story. Announcements are the last line, not the whole post.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Reactive posting</div><div class="db-desc">Marketing does not post when departments ask. It posts on a planned calendar, integrating event briefs. Reactive posting produces inconsistent content.</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- CONTENT PILLARS -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="pillars">
+    <div class="section-eyebrow">Section 02</div>
+    <h2 class="section-title">Content Pillars</h2>
+    <p class="section-body">Four pillars govern all content Terra produces. Every post, reel, story, and WhatsApp message belongs to one of these four categories. If a piece of content can't be clearly assigned to a pillar, it shouldn't be made.</p>
+
+    <div class="pillar-grid">
+      <div class="pillar pillar-p1">
+        <div class="pillar-name">Build in Public</div>
+        <div class="pillar-pct">35% of content</div>
+        <div class="pillar-desc">Founder stories. Lessons from the mentorship program. What someone learned at a workshop. Real progress, real struggle, real insight. Names and permission always obtained first.</div>
+        <div class="pillar-ex">Examples: "This founder came to Terra 3 months ago with no idea how to price her offer. Here's where she is now." / Workshop recap with one key insight quoted from the speaker.</div>
+      </div>
+      <div class="pillar pillar-p2">
+        <div class="pillar-name">Ideas Worth Sitting With</div>
+        <div class="pillar-pct">25% of content</div>
+        <div class="pillar-desc">Founder thinking, business philosophy, contrarian takes on common advice. Not motivational quotes — genuine, specific, opinionated ideas that the Terra ICP would stop scrolling for.</div>
+        <div class="pillar-ex">Examples: "The problem with 'find your niche' advice is that it assumes you know who you are before you start. Most founders don't." / A 3-part carousel on the real reason founders plateau at $5k/month.</div>
+      </div>
+      <div class="pillar pillar-p3">
+        <div class="pillar-name">Terra Moments</div>
+        <div class="pillar-pct">25% of content</div>
+        <div class="pillar-desc">Behind the scenes. Workshop energy. The room at a kick-off event. Volunteer faces. The Bali context that makes Terra what it is. Content that makes someone feel what it's like to be there.</div>
+        <div class="pillar-ex">Examples: Event day B-roll reel. A photo of 30 founders in a room listening to a speaker with the caption "This is what Thursday looks like." The moment after graduation.</div>
+      </div>
+      <div class="pillar pillar-p4">
+        <div class="pillar-name">The Invitation</div>
+        <div class="pillar-pct">15% of content</div>
+        <div class="pillar-desc">Direct CTAs. Workshop announcements. Course launches. Mentorship applications. These are the conversion posts. They must be story-led first, CTA second. Never just a date and a link.</div>
+        <div class="pillar-ex">Examples: "If your business has been stuck at the same revenue for the last 4 months, Thursday's workshop is specifically for you. Here's why." Registration link in bio.</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-title">The Pillar Mix Discipline</div>
+      <div class="highlight-body">The 35/25/25/15 split is a guide, not a rule to track obsessively. What it prevents is the most common failure mode: an account that posts nothing but event announcements. When The Invitation is 60% of content, the audience learns to scroll past Terra because they know every post is asking something of them. The other three pillars are what earn the right to make the ask.</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- CONTENT CALENDAR PROCESS -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="calendar">
+    <div class="section-eyebrow">Section 03</div>
+    <h2 class="section-title">Monthly Content Calendar</h2>
+    <p class="section-body">The content calendar is built and locked by the 25th of each month for the following month. It integrates all department event briefs, organic content, and pillar distribution. Marketing does not post off the calendar. If it's not on the calendar, it doesn't go out — except for genuine real-time moments at events.</p>
+
+    <div class="phase-divider"><div class="phase-label">Process — Monthly Calendar Build</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Collect all department event briefs by 20th of month</div>
+          <div class="step-detail">Workshops, School, and Mentorship send their event briefs by the 20th. If a brief is not received by the 20th, Marketing Lead follows up once — then proceeds without it. Departments that miss the brief window do not get promotional content that month. This rule exists to protect Marketing's planning process. Exceptions must be approved by COO.</div>
+          <div class="step-trigger">Trigger: 20th of each month</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Marketing Lead collects</span><span class="tool-tag tag-notion">Notion brief inbox</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Map events onto the calendar skeleton</div>
+          <div class="step-detail">Marketing Lead places all confirmed events on the calendar. Each event gets a promotional arc: awareness post (T-14), reminder post (T-7), final push (T-3), day-before WhatsApp (T-1), post-event recap (T+24h). Every promotional arc is mapped before organic content is added around it.</div>
+          <div class="step-trigger">Trigger: All briefs received or 21st, whichever comes first</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Marketing Lead</span><span class="tool-tag tag-notion">Notion calendar</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Fill organic content slots with pillar-balanced posts</div>
+          <div class="step-detail">After promotional content is mapped, Marketing Lead fills remaining posting slots with organic content from the four pillars. Checks the running pillar mix — if this month is heavy on Invitation content due to events, ensure Build in Public and Ideas Worth Sitting With are given at least 2 slots each. Organic content ideas are drawn from the Content Ideas backlog in Notion.</div>
+          <div class="step-trigger">Trigger: Event arcs mapped</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Marketing Lead</span><span class="tool-tag tag-notion">Notion content backlog</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Assign content formats and production tasks</div>
+          <div class="step-detail">Each calendar slot gets a format assigned: reel, carousel, single image, story, or written post. Production tasks are created in Notion — one task per piece of content, with: post date, format, pillar, caption draft, assets needed, asset source (Content Crew capture or stock or design), and department lead who approves.</div>
+          <div class="step-trigger">Trigger: Calendar skeleton complete</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Marketing Lead</span><span class="tool-tag tag-notion">Notion production tasks</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Submit calendar to COO for review by 25th</div>
+          <div class="step-detail">Complete calendar shared with COO in Notion. COO reviews for: pillar balance, alignment with Terra's quarterly priorities, any messaging that needs adjusting. COO has 48 hours to respond. If no response by the 27th, the calendar is considered approved and production begins.</div>
+          <div class="step-trigger">Trigger: By 25th of each month</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Marketing Lead → COO</span><span class="tool-tag tag-notion">Notion approval</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">06</div>
+        <div class="step-content">
+          <div class="step-title">Begin production: captions drafted, assets briefed to Content Crew</div>
+          <div class="step-detail">Once approved, Marketing Lead writes all captions for the month and briefs Content Crew on any capture needed at upcoming events. Content Crew gets a written brief — format, moment to capture, deadline for delivery. Every caption is reviewed against the Terra voice guide before it goes to the relevant department lead for final approval.</div>
+          <div class="step-trigger">Trigger: Calendar approved</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Marketing Lead + Content Crew</span><span class="tool-tag tag-google">Google Drive (assets)</span></div>
+      </div>
+    </div>
+
+    <div class="subsection-title">Sample Weekly Posting Rhythm</div>
+    <div class="week-grid">
+      <div class="wg-label"></div>
+      <div class="wg-day">Mon</div>
+      <div class="wg-day">Tue</div>
+      <div class="wg-day">Wed</div>
+      <div class="wg-day">Thu</div>
+      <div class="wg-day">Fri</div>
+      <div class="wg-day">Sat</div>
+      <div class="wg-day">Sun</div>
+    </div>
+    <div class="week-grid">
+      <div class="wg-label">Feed</div>
+      <div class="wg-cell active"><span class="wg-task wg-post">Carousel</span><br>Ideas Worth Sitting With</div>
+      <div class="wg-cell">—</div>
+      <div class="wg-cell active"><span class="wg-task wg-reel">Reel</span><br>Terra Moments / event recap</div>
+      <div class="wg-cell">—</div>
+      <div class="wg-cell active"><span class="wg-task wg-post">Single</span><br>Build in Public / founder story</div>
+      <div class="wg-cell">—</div>
+      <div class="wg-cell">—</div>
+    </div>
+    <div class="week-grid">
+      <div class="wg-label">Stories</div>
+      <div class="wg-cell">Behind the scenes</div>
+      <div class="wg-cell active"><span class="wg-task wg-story">Story</span><br>Event reminder if applicable</div>
+      <div class="wg-cell">Reel repost</div>
+      <div class="wg-cell active"><span class="wg-task wg-story">Story</span><br>Workshop day live update</div>
+      <div class="wg-cell">Post amplification</div>
+      <div class="wg-cell">—</div>
+      <div class="wg-cell">—</div>
+    </div>
+    <div class="week-grid">
+      <div class="wg-label">WhatsApp</div>
+      <div class="wg-cell">—</div>
+      <div class="wg-cell">—</div>
+      <div class="wg-cell active"><span class="wg-task wg-wa">WA</span><br>T-7 event reminder (if applicable)</div>
+      <div class="wg-cell active"><span class="wg-task wg-wa">WA</span><br>Workshop day: "See you tonight"</div>
+      <div class="wg-cell active"><span class="wg-task wg-email">Email</span><br>Post-event recap to registrants</div>
+      <div class="wg-cell">—</div>
+      <div class="wg-cell">—</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- BRIEF INTAKE PROCESS -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="briefs">
+    <div class="section-eyebrow">Section 04</div>
+    <h2 class="section-title">Brief Intake Process</h2>
+    <p class="section-body">Every piece of promotional content starts with a brief from the requesting department. Marketing does not create content based on a WhatsApp message or a verbal request. A brief is submitted. A brief is reviewed. Then production begins.</p>
+
+    <div class="brief-flow">
+      <div class="brief-box">
+        <div class="brief-from">Department sends</div>
+        <div class="brief-title">Complete Brief</div>
+        <div class="brief-detail">Event name, date, venue, story angle, CTA, ICP, assets needed, approval contact, deadline.</div>
+        <div class="brief-sla">→ Via Notion template</div>
+      </div>
+      <div class="brief-arrow">›</div>
+      <div class="brief-box">
+        <div class="brief-from">Marketing Lead</div>
+        <div class="brief-title">Brief Review (24h)</div>
+        <div class="brief-detail">Checks brief is complete. Confirms timeline is feasible. Flags anything missing. Accepts or returns with questions.</div>
+        <div class="brief-sla">SLA: 24h acknowledgement</div>
+      </div>
+      <div class="brief-arrow">›</div>
+      <div class="brief-box">
+        <div class="brief-from">Marketing Lead</div>
+        <div class="brief-title">Deliver Assets (5 days)</div>
+        <div class="brief-detail">First draft of all requested assets submitted to department lead for approval. Captions, graphics, reel script if applicable.</div>
+        <div class="brief-sla">SLA: 5 business days from complete brief</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-title">What Makes a Brief Complete</div>
+      <div class="highlight-body">A brief is not complete if any of these are missing: the story angle (not just the logistics), the exact CTA wording, who the content is for (ICP description), the approval contact and their turnaround time commitment, and the publish deadline. An incomplete brief is returned to the sender with a note on what's missing. Marketing does not produce content from an incomplete brief — incomplete briefs produce content that misses the point and requires multiple revision rounds.</div>
+    </div>
+
+    <div class="subsection-title">What Each Department Briefs Marketing On</div>
+    <table class="channel-table">
+      <thead><tr><th>Department</th><th>What They Brief For</th><th>Typical Assets Requested</th><th>Lead Time Required</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><div class="ch-name">Workshops</div></td>
+          <td>Each workshop event. 3 per month.</td>
+          <td>Announcement reel, event graphic, caption copy x3 (T-14, T-7, T-3), WhatsApp message, post-event recap reel</td>
+          <td>Minimum 14 days before event</td>
+        </tr>
+        <tr>
+          <td><div class="ch-name">School</div></td>
+          <td>Each course launch. 2 per quarter.</td>
+          <td>Launch campaign reel, course graphic, caption copy (awareness, enrolment open, final call), instructor profile post, post-graduation story</td>
+          <td>Minimum 28 days before launch</td>
+        </tr>
+        <tr>
+          <td><div class="ch-name">Mentorship</div></td>
+          <td>Quarterly kick-off events, cohort application windows</td>
+          <td>Kick-off event promotion (treated as a workshop), cohort application launch post, graduate story posts</td>
+          <td>Minimum 21 days before launch</td>
+        </tr>
+        <tr>
+          <td><div class="ch-name">Sponsorship</div></td>
+          <td>Sponsor announcements, co-branded content</td>
+          <td>Partnership announcement post, co-branded assets (per sponsor agreement), event co-branding</td>
+          <td>Minimum 14 days before publish date</td>
+        </tr>
+        <tr>
+          <td><div class="ch-name">Volunteers</div></td>
+          <td>Volunteer recruitment moments (rare, personal invitation model)</td>
+          <td>Rarely — only when a public expression of volunteer culture serves the brand. Coordinated with Volunteer Lead.</td>
+          <td>14 days if needed</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- CHANNEL MANAGEMENT -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="channels">
+    <div class="section-eyebrow">Section 05</div>
+    <h2 class="section-title">Channel Management</h2>
+    <p class="section-body">Each channel has a specific purpose, a specific audience, and a specific tone. Content is not cross-posted carelessly — it is adapted. What works on Instagram does not work in a WhatsApp community and should not be copy-pasted.</p>
+
+    <table class="channel-table">
+      <thead>
+        <tr><th>Channel</th><th>Purpose</th><th>Audience</th><th>Tone</th><th>Posting Cadence</th><th>What Does Not Belong</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="ch-name">Instagram Feed</div></td>
+          <td>Discovery and trust-building. New founders find Terra here. Existing community stays connected.</td>
+          <td>Founders in Bali and SE Asia. Digital nomads. Anyone who might attend a workshop.</td>
+          <td>Warm, direct, opinionated. Sounds like a founder, not a brand.</td>
+          <td>3–4 posts per week. Quality ceiling: nothing published below Terra's visual standard.</td>
+          <td>Generic motivational quotes. Trend-led audio that has no connection to Terra's identity. Blurry or poorly lit photos.</td>
+        </tr>
+        <tr>
+          <td><div class="ch-name">Instagram Reels</div></td>
+          <td>Reach and community feel. Event energy, founder stories, behind-the-scenes.</td>
+          <td>Broader reach than feed — first touch for many new followers.</td>
+          <td>Energetic but not frantic. Bali context is visible. People are real.</td>
+          <td>1–2 reels per week. Every major event produces at least one reel within 24h.</td>
+          <td>Reels made purely for algorithm without editorial intent. Overproduced content that loses authenticity.</td>
+        </tr>
+        <tr>
+          <td><div class="ch-name">Instagram Stories</div></td>
+          <td>Daily presence. Event reminders. Behind-the-scenes. Community warmth.</td>
+          <td>Existing followers. People already interested in Terra.</td>
+          <td>Most casual of all channels. Can be spontaneous — but never sloppy.</td>
+          <td>Daily when events are active. 3–4x per week minimum otherwise.</td>
+          <td>Long blocks of text. Unreadable graphics. Reposts of irrelevant content.</td>
+        </tr>
+        <tr>
+          <td><div class="ch-name">WhatsApp Community</div></td>
+          <td>Existing community announcements. Event reminders. Recap links. Community warmth.</td>
+          <td>People who have already attended Terra events or opted in. The warm audience.</td>
+          <td>Personal, direct. Reads like a message from a person, not a brand. First-person voice.</td>
+          <td>Structured per event arc (T-7, T-1, T+24h recap). Maximum 3 WhatsApp messages per week — respect the inbox.</td>
+          <td>Promotional tone. Irrelevant content. Messages that belong on Instagram instead. Anything posted more than 3x per week outside of event weeks.</td>
+        </tr>
+        <tr>
+          <td><div class="ch-name">Email (registrants)</div></td>
+          <td>Post-event follow-up to registered attendees. CTA-driven.</td>
+          <td>People who registered for a specific event. Already interested.</td>
+          <td>Personal, specific to what they attended. Not a newsletter blast.</td>
+          <td>Within 24h post-event. Triggered by event, not scheduled.</td>
+          <td>Generic content. Mass newsletter format. Anything that doesn't reference the specific event they attended.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="highlight-box">
+      <div class="highlight-title">The Voice Consistency Rule</div>
+      <div class="highlight-body">Terra's voice is warm, direct, and specific. It sounds like a confident founder who has seen a lot and respects their audience enough to be honest with them. It does not use buzzwords ("leverage your potential," "unlock your impact"), it does not write vague captions ("Big things are coming 👀"), and it does not hedge ("We hope this might be useful for some of you"). Every caption should be rewritable as something a real person would say out loud. If it sounds like a brand, rewrite it until it sounds like a person.</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- CONTENT APPROVAL FLOW -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="approval">
+    <div class="section-eyebrow">Section 06</div>
+    <h2 class="section-title">Content Approval Flow</h2>
+    <p class="section-body">Every piece of content produced from a department brief must be approved by the relevant department lead before it is published. Organic content (pillars 1–3) is approved by the Marketing Lead and COO on the monthly calendar. The approval flow below applies to all promotional content.</p>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Marketing Lead completes draft assets</div>
+          <div class="step-detail">Caption drafted, graphic designed or asset selected, reel edited if applicable. All assets are reviewed internally against the voice guide and brand standards before sending for approval. Marketing Lead does not submit rough drafts — they submit their best work.</div>
+          <div class="step-trigger">Trigger: Within 5 business days of complete brief</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Marketing Lead</span><span class="tool-tag tag-notion">Notion task → review status</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Assets submitted to department lead for approval</div>
+          <div class="step-detail">Shared via Notion (preferred) or Google Drive link. Department lead receives: the caption, the visual asset(s), the proposed publish date and channel. Clear prompt: "Approve or feedback by [date] — content publishes on [date]." Department lead has 24 hours to respond. If no response in 24h, Marketing Lead sends one follow-up. If still no response after 48h total, content is escalated to COO.</div>
+          <div class="step-trigger">Trigger: Assets ready</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Marketing Lead → Dept Lead</span><span class="tool-tag tag-notion">Notion approval field</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Department lead reviews for accuracy — not design</div>
+          <div class="step-detail">The department lead's job in the approval: check that the information is accurate (date, time, venue, CTA), that the story angle is correct, and that the message aligns with what they briefed. They are not approving the design aesthetic or the font choices — that is Marketing's domain. Feedback must be specific: "The date is wrong, it's Thursday not Friday" — not "can we make it feel more exciting?"</div>
+          <div class="step-trigger">Trigger: Assets received by department lead</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Department Lead</span><span class="tool-tag tag-notion">Notion — approved / feedback</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Revisions (if needed) and final publish</div>
+          <div class="step-detail">If factual corrections are needed, Marketing Lead amends and resubmits. One revision round for factual errors. If a department lead requests subjective changes that conflict with Marketing's editorial judgment, Marketing Lead flags the disagreement to COO — not to the department lead directly. COO is the tiebreaker. Content is published on the scheduled date once approved.</div>
+          <div class="step-trigger">Trigger: Approval received</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Marketing Lead publishes</span><span class="tool-tag tag-manual">Platform native / scheduler</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Published content logged in Notion</div>
+          <div class="step-detail">Every published post is logged in the Content Database with: publish date, channel, pillar, event link (if applicable), and a note of performance at the 7-day mark (reach, engagement rate, link clicks if applicable). This log feeds the monthly performance review.</div>
+          <div class="step-trigger">Trigger: Post published</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Marketing Lead</span><span class="tool-tag tag-notion">Notion content log</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- METRICS -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="metrics">
+    <div class="section-eyebrow">Section 07</div>
+    <h2 class="section-title">Performance Metrics</h2>
+    <p class="section-body">Four metrics govern Marketing performance. All others are context, not KPIs. The monthly review takes 30 minutes and produces one decision: what changes next month and what stays.</p>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-value">01</div>
+        <div class="metric-label">Primary KPI</div>
+        <div class="metric-desc">Funnel entries per month. People who registered for an event, applied for School, or applied for mentorship — attributed to Marketing's reach.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">02</div>
+        <div class="metric-label">Engagement Rate</div>
+        <div class="metric-desc">On promotional posts specifically. Target: above platform average for Bali founder content. Below average triggers a content review — not a volume increase.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">03</div>
+        <div class="metric-label">Event Registration Rate</div>
+        <div class="metric-desc">Of people who saw a workshop announcement post, what percentage registered? Tracked via UTM links on all registration URLs. Below 2% triggers a message review.</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-value">04</div>
+        <div class="metric-label">WhatsApp Open Rate</div>
+        <div class="metric-desc">Estimated by response rate and link click-through. If engagement in WhatsApp is declining, the content or frequency is wrong. Check both before changing either.</div>
+      </div>
+    </div>
+
+    <div class="phase-divider"><div class="phase-label">Process — Monthly Marketing Review</div><div class="phase-line"></div></div>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Pull 4-metric performance report on last day of month</div>
+          <div class="step-detail">Marketing Lead pulls data from Instagram Insights, registration sheet (Compliance), and WhatsApp link tracking. Logs into Notion Monthly Review template. Takes 20 minutes maximum — this is not a deep dive, it's a snapshot.</div>
+          <div class="step-trigger">Trigger: Last day of each month</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Marketing Lead</span><span class="tool-tag tag-notion">Notion monthly review</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Identify the one thing that underperformed most and why</div>
+          <div class="step-detail">Not a full audit. One clear question: what produced the least result relative to effort this month? Was it the event announcement cadence? A specific pillar of content? The WhatsApp message timing? Name it specifically. Vague reviews produce vague improvements.</div>
+          <div class="step-trigger">Trigger: Data pulled</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Marketing Lead</span><span class="tool-tag tag-notion">Notion review notes</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Make one change to next month's calendar based on the finding</div>
+          <div class="step-detail">One change per review cycle. Not a strategy overhaul. If the T-7 reminder post underperformed, test a different format next month. If Build in Public content got strong engagement but only appeared twice, add two more slots next month. Small, specific, measurable changes. Document the change and the hypothesis in Notion so results can be assessed at the next review.</div>
+          <div class="step-trigger">Trigger: Underperformer identified</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Marketing Lead</span><span class="tool-tag tag-notion">Notion calendar (next month)</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Share summary with COO — one paragraph</div>
+          <div class="step-detail">Monthly review summary shared with COO in Notion. One paragraph: what the numbers were, what worked, what didn't, what changes next month. COO does not need a report — they need a decision. The summary ends with the one change being made and why. COO responds with any concerns or adjustments within 48h.</div>
+          <div class="step-trigger">Trigger: Review complete</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Marketing Lead → COO</span><span class="tool-tag tag-notion">Notion</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- SYSTEMS -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="systems">
+    <div class="section-eyebrow">Section 08</div>
+    <h2 class="section-title">Systems Architecture</h2>
+
+    <div class="system-block">
+      <div class="system-header">
+        <div class="system-icon icon-notion">N</div>
+        <div>
+          <div class="system-name">Notion — Marketing Operational Home</div>
+          <div class="system-role">Calendar, briefs, production tasks, content log, monthly reviews. Every marketing operation starts and ends here.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <div class="subsection-title" style="margin-top:0">Notion Structure — Marketing</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">📣 Marketing Home</div><div class="db-desc">Master page. Current month calendar at a glance, brief inbox, approval queue, upcoming publish dates. Marketing Lead's daily view.</div></div><span class="db-type tag-notion">Parent page</span></li>
+          <li class="db-item"><div><div class="db-name">📅 Content Calendar Database</div><div class="db-desc">One row per piece of content. Fields: publish date, channel, pillar, format, status (draft / review / approved / published), event link, caption, asset link, approver, performance notes.</div></div><span class="db-type tag-notion">Database</span></li>
+          <li class="db-item"><div><div class="db-name">📥 Brief Inbox</div><div class="db-desc">One page per brief received from a department. Includes: submitting department, brief date, event date, completeness check, marketing lead acknowledgement, delivery date, status.</div></div><span class="db-type tag-notion">Database</span></li>
+          <li class="db-item"><div><div class="db-name">💡 Content Ideas Backlog</div><div class="db-desc">Running list of content ideas — founder stories to tell, themes to explore, questions from workshop Q&As that could become carousels. Tagged by pillar. Reviewed monthly when building the calendar.</div></div><span class="db-type tag-notion">Database</span></li>
+          <li class="db-item"><div><div class="db-name">📊 Monthly Performance Log</div><div class="db-desc">One page per month. Funnel entries, engagement rate, event registration rate, WhatsApp engagement. One-paragraph COO summary. Change implemented. Result assessed next month.</div></div><span class="db-type tag-notion">Page per month</span></li>
+          <li class="db-item"><div><div class="db-name">🎨 Brand & Voice Guide</div><div class="db-desc">The immutable reference. Terra's visual identity rules (colours, fonts, layout principles), voice guide (what Terra sounds like, what it never says), and content examples that represent the standard. Never edited without COO approval.</div></div><span class="db-type tag-notion">Reference page</span></li>
+        </ul>
+
+        <div class="subsection-title">Content Calendar Database Schema</div>
+        <table class="schema-table">
+          <thead><tr><th>Field</th><th>Type</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>Content Title</td><td><span class="field-type">Title</span></td><td>e.g. "Workshop Canggu — T-7 Reminder — Feb"</td></tr>
+            <tr><td>Publish Date</td><td><span class="field-type">Date</span></td><td>Scheduled publish date and time</td></tr>
+            <tr><td>Channel</td><td><span class="field-type">Select</span></td><td>Instagram Feed / Reels / Stories / WhatsApp / Email</td></tr>
+            <tr><td>Content Pillar</td><td><span class="field-type">Select</span></td><td>Build in Public / Ideas / Terra Moments / The Invitation</td></tr>
+            <tr><td>Format</td><td><span class="field-type">Select</span></td><td>Single / Carousel / Reel / Story / WhatsApp message / Email</td></tr>
+            <tr><td>Status</td><td><span class="field-type">Select</span></td><td>Idea / Draft / In Review / Approved / Published</td></tr>
+            <tr><td>Brief Link</td><td><span class="field-type">Relation</span></td><td>Links to Brief Inbox entry (if from a department brief)</td></tr>
+            <tr><td>Caption</td><td><span class="field-type">Text</span></td><td>Full caption draft</td></tr>
+            <tr><td>Asset Link</td><td><span class="field-type">URL</span></td><td>Google Drive link to visual asset(s)</td></tr>
+            <tr><td>Approver</td><td><span class="field-type">Person</span></td><td>Department lead who approves (or Marketing Lead for organic)</td></tr>
+            <tr><td>Approved</td><td><span class="field-type">Checkbox</span></td><td>Approval confirmed</td></tr>
+            <tr><td>7-Day Reach</td><td><span class="field-type">Number</span></td><td>Instagram reach at 7 days post-publish</td></tr>
+            <tr><td>7-Day Engagement Rate</td><td><span class="field-type">Number</span></td><td>Engagement rate % at 7 days</td></tr>
+            <tr><td>Link Clicks</td><td><span class="field-type">Number</span></td><td>UTM-tracked clicks to registration or application link</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="system-block" style="margin-top:2px;">
+      <div class="system-header">
+        <div class="system-icon icon-google">G</div>
+        <div>
+          <div class="system-name">Google Workspace — Assets, Analytics & Templates</div>
+          <div class="system-role">All visual assets, design files, analytics exports, and master document templates live in Google Drive.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">📁 Terra Marketing (root folder)</div><div class="db-desc">Shared with Marketing Lead and COO. All sub-folders below.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📁 Content → [Year] → [Month] → [Post Name]</div><div class="db-desc">One folder per post. Contains: final caption (txt), visual asset (final), raw asset (from Content Crew if applicable), any revision history.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📁 Brand Assets</div><div class="db-desc">Terra logos (all versions), colour palette, font files, Canva/design templates for recurring formats (workshop graphic, course launch, graduation announcement). Never edited — duplicate for use.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📁 Event Content → [Event Name]</div><div class="db-desc">Raw photos and video from Content Crew, delivered within 24h of each event. Organised by event. Marketing Lead selects what to use. Raw files kept for 6 months.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📁 Templates</div><div class="db-desc">Caption templates (per post type), WhatsApp announcement template, post-event email template, Content Crew brief template. Master copies — duplicate before use.</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- DOCUMENTATION LIBRARY -->
+  <!-- ================================================================ -->
+  <div class="section-block">
+    <div class="section-eyebrow">Section 09</div>
+    <h2 class="section-title">Documentation Library</h2>
+
+    <div class="doc-grid">
+
+      <div class="doc-card">
+        <div class="doc-type tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Reference</div>
+        <div class="doc-name">Terra Brand & Voice Guide</div>
+        <div class="doc-owner">Owner: Marketing Lead · Approved by COO · Never edited without sign-off</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Terra's visual identity: colours, typography, layout principles</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Logo usage rules (what is allowed, what is not)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Voice guide: what Terra sounds like in 10 sentences</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Words and phrases Terra never uses (with alternatives)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Example captions that represent the standard (with annotations)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Example captions that fail the standard (with explanations)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Marketing Home</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Department Brief Template</div>
+        <div class="doc-owner">Owner: Marketing Lead · Completed by requesting department</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Submitting department and contact</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Event or campaign name and date</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>The story angle — not just the logistics</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Who this is for (ICP description in plain language)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>The exact CTA and where it links</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Assets requested (list each one)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Approval contact and their turnaround commitment</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Latest publish date for first post</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Speaker/instructor headshot and bio (if applicable)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Brief Inbox</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">Caption Template</div>
+        <div class="doc-name">Event Announcement Caption Templates</div>
+        <div class="doc-owner">Owner: Marketing Lead · One per post type in the event arc</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>T-14 Awareness post: story-led, problem first, event as the solution</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>T-7 Reminder post: social proof angle, who it's for, urgency introduced</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>T-3 Final push: direct, short, CTA prominent</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>T-1 WhatsApp: personal, warm, "see you tomorrow" energy</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>T+24h Recap: moment capture, key insight, next step CTA</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Variable fields clearly marked for per-event personalisation</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Templates</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-google" style="background:rgba(74,140,111,0.1);color:#6abf99;border:1px solid rgba(74,140,111,0.25);">Written Brief</div>
+        <div class="doc-name">Content Crew Brief (per event)</div>
+        <div class="doc-owner">Owner: Marketing Lead → Content Crew Volunteers</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Event name, date, location, start and end time</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Shots required: specific moments to capture (list, not general)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Format required: photo only / video / both</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What to avoid capturing (e.g. certain attendees who have not consented)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Delivery deadline: raw files to Google Drive within 24h</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Google Drive folder link for upload</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Marketing Lead contact on the day</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Templates</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Monthly Performance Review</div>
+        <div class="doc-owner">Owner: Marketing Lead · Completed last day of each month</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Funnel entries this month (total, by source)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Average engagement rate on promotional posts</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Event registration rate (registrations / promo reach)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>WhatsApp engagement indicator</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Best-performing post (and why)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Worst-performing post (and why)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>One change being made next month</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>One-paragraph COO summary</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Monthly Performance Log</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">Email Template</div>
+        <div class="doc-name">Post-Event Follow-Up Email</div>
+        <div class="doc-owner">Owner: Marketing Lead · Triggered within 24h of each event</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Subject line referencing the specific talk or event</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>One key insight from the session (in Terra's voice — not a transcript)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Link to the recap reel or content published</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>One clear CTA: mentorship application, next workshop, School enrolment</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Personal sign-off from the Marketing Lead or Workshop Director</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>No more than 150 words total</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Templates</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- OPERATING RULES -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="rules">
+    <div class="section-eyebrow">Section 10</div>
+    <h2 class="section-title">Operating Rules</h2>
+
+    <div class="rules-box">
+      <div class="rules-title">Non-Negotiable Operating Rules — Marketing Department</div>
+      <div class="rule-item"><span class="rule-num">01</span>Zero content published without department lead approval on promotional posts, and without Marketing Lead approval on organic posts. Zero exceptions. A post that goes out unapproved — even if it's good — undermines the system. The system is what makes quality consistent.</div>
+      <div class="rule-item"><span class="rule-num">02</span>Marketing does not accept verbal or WhatsApp briefs. Every brief comes through the Notion template. Incomplete briefs are returned, not started. The brief is the contract between Marketing and the requesting department.</div>
+      <div class="rule-item"><span class="rule-num">03</span>Department leads have 24 hours to approve content or provide specific factual feedback. If they do not respond within 24 hours, Marketing Lead follows up once. After 48 hours, the item is escalated to COO. Marketing does not wait indefinitely.</div>
+      <div class="rule-item"><span class="rule-num">04</span>The content calendar is locked by the 25th of each month for the following month. Emergency additions (genuine breaking moments at Terra) are approved by Marketing Lead only — they do not require a full brief cycle. Everything else follows the calendar.</div>
+      <div class="rule-item"><span class="rule-num">05</span>Follower count is not a KPI. It is never reported as a success metric. The only metrics that matter are funnel entries, engagement rate on promotional content, and event registration rate. Vanity metrics produce vanity strategy.</div>
+      <div class="rule-item"><span class="rule-num">06</span>Content Crew delivers raw assets to Google Drive within 24 hours of every event. If assets are not received within 24 hours, Marketing Lead contacts the Content Crew directly — not the Volunteer Lead. One escalation, same day.</div>
+      <div class="rule-item"><span class="rule-num">07</span>The Terra voice is protected. If a caption sounds like a brand, it is rewritten until it sounds like a person. If a department lead requests wording that violates the voice guide, Marketing Lead proposes an alternative. If agreement cannot be reached, COO decides.</div>
+      <div class="rule-item"><span class="rule-num">08</span>WhatsApp community messages are capped at 3 per week outside of active event weeks. Respect for the inbox is respect for the community. Over-messaging trains people to mute Terra.</div>
+      <div class="rule-item"><span class="rule-num">09</span>Every piece of promotional content includes a clear, singular CTA. Not two CTAs. Not "follow us, register, and share." One ask per post. Multiple asks dilute all of them.</div>
+      <div class="rule-item"><span class="rule-num">10</span>The monthly performance review produces one change — not a strategy overhaul. Consistency is more valuable than reactivity. If the same thing underperforms for 3 consecutive months, then a structural review is warranted. One month of data is a data point, not a verdict.</div>
+      <div class="rule-item"><span class="rule-num">11</span>The Brand & Voice Guide is immutable except through a COO-approved update process. Individual departments cannot request changes to brand standards. Brand consistency over 12 months is worth more than any single event's aesthetic preference.</div>
+      <div class="rule-item"><span class="rule-num">12</span>Marketing Lead trains a deputy who can run the full monthly calendar cycle — brief intake, production, approval, publish — independently. The department does not stop if the Marketing Lead is unavailable for 2 weeks.</div>
+    </div>
+  </div>
+
+
+  <div class="page-footer">
+    <div class="footer-left">"Good marketing makes the community feel seen. Great marketing makes them feel understood."</div>
+    <div class="footer-right">Terra Bali · Marketing Operations Manual<br>Department 07 · Internal Reference · v1.0</div>
+  </div>
+
+</div>
+</body>
+</html>
