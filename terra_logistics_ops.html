@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terra Bali — Logistics & Events Operations Manual</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080808;
+    --surface: #0f0f0f;
+    --surface2: #131313;
+    --border: #1e1e1e;
+    --border2: #2a2a2a;
+    --purple: #5B2D8E;
+    --purple-light: #a67dd4;
+    --gold: #C9860A;
+    --gold-light: #F0A830;
+    --crimson: #8B1A3A;
+    --teal: #2A7A6F;
+    --teal-light: #4abfb0;
+    --text: #E8E0D5;
+    --muted: #555;
+    --soft: #888;
+    --google: #4A8C6F;
+    --whatsapp: #25A244;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 40% at 20% 10%, rgba(139,26,58,0.06) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 5%, rgba(91,45,142,0.08) 0%, transparent 60%), radial-gradient(ellipse 40% 30% at 90% 90%, rgba(201,134,10,0.04) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+
+  .nav { position: sticky; top: 0; z-index: 100; background: rgba(8,8,8,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 40px; display: flex; align-items: center; height: 52px; gap: 24px; }
+  .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .nav-circle { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--gold); box-shadow: 0 0 8px rgba(201,134,10,0.2); }
+  .nav-name { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 300; letter-spacing: 0.4em; }
+  .nav-links { display: flex; overflow-x: auto; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-link { font-size: 8.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0 12px; height: 52px; display: flex; align-items: center; border-bottom: 2px solid transparent; transition: all 0.2s; white-space: nowrap; }
+  .nav-link:hover { color: var(--gold-light); border-bottom-color: var(--gold); }
+
+  .main { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 72px 40px 120px; }
+
+  .page-header { margin-bottom: 80px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
+  .page-eyebrow { font-size: 9px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 18px; }
+  .page-title { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; line-height: 1.15; margin-bottom: 20px; }
+  .page-body { font-size: 12.5px; line-height: 1.8; color: var(--soft); max-width: 580px; margin-bottom: 32px; }
+
+  .tool-legend { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
+  .tool-badge { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--border); font-size: 9.5px; letter-spacing: 0.12em; }
+  .tool-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-notion { background: var(--purple-light); }
+  .dot-google { background: var(--google); }
+  .dot-whatsapp { background: var(--whatsapp); }
+
+  .section-block { margin-bottom: 80px; scroll-margin-top: 68px; }
+  .section-eyebrow { font-size: 9px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; margin-bottom: 8px; }
+  .section-body { font-size: 12px; color: var(--soft); line-height: 1.8; max-width: 620px; margin-bottom: 32px; }
+  .subsection-title { font-size: 10px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin: 32px 0 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  .process-flow { display: flex; flex-direction: column; gap: 2px; margin-bottom: 32px; }
+  .process-step { display: grid; grid-template-columns: 48px 1fr auto; background: var(--surface); border: 1px solid var(--border); overflow: hidden; }
+  .step-number { display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--muted); background: var(--surface2); border-right: 1px solid var(--border); padding: 16px 8px; flex-shrink: 0; }
+  .step-content { padding: 16px 20px; }
+  .step-title { font-size: 12px; color: var(--text); margin-bottom: 4px; }
+  .step-detail { font-size: 11px; color: var(--soft); line-height: 1.6; }
+  .step-trigger { font-size: 10px; color: var(--muted); margin-top: 6px; font-style: italic; }
+  .step-meta { padding: 16px 16px 16px 0; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; justify-content: center; }
+  .owner-tag { font-size: 8.5px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid var(--border2); color: var(--soft); white-space: nowrap; }
+  .tool-tag { font-size: 8px; letter-spacing: 0.1em; padding: 3px 8px; border: 1px solid; white-space: nowrap; }
+  .tag-notion { border-color: rgba(166,125,212,0.3); color: var(--purple-light); background: rgba(91,45,142,0.08); }
+  .tag-google { border-color: rgba(74,140,111,0.3); color: #6abf99; background: rgba(74,140,111,0.08); }
+  .tag-whatsapp { border-color: rgba(37,162,68,0.3); color: #4cd470; background: rgba(37,162,68,0.08); }
+  .tag-manual { border-color: rgba(201,134,10,0.3); color: var(--gold-light); background: rgba(201,134,10,0.08); }
+  .step-connector { display: flex; justify-content: flex-start; padding-left: 24px; height: 16px; }
+  .connector-line { width: 1px; background: var(--border2); height: 100%; }
+
+  .phase-divider { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center; margin: 28px 0 16px; }
+  .phase-label { font-size: 8.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
+  .phase-line { height: 1px; background: linear-gradient(to right, rgba(201,134,10,0.3), transparent); }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+  .panel { background: var(--surface); border: 1px solid var(--border); padding: 24px 28px; }
+  .panel-title { font-size: 9.5px; letter-spacing: 0.18em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+
+  .db-list { list-style: none; }
+  .db-item { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; }
+  .db-item:last-child { border-bottom: none; }
+  .db-name { color: var(--text); margin-bottom: 3px; }
+  .db-desc { font-size: 10.5px; color: var(--soft); line-height: 1.5; }
+  .db-type { font-size: 8px; letter-spacing: 0.1em; padding: 3px 8px; white-space: nowrap; align-self: start; margin-top: 2px; }
+
+  .doc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .doc-card { background: var(--surface); border: 1px solid var(--border); padding: 20px 22px; }
+  .doc-name { font-size: 13px; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
+  .doc-owner { font-size: 10px; color: var(--muted); margin-bottom: 10px; }
+  .doc-type-tag { font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 10px; }
+  .doc-fields { list-style: none; }
+  .doc-field { font-size: 10.5px; color: var(--soft); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; gap: 8px; }
+  .doc-field:last-child { border-bottom: none; }
+  .field-bullet { color: var(--gold); font-size: 8px; flex-shrink: 0; margin-top: 2px; }
+  .doc-where { display: inline-flex; align-items: center; gap: 5px; font-size: 8.5px; margin-top: 12px; padding: 4px 10px; border: 1px solid var(--border2); color: var(--soft); }
+
+  .rules-box { background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--crimson); padding: 22px 28px; }
+  .rules-title { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: #c47; margin-bottom: 14px; }
+  .rule-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 11.5px; color: var(--soft); line-height: 1.6; }
+  .rule-item:last-child { border-bottom: none; }
+  .rule-num { color: var(--gold); font-size: 10px; flex-shrink: 0; min-width: 20px; }
+
+  .highlight-box { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--gold); padding: 22px 28px; margin-bottom: 2px; }
+  .highlight-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; color: var(--gold-light); margin-bottom: 10px; }
+  .highlight-body { font-size: 12px; color: var(--soft); line-height: 1.8; max-width: 700px; }
+
+  .schema-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+  .schema-table th { font-size: 8.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border2); font-weight: 400; }
+  .schema-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--soft); vertical-align: top; line-height: 1.5; }
+  .schema-table tr:last-child td { border-bottom: none; }
+  .field-type { font-size: 9px; padding: 2px 7px; background: var(--surface2); border: 1px solid var(--border2); color: var(--muted); white-space: nowrap; }
+
+  /* VENUE CARDS */
+  .venue-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; margin-bottom: 24px; }
+  .venue-card { background: var(--surface); border: 1px solid var(--border); padding: 20px 22px; border-top: 2px solid var(--gold); }
+  .venue-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; margin-bottom: 4px; }
+  .venue-area { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+  .venue-specs { list-style: none; }
+  .venue-spec { font-size: 11px; color: var(--soft); padding: 7px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; }
+  .venue-spec:last-child { border-bottom: none; }
+  .spec-label { color: var(--muted); font-size: 10px; min-width: 80px; flex-shrink: 0; }
+
+  /* RUN OF SHOW */
+  .ros-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+  .ros-table th { font-size: 8.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border2); font-weight: 400; background: var(--surface2); }
+  .ros-table td { padding: 11px 14px; border-bottom: 1px solid var(--border); font-size: 11px; color: var(--soft); vertical-align: top; line-height: 1.5; }
+  .ros-table tr:last-child td { border-bottom: none; }
+  .ros-time { color: var(--gold); font-size: 10.5px; white-space: nowrap; }
+  .ros-task { color: var(--text); font-size: 11.5px; margin-bottom: 3px; }
+  .ros-owner { font-size: 9px; color: var(--muted); }
+  .ros-critical { background: rgba(139,26,58,0.05); }
+
+  /* ESCALATION MATRIX */
+  .esc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 24px; }
+  .esc-card { background: var(--surface); border: 1px solid var(--border); padding: 18px 20px; }
+  .esc-trigger { font-size: 11.5px; color: var(--text); margin-bottom: 6px; }
+  .esc-action { font-size: 11px; color: var(--soft); line-height: 1.6; }
+  .esc-who { font-size: 9px; color: var(--gold); margin-top: 8px; letter-spacing: 0.1em; }
+  .esc-severity { font-size: 8px; letter-spacing: 0.12em; text-transform: uppercase; padding: 2px 8px; border: 1px solid; margin-bottom: 10px; display: inline-block; }
+  .sev-red { border-color: rgba(139,26,58,0.4); color: #e07090; background: rgba(139,26,58,0.08); }
+  .sev-amber { border-color: rgba(201,134,10,0.4); color: var(--gold-light); background: rgba(201,134,10,0.08); }
+
+  .system-block { background: var(--surface); border: 1px solid var(--border); margin-bottom: 2px; overflow: hidden; }
+  .system-header { display: flex; align-items: center; gap: 14px; padding: 18px 24px; border-bottom: 1px solid var(--border); }
+  .system-icon { width: 32px; height: 32px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .icon-notion { background: rgba(91,45,142,0.2); border: 1px solid rgba(91,45,142,0.3); }
+  .icon-google { background: rgba(74,140,111,0.15); border: 1px solid rgba(74,140,111,0.25); }
+  .system-name { font-size: 13px; color: var(--text); }
+  .system-role { font-size: 10px; color: var(--soft); margin-top: 2px; }
+  .system-body { padding: 20px 24px; }
+
+  .page-footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .footer-left { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; color: var(--muted); }
+  .footer-right { font-size: 8.5px; letter-spacing: 0.15em; color: var(--muted); text-align: right; line-height: 2; }
+
+  @media (max-width: 760px) {
+    .nav { padding: 0 16px; }
+    .main { padding: 48px 16px 80px; }
+    .two-col, .three-col, .doc-grid, .venue-grid, .esc-grid { grid-template-columns: 1fr; }
+    .process-step { grid-template-columns: 40px 1fr; }
+    .step-meta { display: none; }
+    .page-title { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">
+    <div class="nav-circle"></div>
+    <div class="nav-name">TERRA</div>
+  </div>
+  <div class="nav-links">
+    <a href="#overview" class="nav-link">Overview</a>
+    <a href="#briefs" class="nav-link">Brief Intake</a>
+    <a href="#venues" class="nav-link">Venue Management</a>
+    <a href="#ros" class="nav-link">Run of Show</a>
+    <a href="#crew" class="nav-link">Crew Coordination</a>
+    <a href="#escalation" class="nav-link">Escalation</a>
+    <a href="#postevent" class="nav-link">Post-Event</a>
+    <a href="#systems" class="nav-link">Systems</a>
+    <a href="#rules" class="nav-link">Rules</a>
+  </div>
+</nav>
+
+<div class="main">
+
+  <!-- HEADER -->
+  <div class="page-header" id="overview">
+    <div class="page-eyebrow">Operations Manual · Department 08 · Logistics & Events</div>
+    <h1 class="page-title">Logistics &<br>Events Operations</h1>
+    <p class="page-body">
+      Logistics is the invisible architecture of every Terra experience. When it works, nobody notices — they just feel the quality of the event. When it fails, it is the only thing anyone remembers. This department owns the physical reality of every Terra event: the venue, the crew, the setup, the run of show, and the reset. Nothing left to chance. Nothing left to the day.
+    </p>
+
+    <div class="two-col" style="margin-top:0;">
+      <div class="panel">
+        <div class="panel-title">What This Document Covers</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Brief Intake Process</div><div class="db-desc">How Logistics receives and processes event briefs from all departments</div></div></li>
+          <li class="db-item"><div><div class="db-name">Venue Management</div><div class="db-desc">The three Terra locations, venue confirmation process, and standards</div></div></li>
+          <li class="db-item"><div><div class="db-name">Run of Show</div><div class="db-desc">The master event-day timeline and crew responsibilities</div></div></li>
+          <li class="db-item"><div><div class="db-name">Crew Coordination</div><div class="db-desc">How Events Crew volunteers are briefed, assigned, and supported</div></div></li>
+          <li class="db-item"><div><div class="db-name">Escalation Matrix</div><div class="db-desc">Every scenario that can go wrong on event day — and the protocol</div></div></li>
+          <li class="db-item"><div><div class="db-name">Post-Event Close</div><div class="db-desc">Venue reset, debrief, and handover to Compliance</div></div></li>
+          <li class="db-item"><div><div class="db-name">Systems & Documentation</div><div class="db-desc">Notion, Google, and all templates</div></div></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Department at a Glance</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Logistics Lead</div><div class="db-desc">Owns this department. Present at every event or has a confirmed deputy. Trains 1 successor.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Event Volume</div><div class="db-desc">Minimum 3 workshops/month + School sessions + quarterly kick-offs</div></div></li>
+          <li class="db-item"><div><div class="db-name">Venue Confirmation SLA</div><div class="db-desc">Every venue confirmed by T-7. Escalated to COO if not confirmed by T-7.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Crew Briefing SLA</div><div class="db-desc">All crew briefed by T-24. No crew member arrives without knowing their role.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Setup Standard</div><div class="db-desc">Crew arrives T-60min. Setup complete and tested by T-30min. Zero exceptions.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Post-Event Reset</div><div class="db-desc">Venue left cleaner than arrival. Confirmation sent to department lead same night.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tool-legend">
+      <div class="tool-badge"><div class="tool-dot dot-notion"></div>Notion — event tracking, briefs, crew</div>
+      <div class="tool-badge"><div class="tool-dot dot-google"></div>Google — checklists, venue contacts, drive</div>
+      <div class="tool-badge"><div class="tool-dot dot-whatsapp"></div>WhatsApp — crew coordination on day</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- LOGISTICS ROLE -->
+  <!-- ================================================================ -->
+  <div class="section-block">
+    <div class="section-eyebrow">The Logistics Mandate</div>
+    <h2 class="section-title">What Logistics Owns</h2>
+    <p class="section-body">Logistics does not run the event — the department lead runs the event. Logistics makes it possible for the department lead to focus entirely on the human experience by guaranteeing that every physical and operational element is handled. The department lead should never be thinking about the microphone or the registration desk on event day.</p>
+
+    <div class="highlight-box">
+      <div class="highlight-title">The Standard</div>
+      <div class="highlight-body">Every Terra event — a workshop in Canggu, a School session in Ubud, a quarterly kick-off — should feel effortless to the people in the room. Effortless is not accidental. It is the result of every logistical detail being resolved before the room fills. The Logistics Lead's success is measured by how invisible their work is on the day.</div>
+    </div>
+
+    <div class="three-col" style="margin-top:24px;">
+      <div class="panel" style="border-top:2px solid var(--gold);">
+        <div class="panel-title">Logistics Owns</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Venue</div><div class="db-desc">Sourcing, booking, confirming, and managing the relationship with every venue Terra uses</div></div></li>
+          <li class="db-item"><div><div class="db-name">Physical setup</div><div class="db-desc">Seating, AV, registration desk, signage, sponsor visibility</div></div></li>
+          <li class="db-item"><div><div class="db-name">Crew coordination</div><div class="db-desc">Briefing, assigning, and supporting Events Crew volunteers on the day</div></div></li>
+          <li class="db-item"><div><div class="db-name">Venue reset</div><div class="db-desc">Leaving every venue in better condition than it was found</div></div></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Logistics Does Not Own</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Event content</div><div class="db-desc">The speaker, the agenda, the Q&A — that is the department lead's domain</div></div></li>
+          <li class="db-item"><div><div class="db-name">Attendee registration data</div><div class="db-desc">Compliance Crew collects and owns the data. Logistics sets up the desk.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Marketing assets</div><div class="db-desc">The banner design, the event graphic — that is Marketing's output</div></div></li>
+          <li class="db-item"><div><div class="db-name">Speaker relationship</div><div class="db-desc">The department lead manages the speaker. Logistics manages the speaker's arrival logistics.</div></div></li>
+        </ul>
+      </div>
+      <div class="panel" style="border-top:2px solid var(--teal-light);">
+        <div class="panel-title">The Handoffs</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">From Workshops / School / Mentorship</div><div class="db-desc">Brief received by T-20. Logistics acknowledges within 24h.</div></div></li>
+          <li class="db-item"><div><div class="db-name">To Marketing</div><div class="db-desc">Venue confirmed → Logistics notifies Marketing so event posts can go out</div></div></li>
+          <li class="db-item"><div><div class="db-name">To Compliance</div><div class="db-desc">Attendance sheet and registration desk handed to Compliance Crew on event day</div></div></li>
+          <li class="db-item"><div><div class="db-name">To COO</div><div class="db-desc">Any venue, crew, or day-of issue that cannot be resolved within 30 minutes</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- BRIEF INTAKE -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="briefs">
+    <div class="section-eyebrow">Section 01</div>
+    <h2 class="section-title">Brief Intake Process</h2>
+    <p class="section-body">Every event Logistics manages begins with a written brief from the requesting department. No brief, no guarantee of logistics support. The brief is the Logistics Lead's contract for delivery.</p>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Brief received from department lead by T-20</div>
+          <div class="step-detail">Workshops, School, and Mentorship send their logistics briefs by the 20th of the preceding month for all events in the following month. The brief must be complete: event date, time, expected attendance, venue preference (or "Logistics to source"), AV requirements, crew needed, special setup instructions, speaker arrival requirements, and any sponsor visibility requirements.</div>
+          <div class="step-trigger">Trigger: 20th of each month (standard) or minimum 14 days before event (urgent)</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Department Lead sends</span><span class="tool-tag tag-notion">Notion brief template</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Logistics Lead acknowledges and checks brief completeness within 24h</div>
+          <div class="step-detail">Within 24 hours of receiving a brief, Logistics Lead confirms receipt and either accepts it as complete or returns it with a clear list of what's missing. Incomplete briefs are not started. The Logistics Lead does not guess at missing information — they request it. One follow-up. If no response in 48h, escalated to COO.</div>
+          <div class="step-trigger">Trigger: Brief received</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Logistics Lead</span><span class="tool-tag tag-notion">Notion — brief status updated</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Venue confirmation initiated immediately</div>
+          <div class="step-detail">As soon as a brief is accepted, Logistics Lead contacts the venue. For established Terra venues (Seminyak, Canggu, Ubud regulars), this is a WhatsApp confirmation to the venue contact. For new venues, a site visit or call is required before confirming. Venue is confirmed in writing — WhatsApp message counts if screenshot is saved in Notion. Confirmation must be obtained by T-7.</div>
+          <div class="step-trigger">Trigger: Brief accepted</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Logistics Lead</span><span class="tool-tag tag-whatsapp">Venue contact</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Venue confirmed → notify Marketing and department lead</div>
+          <div class="step-detail">Once venue is locked, Logistics Lead sends one message to both Marketing Lead and the department lead: venue name, address, confirmed capacity, parking notes. Marketing needs this to finalise promotional posts (venue address in bio/stories). Department lead needs this for speaker communication. One message, two recipients, same information.</div>
+          <div class="step-trigger">Trigger: Venue confirmed (must be by T-7)</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Logistics Lead → Marketing + Dept Lead</span><span class="tool-tag tag-whatsapp">WhatsApp</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Crew assigned and briefed by T-24</div>
+          <div class="step-detail">Logistics Lead assigns Events Crew volunteers from the available pool, confirms their attendance, and sends the crew brief by T-24. Every crew member receives their brief via WhatsApp in the crew group: arrival time, role on the day, specific tasks, what to wear, who to report to, and what to do if they have a problem. No crew member arrives on the day without knowing their role.</div>
+          <div class="step-trigger">Trigger: By T-24 for all events</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Logistics Lead</span><span class="tool-tag tag-whatsapp">WhatsApp crew group</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- VENUE MANAGEMENT -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="venues">
+    <div class="section-eyebrow">Section 02</div>
+    <h2 class="section-title">Venue Management</h2>
+    <p class="section-body">Terra operates across three areas of Bali. Each has a preferred venue profile. Logistics maintains a live venue database with contacts, capacity, AV capability, and cost. No event is confirmed at a venue that hasn't been physically visited by the Logistics Lead or a deputy.</p>
+
+    <div class="venue-grid">
+      <div class="venue-card">
+        <div class="venue-name">Seminyak</div>
+        <div class="venue-area">High-footfall · Accessible · First-time attendees</div>
+        <ul class="venue-specs">
+          <li class="venue-spec"><span class="spec-label">Profile</span>Restaurant private rooms, hotel event spaces, co-working venues with evening availability</li>
+          <li class="venue-spec"><span class="spec-label">Capacity</span>30–60 standing, 20–40 seated. Minimum 40 standing for workshops.</li>
+          <li class="venue-spec"><span class="spec-label">AV needs</span>Microphone (wired or wireless), projector or large screen, reliable WiFi</li>
+          <li class="venue-spec"><span class="spec-label">Parking</span>Venue or adjacent street. Must be noted in event communications.</li>
+          <li class="venue-spec"><span class="spec-label">Preference</span>Venues with existing relationship with Terra or familiar with event format</li>
+        </ul>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name">Canggu</div>
+        <div class="venue-area">Community core · Repeat attendees · Deeper topics</div>
+        <ul class="venue-specs">
+          <li class="venue-spec"><span class="spec-label">Profile</span>Co-working spaces, beach clubs with function rooms, villa event spaces</li>
+          <li class="venue-spec"><span class="spec-label">Capacity</span>30–50 for workshops. Terra's strongest demographic density in this area.</li>
+          <li class="venue-spec"><span class="spec-label">AV needs</span>Same as Seminyak. Audio quality is higher priority in Canggu — beach noise can be a factor.</li>
+          <li class="venue-spec"><span class="spec-label">Parking</span>More challenging — must confirm parking situation explicitly in event communications.</li>
+          <li class="venue-spec"><span class="spec-label">Preference</span>Co-working partners. More community-embedded, less commercial.</li>
+        </ul>
+      </div>
+      <div class="venue-card">
+        <div class="venue-name">Ubud</div>
+        <div class="venue-area">Purpose-driven · Discovery-rich · Different ICP</div>
+        <ul class="venue-specs">
+          <li class="venue-spec"><span class="spec-label">Profile</span>Boutique venues, wellness-adjacent spaces, small hotel event rooms</li>
+          <li class="venue-spec"><span class="spec-label">Capacity</span>20–35. Smaller, more intimate — appropriate for the Ubud founder profile.</li>
+          <li class="venue-spec"><span class="spec-label">AV needs</span>Smaller room — microphone sometimes optional depending on acoustics. Always test.</li>
+          <li class="venue-spec"><span class="spec-label">Parking</span>Easier than Canggu. Still noted in communications.</li>
+          <li class="venue-spec"><span class="spec-label">Preference</span>Venues with aesthetic alignment to Terra's brand. Ubud attendees are visually discerning.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="subsection-title">Venue Sourcing Process — For New Venues</div>
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Identify candidate venue from network or Terra sponsor pipeline</div>
+          <div class="step-detail">New venues come from: the Terra community (founder owns or manages a space), the Sponsorship department's venue partners, or the Logistics Lead's direct prospecting. Every candidate is logged in the Venue Database in Notion before contact is made.</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Logistics Lead</span><span class="tool-tag tag-notion">Notion venue database</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Site visit and technical check</div>
+          <div class="step-detail">Logistics Lead or deputy physically visits every new venue before it is used. Checks: capacity, AV equipment and quality, power socket availability, WiFi reliability, bathroom facilities, registration desk space, parking situation, loading/access for setup, and aesthetic alignment with Terra's brand. If any of these fail a minimum standard, the venue is not used.</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Logistics Lead</span><span class="tool-tag tag-notion">Site visit notes in Notion</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Negotiate terms and add to venue database</div>
+          <div class="step-detail">Terms agreed: cost per event (or partnership arrangement via Sponsorship), booking notice required, what is included (AV, tables, chairs, staff), cancellation policy, and the venue contact for all future communication. All terms documented in Notion. Venue added with status "Active" and all fields complete.</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Logistics Lead (+ Sponsorship if partnership)</span><span class="tool-tag tag-notion">Notion venue database</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- RUN OF SHOW -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="ros">
+    <div class="section-eyebrow">Section 03</div>
+    <h2 class="section-title">Run of Show</h2>
+    <p class="section-body">The run of show is the master timeline for every Terra event. It is produced by Logistics Lead from the brief and shared with all crew and the department lead by T-24. On the day, the Logistics Lead runs to this document — not to their memory.</p>
+
+    <div class="subsection-title">Standard Workshop Run of Show — Evening Event (6:00pm Start)</div>
+    <table class="ros-table">
+      <thead>
+        <tr><th>Time</th><th>Action</th><th>Owner</th><th>Critical Check</th></tr>
+      </thead>
+      <tbody>
+        <tr class="ros-critical">
+          <td class="ros-time">T-60min<br>5:00pm</td>
+          <td><div class="ros-task">Crew arrives at venue</div>Full Events Crew present. Logistics Lead conducts 5-minute briefing: roles confirmed, any changes to plan communicated.</td>
+          <td class="ros-owner">Logistics Lead + all crew</td>
+          <td>All crew present and briefed. If crew member missing, Logistics Lead fills role or calls backup volunteer.</td>
+        </tr>
+        <tr>
+          <td class="ros-time">5:05pm</td>
+          <td><div class="ros-task">Physical setup begins</div>Tables and chairs arranged per brief. Registration desk positioned at entrance. Terra signage placed. Sponsor materials displayed per sponsor brief.</td>
+          <td class="ros-owner">Events Crew (all)</td>
+          <td>Seating count matches expected attendance. Sight lines to speaker position checked from all seats.</td>
+        </tr>
+        <tr class="ros-critical">
+          <td class="ros-time">5:20pm</td>
+          <td><div class="ros-task">AV setup and test</div>Microphone tested at speaking volume. Projector or screen tested if applicable. WiFi password noted for any live demo needs. Backup plan identified if AV fails.</td>
+          <td class="ros-owner">Logistics Lead</td>
+          <td>Audio audible from back of room. If AV issue not resolved by 5:40pm — escalate to COO and prepare no-AV contingency.</td>
+        </tr>
+        <tr>
+          <td class="ros-time">5:30pm</td>
+          <td><div class="ros-task">Registration desk ready</div>Compliance Crew at desk with registration sheet (digital or paper). Pens, QR code for form. Water or drinks available if venue provides.</td>
+          <td class="ros-owner">Compliance Crew + Events Crew</td>
+          <td>Every registration method functional. QR code tested. Backup manual list ready.</td>
+        </tr>
+        <tr class="ros-critical">
+          <td class="ros-time">5:30pm</td>
+          <td><div class="ros-task">Speaker arrives</div>Logistics Lead or designated crew member meets speaker at entrance. Brief: here's the mic, here's where you'll stand, here's the signal for 5 minutes left, here's where the bathroom is. Water at the speaker position.</td>
+          <td class="ros-owner">Logistics Lead</td>
+          <td>Speaker briefed and comfortable. If speaker has not arrived by 5:45pm — Logistics Lead contacts speaker directly and notifies department lead.</td>
+        </tr>
+        <tr>
+          <td class="ros-time">5:45pm</td>
+          <td><div class="ros-task">Setup complete check</div>Logistics Lead does a final walk of the room. Everything in place. Crew positions confirmed. Registration desk active. Venue staff briefed on Terra's needs for the evening.</td>
+          <td class="ros-owner">Logistics Lead</td>
+          <td>Logistics Lead sends one message to department lead: "Setup complete, ready." Department lead can now focus entirely on the event.</td>
+        </tr>
+        <tr>
+          <td class="ros-time">6:00pm</td>
+          <td><div class="ros-task">Doors open — registration begins</div>Compliance Crew captures every attendee. Community Hosts (if present) welcome and circulate. Events Crew manages flow and any overflow.</td>
+          <td class="ros-owner">Compliance Crew + Events Crew + Community Host</td>
+          <td>No one passes the registration desk without being captured. This is a non-negotiable standard.</td>
+        </tr>
+        <tr>
+          <td class="ros-time">6:30pm</td>
+          <td><div class="ros-task">Department lead opens event</div>Logistics Lead steps back. The event is now the department lead's. Logistics Lead monitors: AV quality, room temperature, any attendee needs, speaker comfort.</td>
+          <td class="ros-owner">Department Lead leads. Logistics Lead supports silently.</td>
+          <td>Logistics Lead stays in room. Available immediately if anything needs attention.</td>
+        </tr>
+        <tr>
+          <td class="ros-time">At T+25min</td>
+          <td><div class="ros-task">Visual time signal to speaker</div>Logistics Lead gives a visible signal (agreed pre-event) at 25 minutes into the talk — 5 minutes remaining before Q&A. Discreet, non-disruptive.</td>
+          <td class="ros-owner">Logistics Lead</td>
+          <td>Signal must be pre-agreed with speaker at 5:30pm briefing.</td>
+        </tr>
+        <tr>
+          <td class="ros-time">Q&A + networking</td>
+          <td><div class="ros-task">Networking open — capture final registrations</div>Events Crew and Community Host circulate. Any attendee not yet captured at registration desk is captured now. Logistics Lead ensures room does not feel abandoned or chaotic.</td>
+          <td class="ros-owner">Events Crew + Community Host</td>
+          <td>All late arrivals captured. Sponsor visibility maintained.</td>
+        </tr>
+        <tr class="ros-critical">
+          <td class="ros-time">End of event</td>
+          <td><div class="ros-task">Venue reset</div>All crew stay for reset. Furniture returned to original arrangement. Terra materials collected. Rubbish cleared. Logistics Lead does a final walk with venue contact to confirm condition. Venue is left cleaner than arrival.</td>
+          <td class="ros-owner">All Events Crew. Logistics Lead manages.</td>
+          <td>Venue contact confirms satisfaction. Logistics Lead messages department lead: "Venue reset complete."</td>
+        </tr>
+        <tr>
+          <td class="ros-time">Same night</td>
+          <td><div class="ros-task">Event close report to Logistics Lead</div>Compliance Crew confirms attendance data uploaded. Logistics Lead logs event status in Notion: venue confirmed, AV status, any issues, crew performance notes.</td>
+          <td class="ros-owner">Logistics Lead + Compliance</td>
+          <td>No issue goes unlogged. If something broke, it is recorded and the fix is owned.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- CREW COORDINATION -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="crew">
+    <div class="section-eyebrow">Section 04</div>
+    <h2 class="section-title">Crew Coordination</h2>
+    <p class="section-body">Events Crew volunteers are the hands of Logistics. Their success is determined by how well they are briefed, not by how capable they are. The Logistics Lead's job before the event is to remove every possible reason for a crew member to be confused on the day.</p>
+
+    <div class="phase-divider"><div class="phase-label">Crew Briefing — T-24 Process</div><div class="phase-line"></div></div>
+
+    <div class="two-col">
+      <div class="panel">
+        <div class="panel-title">What Every Crew Brief Contains</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Event name and date</div><div class="db-desc">Specific enough that there is no ambiguity about which event this is</div></div></li>
+          <li class="db-item"><div><div class="db-name">Venue address and parking</div><div class="db-desc">Full address. Nearest landmark. Parking instructions. Google Maps link.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Arrival time</div><div class="db-desc">T-60min from event start. Never "around 5" — always "5:00pm sharp."</div></div></li>
+          <li class="db-item"><div><div class="db-name">Specific role</div><div class="db-desc">Registration desk / AV / setup / networking support / breakdown. One role, clearly stated.</div></div></li>
+          <li class="db-item"><div><div class="db-name">What to wear</div><div class="db-desc">Terra standard (if applicable) or smart casual. Never needs to be guessed.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Who to report to on arrival</div><div class="db-desc">Logistics Lead name and WhatsApp number.</div></div></li>
+          <li class="db-item"><div><div class="db-name">What to do if there's a problem</div><div class="db-desc">Contact Logistics Lead immediately. Do not improvise.</div></div></li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="panel-title">Crew Pool Management</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">Minimum pool size</div><div class="db-desc">8 active Events Crew volunteers at all times. Allows for 3 per event with backup capacity.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Availability tracking</div><div class="db-desc">Logistics Lead polls crew for monthly availability on the 1st of each month. Notion tracker updated. No last-minute scrambles.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Backup protocol</div><div class="db-desc">Every event has 1 identified backup crew member who has confirmed availability and will be called if a primary crew member cancels.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Crew welfare</div><div class="db-desc">Crew members get food and drinks at every event they work. Non-negotiable. They are giving their time. They eat.</div></div></li>
+          <li class="db-item"><div><div class="db-name">Crew feedback</div><div class="db-desc">Logistics Lead checks in with crew after each event — one question: "What would have made tonight easier?" Answers logged in Notion. Patterns drive process improvements.</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- ESCALATION MATRIX -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="escalation">
+    <div class="section-eyebrow">Section 05</div>
+    <h2 class="section-title">Escalation Matrix</h2>
+    <p class="section-body">Every scenario that can go wrong on event day has a protocol. The Logistics Lead does not improvise — they execute the protocol. If the protocol does not exist, they escalate to COO. Unknown problems become known protocols within 24 hours.</p>
+
+    <div class="esc-grid">
+      <div class="esc-card">
+        <span class="esc-severity sev-red">Critical</span>
+        <div class="esc-trigger">Speaker cancels inside 24 hours</div>
+        <div class="esc-action">Logistics Lead immediately notifies department lead. Department lead decides: find a replacement speaker (Workshop Director's contact list), convert to a discussion format with the audience, or postpone. Logistics Lead supports whichever decision is made — does not make the call. Marketing is notified for any communications change.</div>
+        <div class="esc-who">→ Decision: Department Lead. Support: Logistics Lead. Comms: Marketing.</div>
+      </div>
+      <div class="esc-card">
+        <span class="esc-severity sev-red">Critical</span>
+        <div class="esc-trigger">Venue cancels or is unavailable on the day</div>
+        <div class="esc-action">Logistics Lead immediately activates backup venue protocol. Every event has a pre-identified backup venue (logged in Notion) in the same area. Logistics Lead contacts backup venue, confirms availability, and notifies department lead within 15 minutes. If no backup venue can be secured within 30 minutes, event is postponed. Marketing updates all communications. COO informed.</div>
+        <div class="esc-who">→ Logistics Lead owns resolution. COO notified within 30 min.</div>
+      </div>
+      <div class="esc-card">
+        <span class="esc-severity sev-red">Critical</span>
+        <div class="esc-trigger">AV failure at event start or during event</div>
+        <div class="esc-action">For microphone failure: Logistics Lead has a backup handheld mic or portable speaker in the events kit. Speaker delivers without mic if room is small enough (under 25 people). For projector failure: speaker presents without slides — all speakers are briefed to be able to deliver their talk without visual aids. Logistics Lead manages the transition calmly and does not draw attention to it. Department lead keeps energy in the room.</div>
+        <div class="esc-who">→ Logistics Lead resolves. Department Lead maintains energy. Audience should not feel it as a problem.</div>
+      </div>
+      <div class="esc-card">
+        <span class="esc-severity sev-amber">Amber</span>
+        <div class="esc-trigger">Crew member does not arrive</div>
+        <div class="esc-action">Logistics Lead calls backup crew member immediately. If backup is unavailable, Logistics Lead absorbs the role personally. Department lead is not told unless it affects the event experience — it is Logistics' problem to solve invisibly. If the same crew member misses two events without communication, Volunteer Lead is informed.</div>
+        <div class="esc-who">→ Logistics Lead resolves. Volunteer Lead informed if pattern.</div>
+      </div>
+      <div class="esc-card">
+        <span class="esc-severity sev-amber">Amber</span>
+        <div class="esc-trigger">Attendance significantly exceeds room capacity</div>
+        <div class="esc-action">Registration desk captures all attendees. Logistics Lead assesses whether additional seating is possible within the venue safely. If not: standing capacity is managed, comfort items adjusted (open windows/doors for air, water available). Department lead is informed at T-5min before event starts. Excess attendees are not turned away — they are accommodated gracefully. Waitlist note logged for next event.</div>
+        <div class="esc-who">→ Logistics Lead manages physically. Department Lead informed.</div>
+      </div>
+      <div class="esc-card">
+        <span class="esc-severity sev-amber">Amber</span>
+        <div class="esc-trigger">Venue issue during event (power cut, noise, other)</div>
+        <div class="esc-action">Logistics Lead handles the venue side directly — talks to venue management, does not pull department lead out of the event unless absolutely necessary. Power: use portable lighting if available. Noise: close doors, adjust seating, move room if feasible. If the issue cannot be resolved within 10 minutes and it materially affects the event, department lead is informed and makes the call on continuing vs. adapting.</div>
+        <div class="esc-who">→ Logistics Lead manages venue. Only escalates to department lead if unresolvable.</div>
+      </div>
+      <div class="esc-card">
+        <span class="esc-severity sev-amber">Amber</span>
+        <div class="esc-trigger">Sponsor materials or visibility not set up correctly</div>
+        <div class="esc-action">During setup, Logistics Lead checks sponsor requirements from the brief. If materials were not delivered, Sponsorship Lead is contacted immediately. If materials are present but setup is unclear, Logistics Lead contacts Sponsorship Lead for guidance. Sponsor visibility is never improvised — it is either done correctly or the sponsor is informed before the event that it could not be executed as planned.</div>
+        <div class="esc-who">→ Logistics Lead contacts Sponsorship Lead. Never improvises sponsor placement.</div>
+      </div>
+      <div class="esc-card">
+        <span class="esc-severity sev-amber">Amber</span>
+        <div class="esc-trigger">Registration data not being captured properly</div>
+        <div class="esc-action">Logistics Lead notices Compliance Crew not capturing all attendees. Logistics Lead privately reinforces the standard with the crew member — not in front of attendees. If the issue persists, Logistics Lead positions a crew member at the exit to capture anyone who was missed. After the event: issue logged in Notion and shared with Volunteer Lead for training follow-up.</div>
+        <div class="esc-who">→ Logistics Lead corrects in real time. Volunteer Lead informed post-event.</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-title">The Escalation Principle</div>
+      <div class="highlight-body">Logistics Lead resolves everything that can be resolved without breaking the event's energy for the department lead and attendees. The department lead is told about a problem only when they need to make a decision or when the problem has already affected the event. This is not about hiding things — it is about protecting the person who is responsible for the room's energy from being pulled into a logistics problem that Logistics should own.</div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- POST EVENT -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="postEvent">
+    <div class="section-eyebrow">Section 06</div>
+    <h2 class="section-title">Post-Event Close</h2>
+    <p class="section-body">The event is not over when the last attendee leaves. It is over when the venue is reset, the data is handed to Compliance, and the Logistics Lead has logged the event in Notion. Every time.</p>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <div class="step-title">Full crew venue reset</div>
+          <div class="step-detail">All crew stay for reset — no crew member leaves before reset is complete without explicit permission from Logistics Lead. Furniture returned to original position. All Terra materials (signage, registration desk items, sponsor materials) packed and taken. Rubbish cleared. Floor cleared. Venue left visibly cleaner than arrival. This is the rule that protects Terra's venue relationships.</div>
+          <div class="step-trigger">Trigger: Last attendee leaves</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">All Events Crew</span><span class="tool-tag tag-manual">In-person</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <div class="step-title">Venue close walkthrough with venue contact</div>
+          <div class="step-detail">Before leaving, Logistics Lead does a walkthrough with the venue contact (manager, owner, or designated staff). Confirm the venue is in the agreed condition. If there is any damage or issue, it is acknowledged immediately — not hidden. Terra's credibility with venues is built on honest communication, not avoidance. Venue contact signs off or provides a message confirming close.</div>
+          <div class="step-trigger">Trigger: Reset complete</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Logistics Lead + venue contact</span><span class="tool-tag tag-manual">In-person walkthrough</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <div class="step-title">Confirm data handoff to Compliance — same night</div>
+          <div class="step-detail">Compliance Crew confirms to Logistics Lead that attendance data has been uploaded to the master Google Sheet. Logistics Lead does not close the event in Notion until this confirmation is received. If data upload is not confirmed by midnight on event night, Logistics Lead follows up with Compliance Crew directly — this is the one non-negotiable handoff in the system.</div>
+          <div class="step-trigger">Trigger: Venue close complete</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Compliance confirms → Logistics Lead</span><span class="tool-tag tag-whatsapp">WhatsApp confirmation</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <div class="step-title">Send event close message to department lead</div>
+          <div class="step-detail">Same night. One message: "Venue reset complete, data confirmed with Compliance, [any notable issues logged]." Department lead needs to know their event is fully closed before they sleep. If there were any issues on the night, they are named here — not discovered later.</div>
+          <div class="step-trigger">Trigger: All above complete</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Logistics Lead → Department Lead</span><span class="tool-tag tag-whatsapp">WhatsApp</span></div>
+      </div>
+      <div class="step-connector"><div class="connector-line"></div></div>
+      <div class="process-step">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <div class="step-title">Log event in Notion — within 24h</div>
+          <div class="step-detail">Event record updated: attendance (confirmed with Compliance), venue performance (reuse / adjust / retire), AV status, crew performance notes, any issues and how they were resolved, and one recommendation for next time at this venue. This record is institutional memory. The Logistics Lead who runs the next event at this venue reads this note before arriving.</div>
+          <div class="step-trigger">Trigger: Within 24h of event</div>
+        </div>
+        <div class="step-meta"><span class="owner-tag">Logistics Lead</span><span class="tool-tag tag-notion">Notion event record</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- SYSTEMS -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="systems">
+    <div class="section-eyebrow">Section 07</div>
+    <h2 class="section-title">Systems Architecture</h2>
+
+    <div class="system-block">
+      <div class="system-header">
+        <div class="system-icon icon-notion">N</div>
+        <div>
+          <div class="system-name">Notion — Logistics Operational Home</div>
+          <div class="system-role">Event tracking, venue database, brief management, crew availability, and post-event logs.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <div class="subsection-title" style="margin-top:0">Notion Structure — Logistics</div>
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">🏗 Logistics Home</div><div class="db-desc">Master page. Upcoming events pipeline, brief inbox status, venue confirmations outstanding, crew assignments. Logistics Lead's daily view.</div></div><span class="db-type tag-notion">Parent page</span></li>
+          <li class="db-item"><div><div class="db-name">📅 Event Pipeline Database</div><div class="db-desc">One row per event. Fields: event name, department, date, venue, status (brief received / venue confirmed / crew briefed / complete), attendance (from Compliance), post-event notes. Filterable by month and status.</div></div><span class="db-type tag-notion">Database</span></li>
+          <li class="db-item"><div><div class="db-name">🏢 Venue Database</div><div class="db-desc">One row per venue ever used or assessed. Fields: name, area, address, contact name + WhatsApp, capacity, AV capability, cost per event, parking notes, last used, status (active / on hold / retired), site visit completed, and post-event notes from every event held there.</div></div><span class="db-type tag-notion">Database</span></li>
+          <li class="db-item"><div><div class="db-name">📥 Brief Inbox</div><div class="db-desc">One entry per logistics brief received. Submitting department, event date, brief received date, completeness status, acknowledgement sent, current logistics status. Never deleted.</div></div><span class="db-type tag-notion">Database</span></li>
+          <li class="db-item"><div><div class="db-name">👥 Crew Availability Tracker</div><div class="db-desc">Monthly grid. Every Events Crew volunteer's availability for each event. Updated by the 1st of each month. Logistics Lead assigns from this view — no availability surprises on event day.</div></div><span class="db-type tag-notion">Page per month</span></li>
+          <li class="db-item"><div><div class="db-name">📦 Equipment Inventory</div><div class="db-desc">Everything Terra owns or manages for events: portable speaker, extension cords, signage, registration desk materials, branded items. Location noted (storage or with which volunteer). Condition logged after each event.</div></div><span class="db-type tag-notion">Database</span></li>
+        </ul>
+
+        <div class="subsection-title">Event Pipeline Database Schema</div>
+        <table class="schema-table">
+          <thead><tr><th>Field</th><th>Type</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>Event Name</td><td><span class="field-type">Title</span></td><td>e.g. "Workshop Canggu — March 2026"</td></tr>
+            <tr><td>Department</td><td><span class="field-type">Select</span></td><td>Workshops / School / Mentorship / Internal</td></tr>
+            <tr><td>Date</td><td><span class="field-type">Date</span></td><td>Event date and start time</td></tr>
+            <tr><td>Venue</td><td><span class="field-type">Relation</span></td><td>Links to Venue Database</td></tr>
+            <tr><td>Status</td><td><span class="field-type">Select</span></td><td>Brief Received / Venue Confirmed / Crew Briefed / Live / Complete / Cancelled</td></tr>
+            <tr><td>Expected Attendance</td><td><span class="field-type">Number</span></td><td>From the brief</td></tr>
+            <tr><td>Actual Attendance</td><td><span class="field-type">Number</span></td><td>Confirmed by Compliance post-event</td></tr>
+            <tr><td>Crew Assigned</td><td><span class="field-type">Relation</span></td><td>Links to volunteer records</td></tr>
+            <tr><td>AV Status</td><td><span class="field-type">Select</span></td><td>Not yet set up / Tested OK / Issue (described in notes)</td></tr>
+            <tr><td>Venue Reset Confirmed</td><td><span class="field-type">Checkbox</span></td><td>Venue contact confirmed at close</td></tr>
+            <tr><td>Data Confirmed (Compliance)</td><td><span class="field-type">Checkbox</span></td><td>Compliance confirmed data upload same night</td></tr>
+            <tr><td>Post-Event Notes</td><td><span class="field-type">Text</span></td><td>Issues, recommendations for next event at this venue, crew notes</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="system-block" style="margin-top:2px;">
+      <div class="system-header">
+        <div class="system-icon icon-google">G</div>
+        <div>
+          <div class="system-name">Google Workspace — Checklists, Contacts & Drive</div>
+          <div class="system-role">Event day checklists, venue contact sheets, equipment records, and the run-of-show template library.</div>
+        </div>
+      </div>
+      <div class="system-body">
+        <ul class="db-list">
+          <li class="db-item"><div><div class="db-name">📁 Terra Logistics (root folder)</div><div class="db-desc">Shared with Logistics Lead and COO.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📁 Events → [Year] → [Event Name]</div><div class="db-desc">One folder per event. Contains: brief (from department), run of show (produced by Logistics), crew brief, venue confirmation screenshot, and post-event close notes.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📋 Master Venue Contact Sheet (Google Sheet)</div><div class="db-desc">All venue contacts in one sheet. Name, venue, WhatsApp, email, preferred contact method, booking notes. Shared with Logistics Lead deputy and COO. Updated every time a new venue is added or a contact changes.</div></div></li>
+          <li class="db-item"><div><div class="db-name">📁 Templates</div><div class="db-desc">Run of show template (workshop standard, kick-off extended, School session), crew brief template, logistics brief template (for departments to use), venue site visit checklist, equipment list. Master copies only.</div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- DOCUMENTATION LIBRARY -->
+  <!-- ================================================================ -->
+  <div class="section-block">
+    <div class="section-eyebrow">Section 08</div>
+    <h2 class="section-title">Documentation Library</h2>
+
+    <div class="doc-grid">
+      <div class="doc-card">
+        <div class="doc-type-tag tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Logistics Brief Template</div>
+        <div class="doc-owner">Owner: Logistics Lead · Completed by requesting department</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Event name, department, date, time, expected duration</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Expected attendance (min / max)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Venue preference or "Logistics to source"</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>AV requirements: mic, screen/projector, WiFi, other</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Seating format: theatre, cafe, standing mix</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Crew needed: number and roles</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Speaker arrival time and any speaker-specific requirements</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Sponsor materials and visibility requirements</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Registration method (QR / paper / both)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Any special setup instructions</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Brief Inbox</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type-tag" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">Google Doc Template</div>
+        <div class="doc-name">Run of Show — Standard Workshop</div>
+        <div class="doc-owner">Owner: Logistics Lead · Produced per event from brief · Shared with crew and dept lead at T-24</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Event name, date, venue, address</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Crew list with roles and WhatsApp numbers</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Full timeline from T-60min to event close</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Critical checkpoints highlighted</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Backup plans for AV failure and speaker no-show</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Venue contact name and number</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Department lead contact on the day</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>COO emergency contact</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Events folder</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type-tag tag-whatsapp" style="background:rgba(37,162,68,0.1);color:#4cd470;border:1px solid rgba(37,162,68,0.25);">WhatsApp Template</div>
+        <div class="doc-name">Crew Brief Message</div>
+        <div class="doc-owner">Owner: Logistics Lead · Sent to crew WhatsApp group at T-24</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Event: [name and date]</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Venue: [full address] + Google Maps link</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Arrive by: [exact time — never approximate]</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Your role: [specific task]</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>What to wear: [specific]</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Report to: [Logistics Lead name] on arrival</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Questions or issues: WhatsApp me directly [number]</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Confirm receipt: reply "confirmed" to this message</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-whatsapp" style="width:6px;height:6px;"></div>WhatsApp · Event crew group</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type-tag" style="background:rgba(74,140,111,0.1);color:#6abf99;border:1px solid rgba(74,140,111,0.25);">Google Sheet</div>
+        <div class="doc-name">Event Day Setup Checklist</div>
+        <div class="doc-owner">Owner: Logistics Lead · Completed physically during setup. Signed off before doors open.</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Seating arranged per brief ✓</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Microphone tested at volume ✓</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Projector / screen tested ✓ (or N/A noted)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Registration desk positioned and stocked ✓</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>QR code tested on two devices ✓</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Terra signage in place ✓</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Sponsor materials placed per brief ✓</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Speaker briefed ✓</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>"Setup complete" message sent to department lead ✓</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Templates (one per event)</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type-tag tag-notion" style="background:rgba(91,45,142,0.1);color:var(--purple-light);border:1px solid rgba(91,45,142,0.25);">Notion Template</div>
+        <div class="doc-name">Post-Event Logistics Log</div>
+        <div class="doc-owner">Owner: Logistics Lead · Completed within 24h of every event</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Event name and date</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Actual attendance (from Compliance)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Venue performance: reuse / adjust / retire</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>AV performance and any issues</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Crew performance notes (per crew member)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Any escalations triggered and how they were resolved</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>One recommendation for the next event at this venue</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Venue reset confirmed (yes/no)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Data handoff confirmed (yes/no)</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-notion" style="width:6px;height:6px;"></div>Notion · Event Pipeline (linked to event record)</div>
+      </div>
+
+      <div class="doc-card">
+        <div class="doc-type-tag" style="background:rgba(201,134,10,0.1);color:var(--gold-light);border:1px solid rgba(201,134,10,0.25);">Google Sheet</div>
+        <div class="doc-name">Venue Site Visit Checklist</div>
+        <div class="doc-owner">Owner: Logistics Lead · Completed in-person before any new venue is approved</div>
+        <ul class="doc-fields">
+          <li class="doc-field"><span class="field-bullet">▸</span>Capacity (standing / seated)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>AV: microphone type, screen/projector available</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Power socket count and location</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>WiFi: reliability test on site</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Bathroom: adequate for expected attendance</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Parking situation noted</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Aesthetic: does it reflect Terra's standard? (yes/no — note)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Noise level at event time (tested or estimated)</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Registration desk space available</li>
+          <li class="doc-field"><span class="field-bullet">▸</span>Overall verdict: Approved / Conditional / Not approved</li>
+        </ul>
+        <div class="doc-where"><div class="tool-dot dot-google" style="width:6px;height:6px;"></div>Google Drive · Venue records</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================================================================ -->
+  <!-- RULES -->
+  <!-- ================================================================ -->
+  <div class="section-block" id="rules">
+    <div class="section-eyebrow">Section 09</div>
+    <h2 class="section-title">Operating Rules</h2>
+
+    <div class="rules-box">
+      <div class="rules-title">Non-Negotiable Operating Rules — Logistics & Events Department</div>
+      <div class="rule-item"><span class="rule-num">01</span>No event logistics are managed without a complete written brief. Verbal or WhatsApp requests do not trigger logistics support. The brief is submitted, acknowledged, and accepted — in that order.</div>
+      <div class="rule-item"><span class="rule-num">02</span>Every venue is confirmed in writing by T-7. If not confirmed by T-7, Logistics Lead escalates to COO immediately — not at T-3. Late confirmation compounds risk exponentially.</div>
+      <div class="rule-item"><span class="rule-num">03</span>Every crew member is briefed by T-24 and must confirm receipt. A crew member who has not confirmed their brief by T-12 is called directly. Confirmation "confirmed" in WhatsApp is the minimum acceptable acknowledgment.</div>
+      <div class="rule-item"><span class="rule-num">04</span>Crew arrives T-60min. Setup is complete and tested by T-30min. The department lead receives a "setup complete" message before doors open. No exceptions, no "almost ready" at T-5min.</div>
+      <div class="rule-item"><span class="rule-num">05</span>Every new venue is physically visited by Logistics Lead or a designated deputy before it is used. Site visit checklist completed and logged. Venue not used without this step — regardless of how well it looks on Instagram or how enthusiastically it was recommended.</div>
+      <div class="rule-item"><span class="rule-num">06</span>Every event has a pre-identified backup venue confirmed in advance. Venue cancellations happen in Bali. The backup is never improvised on the day.</div>
+      <div class="rule-item"><span class="rule-num">07</span>Events Crew are fed at every event they work. This is not optional and is not budget-dependent. Crew welfare is a logistics responsibility.</div>
+      <div class="rule-item"><span class="rule-num">08</span>Logistics Lead does not pull the department lead into a logistics problem unless the department lead needs to make a decision. The department lead's energy is the event's energy. Protect it.</div>
+      <div class="rule-item"><span class="rule-num">09</span>The venue is left cleaner than arrival. Every time. This single rule is what maintains Terra's access to good venues at favourable terms. Venue relationships are multi-year assets.</div>
+      <div class="rule-item"><span class="rule-num">10</span>Compliance data upload is confirmed same night before Logistics Lead closes the event. This is the last step of every event. Without it, the event is not complete.</div>
+      <div class="rule-item"><span class="rule-num">11</span>Every escalation scenario has a protocol. If a problem arises that has no protocol, Logistics Lead resolves it and then writes the protocol within 24 hours. Unknown scenarios become known processes — never repeated unknowns.</div>
+      <div class="rule-item"><span class="rule-num">12</span>The Logistics Lead trains a deputy who can run any event independently — brief intake to venue reset — without the Logistics Lead present. The run-of-show template and the venue database are the primary handover tools.</div>
+    </div>
+  </div>
+
+
+  <div class="page-footer">
+    <div class="footer-left">"The best event feels effortless. Effortless is never accidental."</div>
+    <div class="footer-right">Terra Bali · Logistics & Events Operations Manual<br>Department 08 · Internal Reference · v1.0</div>
+  </div>
+
+</div>
+</body>
+</html>
